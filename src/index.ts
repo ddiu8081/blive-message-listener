@@ -1,12 +1,12 @@
 import { KeepLiveTCP } from 'bilibili-live-ws'
-import type { RoomMsgHandler } from './app'
+import type { RoomMsgHandler, DanmuMsg } from './app'
 
 import parser from './parser'
 
-const openRoom = (roomId: number, handler: RoomMsgHandler) => {
+export const openRoom = (roomId: number, handler: RoomMsgHandler) => {
   const live = new KeepLiveTCP(roomId)
 
-  live.on('open', () => console.log('Connection is established'))
+  // live.on('open', () => console.log('Connection is established'))
 
   live.on('heartbeat', online => {
     handler.onHeartbeat?.(online)
@@ -33,5 +33,5 @@ const openRoom = (roomId: number, handler: RoomMsgHandler) => {
   })
 }
 
-export default openRoom
 export type MsgHandler = RoomMsgHandler
+export type { DanmuMsg }
