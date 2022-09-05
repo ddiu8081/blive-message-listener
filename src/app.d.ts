@@ -4,6 +4,17 @@ interface User {
   badge?: {
     name: string
     level: number
+    color: string
+    streamer: {
+      uid: number
+      uname: string
+      room_id: number
+    }
+  }
+  identity?: {
+    rank: number
+    member: number
+    room_admin: boolean
   }
 }
 
