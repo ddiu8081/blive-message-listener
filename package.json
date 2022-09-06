@@ -2,6 +2,7 @@
   "name": "danmu-console-helper",
   "version": "0.0.2",
   "description": "",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

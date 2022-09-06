@@ -18,7 +18,7 @@ interface User {
   }
 }
 
-interface DanmuMsg {
+export interface DanmuMsg {
   user: User
   content: string
 }

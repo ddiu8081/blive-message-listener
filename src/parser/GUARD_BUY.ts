@@ -1,6 +1,6 @@
 import type { GuardBuyMsg } from "../app";
 
-export default (data): GuardBuyMsg => {
+export default (data: any): GuardBuyMsg => {
   const { uid, username, price, gift_name } = data.data
   return {
     user: {

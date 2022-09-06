@@ -5,7 +5,7 @@ const intToColorHex = (int: number) => {
   return hex.length === 1 ? `#0${hex}` : `#${hex}`;
 };
 
-export default (data): DanmuMsg => {
+export default (data: any): DanmuMsg => {
   const content = data.info[1]
   const username = data.info[2][1]
   const badge: DanmuMsg['user']['badge'] = data.info[3].length ? {

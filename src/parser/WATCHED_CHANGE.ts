@@ -1,4 +1,4 @@
-export default (data): number => {
+export default (data: any): number => {
   const { num } = data.data
   return num
 }
