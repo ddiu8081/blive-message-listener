@@ -12,7 +12,7 @@ export default (data: any): DanmuMsg => {
     name: data.info[3][1],
     level: data.info[3][0],
     color: intToColorHex(data.info[3][4]),
-    streamer: {
+    anchor: {
       uid: data.info[3][12],
       uname: data.info[3][2],
       room_id: data.info[3][3],

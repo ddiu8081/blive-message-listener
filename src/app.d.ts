@@ -5,7 +5,7 @@ interface User {
     name: string
     level: number
     color: string
-    streamer: {
+    anchor: {
       uid: number
       uname: string
       room_id: number

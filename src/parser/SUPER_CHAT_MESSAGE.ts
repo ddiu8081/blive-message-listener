@@ -10,7 +10,7 @@ export default (data: any): SuperChatMsg => {
         name: medal_info.medal_name,
         level: medal_info.medal_level,
         color: medal_info.medal_color,
-        streamer: {
+        anchor: {
           uid: medal_info.target_id,
           uname: medal_info.anchor_uname,
           room_id: medal_info.anchor_roomid,
