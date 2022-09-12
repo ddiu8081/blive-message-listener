@@ -1,7 +1,9 @@
 interface User {
   uid: number
   uname: string
+  face?: string
   badge?: {
+    active: boolean
     name: string
     level: number
     color: string
@@ -21,11 +23,18 @@ interface User {
 export interface DanmuMsg {
   user: User
   content: string
+  emoticon?: {
+    id: string
+    height: number
+    width: number
+    url: string
+  }
 }
 
 interface SuperChatMsg {
   user: User
   content: string
+  content_color: string
   price: number
   time: number
 }

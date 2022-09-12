@@ -9,6 +9,7 @@ export default (data: any): DanmuMsg => {
   const content = data.info[1]
   const username = data.info[2][1]
   const badge: DanmuMsg['user']['badge'] = data.info[3].length ? {
+    active: data.info[3][7] !== 12632256,
     name: data.info[3][1],
     level: data.info[3][0],
     color: intToColorHex(data.info[3][4]),
@@ -30,5 +31,11 @@ export default (data: any): DanmuMsg => {
       },
     },
     content,
+    emoticon: data.info[0][13]?.emoticon_unique ? {
+      id: data.info[0][13].emoticon_unique,
+      height: data.info[0][13].height,
+      width: data.info[0][13].width,
+      url: data.info[0][13].url,
+    } : undefined,
   }
 }
