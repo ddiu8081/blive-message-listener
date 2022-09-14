@@ -42,7 +42,11 @@ interface SuperChatMsg {
 interface GuardBuyMsg {
   user: User
   price: number
+  gift_id: number
   gift_name: string
+  member: number
+  start_time: number
+  end_time: number
 }
 
 export interface RoomMsgHandler {
