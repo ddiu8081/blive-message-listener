@@ -31,6 +31,11 @@ export const openRoom = (roomId: number, handler: RoomMsgHandler) => {
     handler.onGuardBuyRaw?.(data)
     handler.onGuardBuy?.(parser.GUARD_BUY(data))
   })
+
+  live.on('SEND_GIFT', data => {
+    handler.onGiftRaw?.(data)
+    handler.onGift?.(parser.SEND_GIFT(data))
+  })
 }
 
 export type MsgHandler = RoomMsgHandler

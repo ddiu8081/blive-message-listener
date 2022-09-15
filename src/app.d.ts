@@ -41,12 +41,20 @@ interface SuperChatMsg {
 
 interface GuardBuyMsg {
   user: User
-  price: number
   gift_id: number
   gift_name: string
   member: number
+  price: number
   start_time: number
   end_time: number
+}
+
+interface GiftMsg {
+  user: User
+  gift_id: number
+  gift_name: string
+  price: number
+  amount: number
 }
 
 export interface RoomMsgHandler {
@@ -59,4 +67,6 @@ export interface RoomMsgHandler {
   onIncomeSuperChatRaw?: (data: any) => void
   onGuardBuy?: (data: GuardBuyMsg) => void
   onGuardBuyRaw?: (data: any) => void
+  onGift?: (data: GiftMsg) => void
+  onGiftRaw?: (data: any) => void
 }
