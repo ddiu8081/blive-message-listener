@@ -26,7 +26,7 @@ export default (data: any): DanmuMsg => {
       badge,
       identity: {
         rank: data.info[4][4],
-        member: data.info[7],
+        guard_level: data.info[7],
         room_admin: data.info[2][2] === 1,
       },
     },

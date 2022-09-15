@@ -21,7 +21,7 @@ export default (data: any): GiftMsg => {
       } : undefined,
       identity: {
         rank: 0,
-        member: rawData.guard_level,
+        guard_level: rawData.guard_level,
         room_admin: false,
       }
     },

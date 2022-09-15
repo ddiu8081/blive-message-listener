@@ -15,7 +15,7 @@ interface User {
   }
   identity?: {
     rank: number
-    member: number
+    guard_level: number
     room_admin: boolean
   }
 }
@@ -43,7 +43,7 @@ interface GuardBuyMsg {
   user: User
   gift_id: number
   gift_name: string
-  member: number
+  guard_level: number
   price: number
   start_time: number
   end_time: number

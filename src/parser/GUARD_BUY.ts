@@ -9,7 +9,7 @@ export default (data: any): GuardBuyMsg => {
     },
     gift_id: rawData.gift_id,
     gift_name: rawData.gift_name,
-    member: rawData.guard_level,
+    guard_level: rawData.guard_level,
     price: rawData.price,
     start_time: rawData.start_time,
     end_time: rawData.end_time,

@@ -19,7 +19,7 @@ export default (data: any): SuperChatMsg => {
       } : undefined,
       identity: {
         rank: 0,
-        member: user_info.guard_level || 0,
+        guard_level: user_info.guard_level || 0,
         room_admin: user_info.manager === 1,
       }
     },
