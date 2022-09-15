@@ -1,17 +1,17 @@
 import type { GuardBuyMsg } from "../app";
 
 export default (data: any): GuardBuyMsg => {
-  const { uid, username, price, gift_id, gift_name, guard_level, start_time, end_time } = data.data
+  const rawData = data.data
   return {
     user: {
-      uid,
-      uname: username,
+      uid: rawData.uid,
+      uname: rawData.username,
     },
-    price,
-    gift_id,
-    gift_name,
-    member: 0,
-    start_time: 0,
-    end_time: 0,
+    gift_id: rawData.gift_id,
+    gift_name: rawData.gift_name,
+    member: rawData.guard_level,
+    price: rawData.price,
+    start_time: rawData.start_time,
+    end_time: rawData.end_time,
   }
 }
