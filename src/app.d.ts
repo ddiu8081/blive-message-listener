@@ -20,17 +20,6 @@ interface User {
   }
 }
 
-export interface DanmuMsg {
-  user: User
-  content: string
-  emoticon?: {
-    id: string
-    height: number
-    width: number
-    url: string
-  }
-}
-
 interface SuperChatMsg {
   user: User
   content: string
@@ -39,22 +28,23 @@ interface SuperChatMsg {
   time: number
 }
 
-interface GuardBuyMsg {
-  user: User
-  gift_id: number
-  gift_name: string
-  guard_level: number
-  price: number
-  start_time: number
-  end_time: number
-}
-
 interface GiftMsg {
   user: User
   gift_id: number
   gift_name: string
   price: number
   amount: number
+}
+
+export interface Danmu<T extends BaseMsg> {
+  id: string,
+  timestamp: number,
+  type: string,
+  data: T
+}
+
+export interface BaseMsg {
+  user: User
 }
 
 export interface RoomMsgHandler {

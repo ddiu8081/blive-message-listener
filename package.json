@@ -1,6 +1,6 @@
 {
-  "name": "danmu-console-helper",
-  "version": "0.0.2",
+  "name": "bilibili-live-danmu-parser",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "main": "dist/index.js",

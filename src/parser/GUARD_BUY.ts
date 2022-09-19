@@ -1,6 +1,16 @@
-import type { GuardBuyMsg } from "../app";
+import type { User } from "../app";
 
-export default (data: any): GuardBuyMsg => {
+export interface GuardBuyMsg {
+  user: User
+  gift_id: number
+  gift_name: string
+  guard_level: number
+  price: number
+  start_time: number
+  end_time: number
+}
+
+const parser = (data: any): GuardBuyMsg => {
   const rawData = data.data
   return {
     user: {
@@ -14,4 +24,11 @@ export default (data: any): GuardBuyMsg => {
     start_time: rawData.start_time,
     end_time: rawData.end_time,
   }
+}
+
+export const GUARD_BUY = {
+  parser,
+  eventName: 'GUARD_BUY',
+  handlerName: 'onGuardBuy',
+  handlerNameRaw: 'onGuardBuyRaw',
 }
