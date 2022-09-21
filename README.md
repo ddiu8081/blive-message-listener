@@ -33,8 +33,12 @@ const handler: MsgHandler = {
 startListen(652581, handler)
 ```
 
-Full type definition can be found in [src/parser](/tree/main/src/parser).
+Full type definition can be found in [src/parser](src/parser).
 
 ## Credits
 
 - [bilibili-live-ws](https://github.com/simon300000/bilibili-live-ws)
+
+## License
+
+MIT
