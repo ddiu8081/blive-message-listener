@@ -4,6 +4,7 @@ import type { Danmu, User } from '../app'
 export interface DanmuMsg {
   user: User
   content: string
+  /** 弹幕表情·*/
   emoticon?: {
     id: string
     height: number
@@ -49,7 +50,10 @@ const parser = (data: any): DanmuMsg => {
 
 export const DANMU_MSG = {
   parser,
-  eventName: 'DANMU_MSG',
-  handlerName: 'onIncomeDanmu',
-  handlerNameRaw: 'onIncomeDanmuRaw',
+  eventName: 'DANMU_MSG' as const,
+  handlerName: 'onIncomeDanmu' as const,
+}
+
+export type Handler = {
+  onIncomeDanmu: (data: Danmu<DanmuMsg>) => void
 }

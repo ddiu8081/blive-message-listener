@@ -1,58 +1,52 @@
 import {
-  DANMU_MSG,
-  GUARD_BUY,
+  DANMU_MSG, type DanmuMsgHandler,
+  GUARD_BUY, type GuardBuyHandler,
+  SEND_GIFT, type GiftHandler,
 } from '../parser'
 import type { Danmu, BaseMsg } from '../app'
 import type { KeepLiveTCP } from 'bilibili-live-ws'
 
-const supported = [
-  DANMU_MSG,
-  GUARD_BUY,
-]
+export type MsgHandler = Partial<
+  & DanmuMsgHandler
+  & GuardBuyHandler
+  & GiftHandler
+>
 
-const supportedHandlerName = [
-  'onIncomeDanmu',
-  'onGuardBuy',
-] as const
-
-type EventName = typeof supportedHandlerName[number]
-
-type MsgHandler = {
-  [key in EventName]: (data: Danmu<BaseMsg>) => void
-}
-
-const normalizeDanmu = <T extends BaseMsg>(data: T): Danmu<T> => {
+const normalizeDanmu = <T extends BaseMsg>(msgType: string, data: T): Danmu<T> => {
   const timestamp = Date.now()
-  const id = `${timestamp}_${data.user.uid}`
+  const id = `${timestamp}_${msgType}_${data.user?.uid}`
   return {
     id,
     timestamp,
-    type: 'data.type',
+    type: msgType,
     data,
   }
 }
 
-const parseDanmu = (data: any, parser: DanmuHandler['parser']): Danmu<BaseMsg> => {
-
 export const listenAll = (instance: KeepLiveTCP, handler?: MsgHandler) => {
   if (!handler) return
-  supported.forEach((item) => {
-    if (handler[item.handlerName]) {
-      instance.on(item.eventName, (data: any) => {
-        const danmu = normalizeDanmu(item.parser(data))
-        handler[item.handlerName](danmu)
-      })
-    }
-  })
-  // if (handler.onIncomeDanmu) {
-  //   instance.on(eventName, data => {
-  //     handler[handlerNameRaw]?.(data)
-  //     handler[handlerName]?.(parser(data))
-  //   })
-  // }
-  // supported.forEach(({ eventName, handlerName, handlerNameRaw, parser }) => {
-  //   if (handler[handlerName] || handler[handlerNameRaw]) {
 
-  //   }
-  // })
+  // DANMU_MSG
+  if (handler[DANMU_MSG.handlerName]) {
+    instance.on(DANMU_MSG.eventName, (data: any) => {
+      const parsedData = DANMU_MSG.parser(data)
+      handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData))
+    })
+  }
+
+  // GUARD_BUY
+  if (handler[GUARD_BUY.handlerName]) {
+    instance.on(GUARD_BUY.eventName, (data: any) => {
+      const parsedData = GUARD_BUY.parser(data)
+      handler[GUARD_BUY.handlerName]?.(normalizeDanmu(GUARD_BUY.eventName, parsedData))
+    })
+  }
+
+  // SEND_GIFT
+  if (handler[SEND_GIFT.handlerName]) {
+    instance.on(SEND_GIFT.eventName, (data: any) => {
+      const parsedData = SEND_GIFT.parser(data)
+      handler[SEND_GIFT.handlerName]?.(normalizeDanmu(SEND_GIFT.eventName, parsedData))
+    })
+  }
 }
