@@ -1,13 +1,5 @@
-import DANMU_MSG from './DANMU_MSG'
-import WATCHED_CHANGE from './WATCHED_CHANGE'
-import SUPER_CHAT_MESSAGE from './SUPER_CHAT_MESSAGE'
-import GUARD_BUY from './GUARD_BUY'
-import SEND_GIFT from './SEND_GIFT'
-
-export default {
-  DANMU_MSG,
-  WATCHED_CHANGE,
-  SUPER_CHAT_MESSAGE,
-  GUARD_BUY,
-  SEND_GIFT,
-}
+export { DANMU_MSG, Handler as DanmuMsgHandler } from './DANMU_MSG'
+export { GUARD_BUY, Handler as GuardBuyHandler } from './GUARD_BUY'
+export { SEND_GIFT, Handler as GiftHandler } from './SEND_GIFT'
+export { SUPER_CHAT_MESSAGE, Handler as SuperChatHandler } from './SUPER_CHAT_MESSAGE'
+export { WATCHED_CHANGE, Handler as WatchedChangeHandler } from './WATCHED_CHANGE'

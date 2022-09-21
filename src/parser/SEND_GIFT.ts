@@ -1,7 +1,19 @@
 import { intToColorHex } from '../utils/color'
-import type { GiftMsg } from "../app";
+import type { Danmu, User } from '../app'
 
-export default (data: any): GiftMsg => {
+export interface GiftMsg {
+  user: User
+  /** 礼物id·*/
+  gift_id: number
+  /** 礼物名称·*/
+  gift_name: string
+  /** 礼物价格·*/
+  price: number
+  /** 礼物数量·*/
+  amount: number
+}
+
+const parser = (data: any): GiftMsg => {
   const rawData = data.data
   return {
     user: {
@@ -30,4 +42,14 @@ export default (data: any): GiftMsg => {
     price: rawData.price,
     amount: rawData.num,
   }
+}
+
+export const SEND_GIFT = {
+  parser,
+  eventName: 'SEND_GIFT' as const,
+  handlerName: 'onGift' as const,
+}
+
+export type Handler = {
+  onGift: (data: Danmu<GiftMsg>) => void
 }

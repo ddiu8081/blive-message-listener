@@ -1,72 +1,62 @@
-interface User {
+export interface User {
+  /** 用户uid */
   uid: number
+  /** 用户名 */
   uname: string
+  /** 用户头像 */
   face?: string
+  /** 用户牌子·*/
   badge?: {
+    /** 是否点亮 */
     active: boolean
+    /** 牌子名称 */
     name: string
+    /** 牌子等级 */
     level: number
+    /** 牌子颜色 */
     color: string
+    /** 主播信息 */
     anchor: {
       uid: number
       uname: string
       room_id: number
     }
   }
+  /** 用户身份 */
   identity?: {
-    rank: number
-    guard_level: number
+    /** 直播榜单排名 */
+    rank: 0 | 1 | 2 | 3
+    /** 大航海信息 */
+    guard_level: GuardLevel
+    /** 房管 */
     room_admin: boolean
   }
 }
 
-export interface DanmuMsg {
-  user: User
-  content: string
-  emoticon?: {
-    id: string
-    height: number
-    width: number
-    url: string
-  }
+export enum GuardLevel {
+  /** 无 */
+  None = 0,
+  /** 总督 */
+  Zongdu = 1,
+  /** 提督 */
+  Tidu = 2,
+  /** 舰长 */
+  Jianzhang = 3,
 }
 
-interface SuperChatMsg {
-  user: User
-  content: string
-  content_color: string
-  price: number
-  time: number
+export interface Danmu<T> {
+  id: string,
+  timestamp: number,
+  type: string,
+  data: T
 }
 
-interface GuardBuyMsg {
+export interface BaseMsg {
   user: User
-  gift_id: number
-  gift_name: string
-  guard_level: number
-  price: number
-  start_time: number
-  end_time: number
-}
-
-interface GiftMsg {
-  user: User
-  gift_id: number
-  gift_name: string
-  price: number
-  amount: number
 }
 
 export interface RoomMsgHandler {
   onHeartbeat?: (online: number) => void
-  onIncomeDanmu?: (data: DanmuMsg) => void
-  onIncomeDanmuRaw?: (data: any) => void
   onWatchedChange?: (newWatched: number) => void
   onWatchedChangeRaw?: (data: any) => void
-  onIncomeSuperChat?: (data: SuperChatMsg) => void
-  onIncomeSuperChatRaw?: (data: any) => void
-  onGuardBuy?: (data: GuardBuyMsg) => void
-  onGuardBuyRaw?: (data: any) => void
-  onGift?: (data: GiftMsg) => void
-  onGiftRaw?: (data: any) => void
 }

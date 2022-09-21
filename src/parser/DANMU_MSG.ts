@@ -1,11 +1,19 @@
-import type { DanmuMsg } from "../app";
+import { intToColorHex } from '../utils/color'
+import type { Danmu, User } from '../app'
 
-const intToColorHex = (int: number) => {
-  const hex = int.toString(16);
-  return hex.length === 1 ? `#0${hex}` : `#${hex}`;
-};
+export interface DanmuMsg {
+  user: User
+  content: string
+  /** 弹幕表情·*/
+  emoticon?: {
+    id: string
+    height: number
+    width: number
+    url: string
+  }
+}
 
-export default (data: any): DanmuMsg => {
+const parser = (data: any): DanmuMsg => {
   const content = data.info[1]
   const username = data.info[2][1]
   const badge: DanmuMsg['user']['badge'] = data.info[3].length ? {
@@ -38,4 +46,14 @@ export default (data: any): DanmuMsg => {
       url: data.info[0][13].url,
     } : undefined,
   }
+}
+
+export const DANMU_MSG = {
+  parser,
+  eventName: 'DANMU_MSG' as const,
+  handlerName: 'onIncomeDanmu' as const,
+}
+
+export type Handler = {
+  onIncomeDanmu: (data: Danmu<DanmuMsg>) => void
 }

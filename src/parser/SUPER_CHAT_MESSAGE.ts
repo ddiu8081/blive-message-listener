@@ -1,11 +1,24 @@
-import type { SuperChatMsg } from "../app";
+import type { Danmu, User } from '../app'
 
-export default (data: any): SuperChatMsg => {
-  const { uid, user_info, medal_info, message, price, time, background_price_color } = data.data
+export interface SuperChatMsg {
+  user: User
+  /** 弹幕内容·*/
+  content: string
+  /** 弹幕颜色·*/
+  content_color: string
+  /** 价格·*/
+  price: number
+  /** 持续时间·*/
+  time: number
+}
+
+const parser = (data: any): SuperChatMsg => {
+  const rawData = data.data
+  const { medal_info, user_info } = data.data
   return {
     user: {
-      uid,
-      uname: user_info.uname,
+      uid: rawData.uid,
+      uname: rawData.user_info.uname,
       badge: medal_info ? {
         active: medal_info.is_lighted === 1,
         name: medal_info.medal_name,
@@ -23,9 +36,19 @@ export default (data: any): SuperChatMsg => {
         room_admin: user_info.manager === 1,
       }
     },
-    content: message,
-    content_color: background_price_color,
-    price,
-    time,
+    content: rawData.message,
+    content_color: rawData.background_price_color,
+    price: rawData.price,
+    time: rawData.time,
   }
+}
+
+export const SUPER_CHAT_MESSAGE = {
+  parser,
+  eventName: 'SUPER_CHAT_MESSAGE' as const,
+  handlerName: 'onIncomeSuperChat' as const,
+}
+
+export type Handler = {
+  onIncomeSuperChat: (data: Danmu<SuperChatMsg>) => void
 }
