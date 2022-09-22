@@ -1,5 +1,5 @@
 import { intToColorHex } from '../utils/color'
-import type { Danmu, User } from '../app'
+import type { Message, User } from '../app'
 
 export interface GiftMsg {
   user: User
@@ -51,5 +51,5 @@ export const SEND_GIFT = {
 }
 
 export type Handler = {
-  onGift: (data: Danmu<GiftMsg>) => void
+  onGift: (data: Message<GiftMsg>) => void
 }

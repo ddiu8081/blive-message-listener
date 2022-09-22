@@ -5,7 +5,7 @@ import {
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
-import type { Danmu } from '../app'
+import type { Message } from '../app'
 import type { KeepLiveTCP } from 'bilibili-live-ws'
 
 export type MsgHandler = Partial<
@@ -16,7 +16,7 @@ export type MsgHandler = Partial<
   & WatchedChangeHandler
 >
 
-const normalizeDanmu = <T>(msgType: string, data: T): Danmu<T> => {
+const normalizeDanmu = <T>(msgType: string, data: T): Message<T> => {
   const timestamp = Date.now()
   // @ts-ignore
   const id = `${timestamp}_${msgType}_${data.user?.uid}`

@@ -1,4 +1,4 @@
-import type { Danmu, User } from '../app'
+import type { Message, User } from '../app'
 
 export interface SuperChatMsg {
   user: User
@@ -50,5 +50,5 @@ export const SUPER_CHAT_MESSAGE = {
 }
 
 export type Handler = {
-  onIncomeSuperChat: (data: Danmu<SuperChatMsg>) => void
+  onIncomeSuperChat: (data: Message<SuperChatMsg>) => void
 }

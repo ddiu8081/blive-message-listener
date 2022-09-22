@@ -1,4 +1,4 @@
-import type { Danmu } from '../app'
+import type { Message } from '../app'
 
 export interface WatchedChangeMsg {
   /** 累计入场人数·*/
@@ -22,5 +22,5 @@ export const WATCHED_CHANGE = {
 }
 
 export type Handler = {
-  onWatchedChange: (data: Danmu<WatchedChangeMsg>) => void
+  onWatchedChange: (data: Message<WatchedChangeMsg>) => void
 }

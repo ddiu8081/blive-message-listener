@@ -1,4 +1,4 @@
-import type { Danmu, User, GuardLevel } from '../app'
+import type { Message, User, GuardLevel } from '../app'
 
 export interface GuardBuyMsg {
   user: User
@@ -39,5 +39,5 @@ export const GUARD_BUY = {
 }
 
 export type Handler = {
-  onGuardBuy: (data: Danmu<GuardBuyMsg>) => void
+  onGuardBuy: (data: Message<GuardBuyMsg>) => void
 }

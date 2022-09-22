@@ -44,7 +44,7 @@ export enum GuardLevel {
   Jianzhang = 3,
 }
 
-export interface Danmu<T> {
+export interface Message<T> {
   id: string,
   timestamp: number,
   type: string,
