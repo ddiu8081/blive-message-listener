@@ -5,7 +5,7 @@ import {
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
-import type { Message } from '../app'
+import type { Message } from '../types/app'
 import type { KeepLiveTCP } from 'bilibili-live-ws'
 
 export type MsgHandler = Partial<

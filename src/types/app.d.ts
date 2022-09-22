@@ -54,9 +54,3 @@ export interface Message<T> {
 export interface BaseMsg {
   user: User
 }
-
-export interface RoomMsgHandler {
-  onHeartbeat?: (online: number) => void
-  onWatchedChange?: (newWatched: number) => void
-  onWatchedChangeRaw?: (data: any) => void
-}

@@ -1,4 +1,4 @@
-import type { Message, User, GuardLevel } from '../app'
+import type { Message, User, GuardLevel } from '../types/app'
 
 export interface GuardBuyMsg {
   user: User

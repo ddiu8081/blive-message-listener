@@ -1,5 +1,5 @@
 import { intToColorHex } from '../utils/color'
-import type { Message, User } from '../app'
+import type { Message, User } from '../types/app'
 
 export interface GiftMsg {
   user: User

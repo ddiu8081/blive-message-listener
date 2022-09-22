@@ -1,4 +1,4 @@
-import type { Message, User } from '../app'
+import type { Message, User } from '../types/app'
 
 export interface SuperChatMsg {
   user: User

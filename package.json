@@ -17,7 +17,12 @@
   "files": [
     "dist"
   ],
-  "keywords": [],
+  "keywords": [
+    "bilibili",
+    "bilibili-live",
+    "danmaku",
+    "danmu"
+  ],
   "author": "ddiu8081 <ddiu8081@gmail.com>",
   "license": "MIT",
   "dependencies": {

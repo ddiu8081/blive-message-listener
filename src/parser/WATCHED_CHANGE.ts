@@ -1,4 +1,4 @@
-import type { Message } from '../app'
+import type { Message } from '../types/app'
 
 export interface WatchedChangeMsg {
   /** 累计入场人数·*/
