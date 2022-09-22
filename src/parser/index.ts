@@ -1,3 +1,4 @@
+export { HEARTBEAT, Handler as AttentionChangeMsgHandler, AttentionChangeMsg } from './HEARTBEAT'
 export { DANMU_MSG, Handler as DanmuMsgHandler, DanmuMsg } from './DANMU_MSG'
 export { GUARD_BUY, Handler as GuardBuyHandler, GuardBuyMsg } from './GUARD_BUY'
 export { SEND_GIFT, Handler as GiftHandler, GiftMsg } from './SEND_GIFT'

@@ -1,4 +1,5 @@
 export type {
+  AttentionChangeMsg,
   DanmuMsg,
   GuardBuyMsg,
   GiftMsg,

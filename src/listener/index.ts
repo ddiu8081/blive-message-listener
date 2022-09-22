@@ -1,4 +1,5 @@
 import {
+  HEARTBEAT, type AttentionChangeMsgHandler,
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
   SEND_GIFT, type GiftHandler,
@@ -9,6 +10,7 @@ import type { Message } from '../types/app'
 import type { KeepLiveTCP } from 'bilibili-live-ws'
 
 export type MsgHandler = Partial<
+  & AttentionChangeMsgHandler
   & DanmuMsgHandler
   & GuardBuyHandler
   & GiftHandler
@@ -30,6 +32,14 @@ const normalizeDanmu = <T>(msgType: string, data: T): Message<T> => {
 
 export const listenAll = (instance: KeepLiveTCP, handler?: MsgHandler) => {
   if (!handler) return
+
+  // HEARTBEAT
+  if (handler[HEARTBEAT.handlerName]) {
+    instance.on(HEARTBEAT.eventName, (data: any) => {
+      const parsedData = HEARTBEAT.parser(data)
+      handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData))
+    })
+  }
 
   // DANMU_MSG
   if (handler[DANMU_MSG.handlerName]) {
