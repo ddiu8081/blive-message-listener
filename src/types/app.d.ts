@@ -48,7 +48,7 @@ export interface Message<T> {
   id: string,
   timestamp: number,
   type: string,
-  data: T
+  body: T
 }
 
 export interface BaseMsg {

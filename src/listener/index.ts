@@ -18,15 +18,15 @@ export type MsgHandler = Partial<
   & WatchedChangeHandler
 >
 
-const normalizeDanmu = <T>(msgType: string, data: T): Message<T> => {
+const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
   const timestamp = Date.now()
   // @ts-ignore
-  const id = `${timestamp}_${msgType}_${data.user?.uid}`
+  const id = `${timestamp}_${msgType}_${body.user?.uid}`
   return {
     id,
     timestamp,
     type: msgType,
-    data,
+    body,
   }
 }
 

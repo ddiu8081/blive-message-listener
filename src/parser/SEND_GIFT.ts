@@ -51,5 +51,5 @@ export const SEND_GIFT = {
 }
 
 export type Handler = {
-  onGift: (data: Message<GiftMsg>) => void
+  onGift: (msg: Message<GiftMsg>) => void
 }

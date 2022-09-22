@@ -22,5 +22,5 @@ export const WATCHED_CHANGE = {
 }
 
 export type Handler = {
-  onWatchedChange: (data: Message<WatchedChangeMsg>) => void
+  onWatchedChange: (msg: Message<WatchedChangeMsg>) => void
 }

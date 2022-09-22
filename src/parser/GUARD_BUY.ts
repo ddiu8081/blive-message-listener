@@ -39,5 +39,5 @@ export const GUARD_BUY = {
 }
 
 export type Handler = {
-  onGuardBuy: (data: Message<GuardBuyMsg>) => void
+  onGuardBuy: (msg: Message<GuardBuyMsg>) => void
 }

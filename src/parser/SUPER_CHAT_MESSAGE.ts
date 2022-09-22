@@ -50,5 +50,5 @@ export const SUPER_CHAT_MESSAGE = {
 }
 
 export type Handler = {
-  onIncomeSuperChat: (data: Message<SuperChatMsg>) => void
+  onIncomeSuperChat: (msg: Message<SuperChatMsg>) => void
 }

@@ -55,5 +55,5 @@ export const DANMU_MSG = {
 }
 
 export type Handler = {
-  onIncomeDanmu: (data: Message<DanmuMsg>) => void
+  onIncomeDanmu: (msg: Message<DanmuMsg>) => void
 }

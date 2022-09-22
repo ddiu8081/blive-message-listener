@@ -18,5 +18,5 @@ export const HEARTBEAT = {
 }
 
 export type Handler = {
-  onAttentionChange: (data: Message<AttentionChangeMsg>) => void
+  onAttentionChange: (msg: Message<AttentionChangeMsg>) => void
 }
