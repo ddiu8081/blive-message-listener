@@ -17,9 +17,14 @@ export interface User {
     color: string
     /** 主播信息 */
     anchor: {
+      /** 主播uid */
       uid: number
+      /** 主播用户名 */
       uname: string
+      /** 主播房间号 */
       room_id: number
+      /** 是否为本直播间 */
+      is_same_room?: boolean
     }
   }
   /** 用户身份 */

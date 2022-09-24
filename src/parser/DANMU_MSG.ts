@@ -13,7 +13,7 @@ export interface DanmuMsg {
   }
 }
 
-const parser = (data: any): DanmuMsg => {
+const parser = (data: any, roomId: number): DanmuMsg => {
   const content = data.info[1]
   const username = data.info[2][1]
   const badge: DanmuMsg['user']['badge'] = data.info[3].length ? {
@@ -25,6 +25,7 @@ const parser = (data: any): DanmuMsg => {
       uid: data.info[3][12],
       uname: data.info[3][2],
       room_id: data.info[3][3],
+      is_same_room: data.info[3][3] === roomId,
     },
   } : undefined
   return {

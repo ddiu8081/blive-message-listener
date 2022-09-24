@@ -12,7 +12,7 @@ export interface SuperChatMsg {
   time: number
 }
 
-const parser = (data: any): SuperChatMsg => {
+const parser = (data: any, roomId: number): SuperChatMsg => {
   const rawData = data.data
   const { medal_info, user_info } = data.data
   return {
@@ -28,6 +28,7 @@ const parser = (data: any): SuperChatMsg => {
           uid: medal_info.target_id,
           uname: medal_info.anchor_uname,
           room_id: medal_info.anchor_roomid,
+          is_same_room: medal_info.anchor_roomid === roomId,
         },
       } : undefined,
       identity: {

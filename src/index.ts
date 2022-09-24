@@ -5,7 +5,7 @@ import { listenAll, type MsgHandler } from './listener'
 export const startListen = (roomId: number, handler: MsgHandler) => {
   const live = new KeepLiveTCP(roomId)
 
-  listenAll(live, handler)
+  listenAll(live, roomId, handler)
 }
 
 export type { MsgHandler }

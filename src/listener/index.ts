@@ -20,8 +20,9 @@ export type MsgHandler = Partial<
 
 const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
   const timestamp = Date.now()
+  const randomText = Math.floor(Math.random() * 100).toString()
   // @ts-ignore
-  const id = `${timestamp}_${msgType}_${body.user?.uid}`
+  const id = `${timestamp}_${msgType}_${body.user?.uid}_${randomText}`
   return {
     id,
     timestamp,
@@ -30,7 +31,7 @@ const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
   }
 }
 
-export const listenAll = (instance: KeepLiveTCP, handler?: MsgHandler) => {
+export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHandler) => {
   if (!handler) return
 
   // HEARTBEAT
@@ -44,7 +45,7 @@ export const listenAll = (instance: KeepLiveTCP, handler?: MsgHandler) => {
   // DANMU_MSG
   if (handler[DANMU_MSG.handlerName]) {
     instance.on(DANMU_MSG.eventName, (data: any) => {
-      const parsedData = DANMU_MSG.parser(data)
+      const parsedData = DANMU_MSG.parser(data, roomId)
       handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData))
     })
   }
@@ -68,7 +69,7 @@ export const listenAll = (instance: KeepLiveTCP, handler?: MsgHandler) => {
   // SUPER_CHAT_MESSAGE
   if (handler[SUPER_CHAT_MESSAGE.handlerName]) {
     instance.on(SUPER_CHAT_MESSAGE.eventName, (data: any) => {
-      const parsedData = SUPER_CHAT_MESSAGE.parser(data)
+      const parsedData = SUPER_CHAT_MESSAGE.parser(data, roomId)
       handler[SUPER_CHAT_MESSAGE.handlerName]?.(normalizeDanmu(SUPER_CHAT_MESSAGE.eventName, parsedData))
     })
   }
