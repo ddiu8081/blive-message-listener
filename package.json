@@ -1,18 +1,26 @@
 {
   "name": "blive-message-listener",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Bilibili-live danmu listener with type",
-  "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/ddiu8081/blive-message-listener#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/ddiu8081/blive-message-listener"
   },
+  "author": "ddiu8081 <ddiu8081@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
   },
   "files": [
     "dist"
@@ -23,8 +31,7 @@
     "danmaku",
     "danmu"
   ],
-  "author": "ddiu8081 <ddiu8081@gmail.com>",
-  "license": "MIT",
+  "sideEffects": false,
   "dependencies": {
     "bilibili-live-ws": "^6.2.1"
   },
