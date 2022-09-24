@@ -4,7 +4,7 @@ import type { Message, User } from '../types/app'
 export interface DanmuMsg {
   user: User
   content: string
-  /** 弹幕表情·*/
+  /** 弹幕表情 */
   emoticon?: {
     id: string
     height: number

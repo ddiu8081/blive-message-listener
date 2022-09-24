@@ -1,9 +1,9 @@
 import type { Message } from '../types/app'
 
 export interface WatchedChangeMsg {
-  /** 累计入场人数·*/
+  /** 累计入场人数 */
   num: number
-  /** 累计入场人数，格式化输出·*/
+  /** 累计入场人数，格式化输出 */
   text_small: string
 }
 

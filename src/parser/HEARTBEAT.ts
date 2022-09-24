@@ -1,7 +1,7 @@
 import type { Message } from '../types/app'
 
 export interface AttentionChangeMsg {
-  /** 直播间热度·*/
+  /** 直播间热度 */
   attention: number
 }
 

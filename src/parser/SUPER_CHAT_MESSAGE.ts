@@ -2,13 +2,13 @@ import type { Message, User } from '../types/app'
 
 export interface SuperChatMsg {
   user: User
-  /** 弹幕内容·*/
+  /** 弹幕内容 */
   content: string
-  /** 弹幕颜色·*/
+  /** 弹幕颜色 */
   content_color: string
-  /** 价格·*/
+  /** 价格，RMB */
   price: number
-  /** 持续时间·*/
+  /** 持续时间 */
   time: number
 }
 

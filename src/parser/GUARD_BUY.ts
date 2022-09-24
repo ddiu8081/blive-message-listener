@@ -2,17 +2,17 @@ import type { Message, User, GuardLevel } from '../types/app'
 
 export interface GuardBuyMsg {
   user: User
-  /** 礼物id·*/
+  /** 礼物id */
   gift_id: number
-  /** 礼物名称·*/
+  /** 礼物名称 */
   gift_name: string
   /** 大航海信息 */
   guard_level: GuardLevel
-  /** 价格·*/
+  /** 价格，RMB */
   price: number
-  /** 等级生效时间·*/
+  /** 等级生效时间 */
   start_time: number
-  /** 等级过期时间·*/
+  /** 等级过期时间 */
   end_time: number
 }
 
