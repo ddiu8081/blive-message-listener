@@ -2,6 +2,7 @@ import {
   HEARTBEAT, type AttentionChangeMsgHandler,
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
+  INTERACT_WORD, type NewComerMsgHandler,
   SEND_GIFT, type GiftHandler,
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
   WATCHED_CHANGE, type WatchedChangeHandler,
@@ -13,6 +14,7 @@ export type MsgHandler = Partial<
   & AttentionChangeMsgHandler
   & DanmuMsgHandler
   & GuardBuyHandler
+  & NewComerMsgHandler
   & GiftHandler
   & SuperChatHandler
   & WatchedChangeHandler
@@ -55,6 +57,14 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
     instance.on(GUARD_BUY.eventName, (data: any) => {
       const parsedData = GUARD_BUY.parser(data)
       handler[GUARD_BUY.handlerName]?.(normalizeDanmu(GUARD_BUY.eventName, parsedData))
+    })
+  }
+
+  // INTERACT_WORD
+  if (handler[INTERACT_WORD.handlerName]) {
+    instance.on(INTERACT_WORD.eventName, (data: any) => {
+      const parsedData = INTERACT_WORD.parser(data, roomId)
+      handler[INTERACT_WORD.handlerName]?.(normalizeDanmu(INTERACT_WORD.eventName, parsedData))
     })
   }
 

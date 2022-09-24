@@ -9,5 +9,5 @@ export const startListen = (roomId: number, handler: MsgHandler) => {
 }
 
 export type { MsgHandler }
-export type { Message, GuardLevel } from './types/app'
+export type { Message, GuardLevel, User } from './types/app'
 export * from './types/message'
