@@ -33,7 +33,10 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "bilibili-live-ws": "^6.2.1"
+    "bilibili-live-ws": "^6.2.1",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
+    "pako": "^2.0.4"
   },
   "devDependencies": {
     "tsup": "^6.2.3",
