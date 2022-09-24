@@ -20,7 +20,7 @@ export type MsgHandler = Partial<
 
 const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
   const timestamp = Date.now()
-  const randomText = Math.floor(Math.random() * 100).toString()
+  const randomText = Math.floor(Math.random() * 10000).toString()
   // @ts-ignore
   const id = `${timestamp}_${msgType}_${body.user?.uid}_${randomText}`
   return {

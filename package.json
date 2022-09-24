@@ -1,6 +1,6 @@
 {
   "name": "blive-message-listener",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Bilibili-live danmu listener with type",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
