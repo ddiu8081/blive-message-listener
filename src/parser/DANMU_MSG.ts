@@ -4,6 +4,10 @@ import type { Message, User } from '../types/app'
 export interface DanmuMsg {
   user: User
   content: string
+  /** 发送时间，毫秒时间戳 */
+  timestamp: number
+  /** 是否为天选抽奖弹幕 */
+  lottery: boolean
   /** 弹幕表情 */
   emoticon?: {
     id: string
@@ -40,6 +44,8 @@ const parser = (data: any, roomId: number): DanmuMsg => {
       },
     },
     content,
+    timestamp: data.info[0][4],
+    lottery: data.info[0][9] !== 0,
     emoticon: data.info[0][13]?.emoticon_unique ? {
       id: data.info[0][13].emoticon_unique,
       height: data.info[0][13].height,
