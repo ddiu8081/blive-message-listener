@@ -56,5 +56,6 @@ export const DANMU_MSG = {
 }
 
 export type Handler = {
+  /** 收到普通弹幕消息 */
   onIncomeDanmu: (msg: Message<DanmuMsg>) => void
 }

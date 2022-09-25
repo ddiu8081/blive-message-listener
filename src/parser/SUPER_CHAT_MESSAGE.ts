@@ -51,5 +51,6 @@ export const SUPER_CHAT_MESSAGE = {
 }
 
 export type Handler = {
+  /** 收到醒目留言 */
   onIncomeSuperChat: (msg: Message<SuperChatMsg>) => void
 }

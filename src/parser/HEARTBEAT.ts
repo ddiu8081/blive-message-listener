@@ -18,5 +18,6 @@ export const HEARTBEAT = {
 }
 
 export type Handler = {
+  /** 直播间热度更新消息 */
   onAttentionChange: (msg: Message<AttentionChangeMsg>) => void
 }

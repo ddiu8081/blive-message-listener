@@ -39,5 +39,6 @@ export const GUARD_BUY = {
 }
 
 export type Handler = {
+  /** 舰长上舰消息 */
   onGuardBuy: (msg: Message<GuardBuyMsg>) => void
 }

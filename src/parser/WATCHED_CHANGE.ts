@@ -22,5 +22,6 @@ export const WATCHED_CHANGE = {
 }
 
 export type Handler = {
+  /** 累计看过人数变化 */
   onWatchedChange: (msg: Message<WatchedChangeMsg>) => void
 }

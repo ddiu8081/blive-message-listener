@@ -76,5 +76,6 @@ export const ENTRY_EFFECT = {
 }
 
 export type Handler = {
+  /** 观众进入直播间 */
   onNewComer: (msg: Message<NewComerMsg>) => void
 }
