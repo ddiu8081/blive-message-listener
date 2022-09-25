@@ -13,6 +13,12 @@ export interface GiftMsg {
   price: number
   /** 礼物数量 */
   amount: number
+  /** 送礼指向主播信息，多人直播间可指定要送给的主播，单人直播间为空 */
+  send_master?: {
+    uid: number
+    uname: string
+    room_id: number
+  }
 }
 
 const parser = (data: any): GiftMsg => {
@@ -44,6 +50,11 @@ const parser = (data: any): GiftMsg => {
     coin_type: rawData.coin_type,
     price: rawData.price,
     amount: rawData.num,
+    send_master: rawData.send_master?.uid ? {
+      uid: rawData.send_master.uid,
+      uname: rawData.send_master.uname,
+      room_id: rawData.send_master.room_id,
+    } : undefined,
   }
 }
 
