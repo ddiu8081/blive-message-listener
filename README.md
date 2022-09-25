@@ -100,9 +100,13 @@ export type Handler = {
 
 type msgType = 'DANMU_MSG'
 
-interface DanmuMsg {
+export interface DanmuMsg {
   user: User
   content: string
+  /** 发送时间，毫秒时间戳 */
+  timestamp: number
+  /** 是否为天选抽奖弹幕 */
+  lottery: boolean
   /** 弹幕表情 */
   emoticon?: {
     id: string
@@ -207,6 +211,12 @@ export interface GiftMsg {
   price: number
   /** 礼物数量 */
   amount: number
+  /** 送礼指向主播信息，多人直播间可指定要送给的主播，单人直播间为空 */
+  send_master?: {
+    uid: number
+    uname: string
+    room_id: number
+  }
 }
 ```
 
