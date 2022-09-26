@@ -32,7 +32,9 @@ const handler: MsgHandler = {
   },
 }
 
-startListen(652581, handler)
+const instance = startListen(652581, handler)
+
+instance.close()
 ```
 
 ## Handlers & Type Definitions
@@ -85,6 +87,50 @@ export interface User {
     /** 房管 */
     room_admin: boolean
   }
+}
+```
+
+### handler.onOpen
+
+连接成功
+
+```ts
+export type Handler = {
+  /** 连接成功 */
+  onOpen: () => void,
+}
+```
+
+### handler.onClose
+
+连接关闭
+
+```ts
+export type Handler = {
+  /** 连接成功 */
+  onClose: () => void,
+}
+```
+
+### handler.onError
+
+连接错误
+
+```ts
+export type Handler = {
+  /** 连接错误 */
+  onError: (e: Error) => void,
+}
+```
+
+### handler.onStartListen
+
+开始监听消息
+
+```ts
+export type Handler = {
+  /** 开始监听消息 */
+  onStartListen: () => void,
 }
 ```
 

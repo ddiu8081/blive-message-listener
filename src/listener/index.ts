@@ -11,6 +11,16 @@ import type { Message } from '../types/app'
 import type { KeepLiveTCP } from 'bilibili-live-ws'
 
 export type MsgHandler = Partial<
+  {
+    /** 连接成功 */
+    onOpen: () => void,
+    /** 连接关闭 */
+    onClose: () => void,
+    /** 连接错误 */
+    onError: (e: Error) => void,
+    /** 开始监听消息 */
+    onStartListen: () => void,
+  }
   & AttentionChangeMsgHandler
   & DanmuMsgHandler
   & GuardBuyHandler
@@ -35,6 +45,23 @@ const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
 
 export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHandler) => {
   if (!handler) return
+
+  // Common
+  if (handler.onOpen) {
+    instance.on('open', () => {
+      handler.onOpen?.()
+    })
+  }
+  if (handler.onClose) {
+    instance.on('close', () => {
+      handler.onClose?.()
+    })
+  }
+  if (handler.onStartListen) {
+    instance.on('live', () => {
+      handler.onStartListen?.()
+    })
+  }
 
   // HEARTBEAT
   if (handler[HEARTBEAT.handlerName]) {
