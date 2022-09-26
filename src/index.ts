@@ -6,6 +6,8 @@ export const startListen = (roomId: number, handler: MsgHandler) => {
   const live = new KeepLiveTCP(roomId)
 
   listenAll(live, roomId, handler)
+
+  return live
 }
 
 export type { MsgHandler }
