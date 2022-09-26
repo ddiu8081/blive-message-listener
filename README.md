@@ -25,10 +25,10 @@ import { startListen, type MsgHandler } from 'blive-message-listener'
 
 const handler: MsgHandler = {
   onIncomeDanmu: (msg) => {
-    console.log(msg.id, msg.data)
+    console.log(msg.id, msg.body)
   },
   onIncomeSuperChat: (msg) => {
-    console.log(msg.id, msg.data)
+    console.log(msg.id, msg.body)
   },
 }
 
