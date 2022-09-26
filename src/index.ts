@@ -2,12 +2,27 @@ import { KeepLiveTCP } from 'bilibili-live-ws'
 
 import { listenAll, type MsgHandler } from './listener'
 
+export interface MessageListener {
+  /** 直播间房间号 */
+  roomId: number
+  /** 关闭连接 */
+  close: () => void
+  /** 刷新当前直播间热度 */
+  getAttention: () => Promise<number>
+}
+
 export const startListen = (roomId: number, handler: MsgHandler) => {
   const live = new KeepLiveTCP(roomId)
 
   listenAll(live, roomId, handler)
 
-  return live
+  const listenerInstance: MessageListener = {
+    roomId: live.roomid,
+    close: () => live.close(),
+    getAttention: () => live.getOnline(),
+  }
+
+  return listenerInstance
 }
 
 export type { MsgHandler }
