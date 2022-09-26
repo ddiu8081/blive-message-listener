@@ -42,10 +42,25 @@ instance.close()
 ### Common
 
 ```ts
+const startListen: (roomId: number, handler: MsgHandler) => MessageListener
+
+export interface MessageListener {
+  /** 直播间房间号 */
+  roomId: number
+  /** 关闭连接 */
+  close: () => void
+  /** 刷新当前直播间热度 */
+  getAttention: () => Promise<number>
+}
+
 export interface Message<T> {
+  /** 消息id */
   id: string,
+  /** 接收消息的时间，毫秒时间戳 */
   timestamp: number,
+  /** 消息类型 */
   type: string,
+  /** 消息内容 */
   body: T
 }
 

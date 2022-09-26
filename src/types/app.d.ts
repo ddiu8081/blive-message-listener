@@ -50,12 +50,12 @@ export enum GuardLevel {
 }
 
 export interface Message<T> {
+  /** 消息id */
   id: string,
+  /** 接收消息的时间，毫秒时间戳 */
   timestamp: number,
+  /** 消息类型 */
   type: string,
+  /** 消息内容 */
   body: T
-}
-
-export interface BaseMsg {
-  user: User
 }
