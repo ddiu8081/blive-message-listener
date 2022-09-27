@@ -8,7 +8,7 @@ import {
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
 import type { Message } from '../types/app'
-import type { KeepLiveTCP, KeepLiveWS } from 'tiny-bilibili-ws'
+import type { KeepLiveTCP, KeepLiveWS, Message as WSMessage } from 'tiny-bilibili-ws'
 
 export type MsgHandler = Partial<
   {
@@ -65,7 +65,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // HEARTBEAT
   if (handler[HEARTBEAT.handlerName]) {
-    instance.on(HEARTBEAT.eventName, (data: any) => {
+    instance.on(HEARTBEAT.eventName, (data: WSMessage<any>) => {
       const parsedData = HEARTBEAT.parser(data.data)
       handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData))
     })
@@ -73,7 +73,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // DANMU_MSG
   if (handler[DANMU_MSG.handlerName]) {
-    instance.on(DANMU_MSG.eventName, (data: any) => {
+    instance.on(DANMU_MSG.eventName, (data: WSMessage<any>) => {
       const parsedData = DANMU_MSG.parser(data.data, roomId)
       handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData))
     })
@@ -81,7 +81,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // GUARD_BUY
   if (handler[GUARD_BUY.handlerName]) {
-    instance.on(GUARD_BUY.eventName, (data: any) => {
+    instance.on(GUARD_BUY.eventName, (data: WSMessage<any>) => {
       const parsedData = GUARD_BUY.parser(data.data)
       handler[GUARD_BUY.handlerName]?.(normalizeDanmu(GUARD_BUY.eventName, parsedData))
     })
@@ -89,11 +89,11 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // INTERACT_WORD, ENTRY_EFFECT
   if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName]) {
-    instance.on(INTERACT_WORD.eventName, (data: any) => {
+    instance.on(INTERACT_WORD.eventName, (data: WSMessage<any>) => {
       const parsedData = INTERACT_WORD.parser(data.data, roomId)
       handler[INTERACT_WORD.handlerName]?.(normalizeDanmu(INTERACT_WORD.eventName, parsedData))
     })
-    instance.on(ENTRY_EFFECT.eventName, (data: any) => {
+    instance.on(ENTRY_EFFECT.eventName, (data: WSMessage<any>) => {
       const parsedData = ENTRY_EFFECT.parser(data.data, roomId)
       handler[ENTRY_EFFECT.handlerName]?.(normalizeDanmu(ENTRY_EFFECT.eventName, parsedData))
     })
@@ -101,7 +101,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // SEND_GIFT
   if (handler[SEND_GIFT.handlerName]) {
-    instance.on(SEND_GIFT.eventName, (data: any) => {
+    instance.on(SEND_GIFT.eventName, (data: WSMessage<any>) => {
       const parsedData = SEND_GIFT.parser(data.data)
       handler[SEND_GIFT.handlerName]?.(normalizeDanmu(SEND_GIFT.eventName, parsedData))
     })
@@ -109,7 +109,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // SUPER_CHAT_MESSAGE
   if (handler[SUPER_CHAT_MESSAGE.handlerName]) {
-    instance.on(SUPER_CHAT_MESSAGE.eventName, (data: any) => {
+    instance.on(SUPER_CHAT_MESSAGE.eventName, (data: WSMessage<any>) => {
       const parsedData = SUPER_CHAT_MESSAGE.parser(data.data, roomId)
       handler[SUPER_CHAT_MESSAGE.handlerName]?.(normalizeDanmu(SUPER_CHAT_MESSAGE.eventName, parsedData))
     })
@@ -117,7 +117,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // WATCHED_CHANGE
   if (handler[WATCHED_CHANGE.handlerName]) {
-    instance.on(WATCHED_CHANGE.eventName, (data: any) => {
+    instance.on(WATCHED_CHANGE.eventName, (data: WSMessage<any>) => {
       const parsedData = WATCHED_CHANGE.parser(data.data)
       handler[WATCHED_CHANGE.handlerName]?.(normalizeDanmu(WATCHED_CHANGE.eventName, parsedData))
     })
