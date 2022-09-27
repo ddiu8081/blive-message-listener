@@ -8,7 +8,7 @@ import {
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
 import type { Message } from '../types/app'
-import type { KeepLiveTCP } from 'bilibili-live-ws'
+import type { KeepLiveTCP, KeepLiveWS } from 'tiny-bilibili-ws'
 
 export type MsgHandler = Partial<
   {
@@ -43,7 +43,7 @@ const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
   }
 }
 
-export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHandler) => {
+export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, handler?: MsgHandler) => {
   if (!handler) return
 
   // Common
@@ -66,7 +66,7 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
   // HEARTBEAT
   if (handler[HEARTBEAT.handlerName]) {
     instance.on(HEARTBEAT.eventName, (data: any) => {
-      const parsedData = HEARTBEAT.parser(data)
+      const parsedData = HEARTBEAT.parser(data.data)
       handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData))
     })
   }
@@ -74,7 +74,7 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
   // DANMU_MSG
   if (handler[DANMU_MSG.handlerName]) {
     instance.on(DANMU_MSG.eventName, (data: any) => {
-      const parsedData = DANMU_MSG.parser(data, roomId)
+      const parsedData = DANMU_MSG.parser(data.data, roomId)
       handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData))
     })
   }
@@ -82,7 +82,7 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
   // GUARD_BUY
   if (handler[GUARD_BUY.handlerName]) {
     instance.on(GUARD_BUY.eventName, (data: any) => {
-      const parsedData = GUARD_BUY.parser(data)
+      const parsedData = GUARD_BUY.parser(data.data)
       handler[GUARD_BUY.handlerName]?.(normalizeDanmu(GUARD_BUY.eventName, parsedData))
     })
   }
@@ -90,11 +90,11 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
   // INTERACT_WORD, ENTRY_EFFECT
   if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName]) {
     instance.on(INTERACT_WORD.eventName, (data: any) => {
-      const parsedData = INTERACT_WORD.parser(data, roomId)
+      const parsedData = INTERACT_WORD.parser(data.data, roomId)
       handler[INTERACT_WORD.handlerName]?.(normalizeDanmu(INTERACT_WORD.eventName, parsedData))
     })
     instance.on(ENTRY_EFFECT.eventName, (data: any) => {
-      const parsedData = ENTRY_EFFECT.parser(data, roomId)
+      const parsedData = ENTRY_EFFECT.parser(data.data, roomId)
       handler[ENTRY_EFFECT.handlerName]?.(normalizeDanmu(ENTRY_EFFECT.eventName, parsedData))
     })
   }
@@ -102,7 +102,7 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
   // SEND_GIFT
   if (handler[SEND_GIFT.handlerName]) {
     instance.on(SEND_GIFT.eventName, (data: any) => {
-      const parsedData = SEND_GIFT.parser(data)
+      const parsedData = SEND_GIFT.parser(data.data)
       handler[SEND_GIFT.handlerName]?.(normalizeDanmu(SEND_GIFT.eventName, parsedData))
     })
   }
@@ -110,7 +110,7 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
   // SUPER_CHAT_MESSAGE
   if (handler[SUPER_CHAT_MESSAGE.handlerName]) {
     instance.on(SUPER_CHAT_MESSAGE.eventName, (data: any) => {
-      const parsedData = SUPER_CHAT_MESSAGE.parser(data, roomId)
+      const parsedData = SUPER_CHAT_MESSAGE.parser(data.data, roomId)
       handler[SUPER_CHAT_MESSAGE.handlerName]?.(normalizeDanmu(SUPER_CHAT_MESSAGE.eventName, parsedData))
     })
   }
@@ -118,7 +118,7 @@ export const listenAll = (instance: KeepLiveTCP, roomId: number, handler?: MsgHa
   // WATCHED_CHANGE
   if (handler[WATCHED_CHANGE.handlerName]) {
     instance.on(WATCHED_CHANGE.eventName, (data: any) => {
-      const parsedData = WATCHED_CHANGE.parser(data)
+      const parsedData = WATCHED_CHANGE.parser(data.data)
       handler[WATCHED_CHANGE.handlerName]?.(normalizeDanmu(WATCHED_CHANGE.eventName, parsedData))
     })
   }

@@ -1,4 +1,4 @@
-import { KeepLiveTCP } from 'bilibili-live-ws'
+import { KeepLiveTCP } from 'tiny-bilibili-ws'
 
 import { listenAll, type MsgHandler } from './listener'
 
@@ -17,7 +17,7 @@ export const startListen = (roomId: number, handler: MsgHandler) => {
   listenAll(live, roomId, handler)
 
   const listenerInstance: MessageListener = {
-    roomId: live.roomid,
+    roomId: live.roomId,
     close: () => live.close(),
     getAttention: () => live.getOnline(),
   }

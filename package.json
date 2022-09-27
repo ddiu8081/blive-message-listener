@@ -18,12 +18,19 @@
   },
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "require": "./dist/browser.cjs",
+      "import": "./dist/browser.mjs"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "browser.d.ts"
   ],
   "keywords": [
     "bilibili",
@@ -33,10 +40,7 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "bilibili-live-ws": "^6.2.1",
-    "buffer": "^6.0.3",
-    "events": "^3.3.0",
-    "pako": "^2.0.4"
+    "tiny-bilibili-ws": "^0.0.2"
   },
   "devDependencies": {
     "tsup": "^6.2.3",
