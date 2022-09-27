@@ -9,6 +9,7 @@ Bilibili 直播间弹幕监听器，支持类型输出。
 ## Features
 
 - 完整的类型支持
+- Node 环境与浏览器环境支持
 
 ## Install
 
@@ -22,6 +23,8 @@ npm i blive-message-listener
 
 ```ts
 import { startListen, type MsgHandler } from 'blive-message-listener'
+// 浏览器环境，从 '/browser' 导入 startListen
+// import { startListen } from 'blive-message-listener/browser'
 
 const handler: MsgHandler = {
   onIncomeDanmu: (msg) => {
@@ -330,7 +333,7 @@ Type definition can be also found in [src/parser](src/parser).
 
 ## Credits
 
-- Based on [bilibili-live-ws](https://github.com/simon300000/bilibili-live-ws)
+- Based on [tiny-bilibili-ws](https://github.com/starknt/tiny-bilibili-ws)
 
 ## License
 
