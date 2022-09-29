@@ -18,39 +18,37 @@ export interface DanmuMsg {
 }
 
 const parser = (data: any, roomId: number): DanmuMsg => {
-  const content = data.info[1]
-  const username = data.info[2][1]
-  const badge: DanmuMsg['user']['badge'] = data.info[3].length ? {
-    active: data.info[3][7] !== 12632256,
-    name: data.info[3][1],
-    level: data.info[3][0],
-    color: intToColorHex(data.info[3][4]),
-    anchor: {
-      uid: data.info[3][12],
-      uname: data.info[3][2],
-      room_id: data.info[3][3],
-      is_same_room: data.info[3][3] === roomId,
-    },
-  } : undefined
+  const rawData = data.info
   return {
     user: {
-      uid: data.info[2][0],
-      uname: username,
-      badge,
+      uid: rawData[2][0],
+      uname: rawData[2][1],
+      badge: rawData[3].length ? {
+        active: rawData[3][7] !== 12632256,
+        name: rawData[3][1],
+        level: rawData[3][0],
+        color: intToColorHex(rawData[3][4]),
+        anchor: {
+          uid: rawData[3][12],
+          uname: rawData[3][2],
+          room_id: rawData[3][3],
+          is_same_room: rawData[3][3] === roomId,
+        },
+      } : undefined,
       identity: {
-        rank: data.info[4][4],
-        guard_level: data.info[7],
-        room_admin: data.info[2][2] === 1,
+        rank: rawData[4][4],
+        guard_level: rawData[7],
+        room_admin: rawData[2][2] === 1,
       },
     },
-    content,
-    timestamp: data.info[0][4],
-    lottery: data.info[0][9] !== 0,
-    emoticon: data.info[0][13]?.emoticon_unique ? {
-      id: data.info[0][13].emoticon_unique,
-      height: data.info[0][13].height,
-      width: data.info[0][13].width,
-      url: data.info[0][13].url,
+    content: rawData[1],
+    timestamp: rawData[0][4],
+    lottery: rawData[0][9] !== 0,
+    emoticon: rawData[0][13]?.emoticon_unique ? {
+      id: rawData[0][13].emoticon_unique,
+      height: rawData[0][13].height,
+      width: rawData[0][13].width,
+      url: rawData[0][13].url,
     } : undefined,
   }
 }
