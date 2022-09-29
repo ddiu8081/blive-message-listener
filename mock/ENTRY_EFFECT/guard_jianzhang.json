@@ -3,7 +3,7 @@
   "data": {
     "id": 4,
     "uid": 77777777771,
-    "target_id": 77777777772,
+    "target_id": 77777777775,
     "mock_effect": 0,
     "face": "http://__MOCK_FACE__.jpg",
     "privilege_type": 3,

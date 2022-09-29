@@ -14,3 +14,6 @@
 | 牌子主播 uname | `__MOCK_BADGE_ANCHOR_UNAME__` |
 | 牌子主播房间号 | `77777777773` |
 | 弹幕内容 (表情弹幕除外) | `__MOCK_MESSAGE_CONTENT__`, `__MOCK_MESSAGE_CONTENT_2__` |
+| 当前房间号 | `77777777774` |
+| 当前房间主播 uid | `77777777775` |
+| 当前房间主播 uname | `__MOCK_MASTER_UNAME__` |

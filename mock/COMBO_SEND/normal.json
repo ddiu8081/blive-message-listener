@@ -1,0 +1,38 @@
+{
+  "cmd": "COMBO_SEND",
+  "data": {
+    "action": "投喂",
+    "batch_combo_id": "batch:gift:combo_id:77777777771:77777777774:31036:1661527988.0356",
+    "batch_combo_num": 5,
+    "combo_id": "gift:combo_id:77777777771:77777777774:31036:1661527988.0302",
+    "combo_num": 5,
+    "combo_total_coin": 500,
+    "dmscore": 32,
+    "gift_id": 31036,
+    "gift_name": "小花花",
+    "gift_num": 0,
+    "is_show": 1,
+    "medal_info": {
+      "anchor_roomid": 0,
+      "anchor_uname": "",
+      "guard_level": 0,
+      "icon_id": 0,
+      "is_lighted": 1,
+      "medal_color": 6067854,
+      "medal_color_border": 6067854,
+      "medal_color_end": 6067854,
+      "medal_color_start": 6067854,
+      "medal_level": 3,
+      "medal_name": "__MOCK_BADGE_NAME__",
+      "special": "",
+      "target_id": 77777777773
+    },
+    "name_color": "",
+    "r_uname": "__MOCK_BADGE_ANCHOR_UNAME__",
+    "ruid": 77777777774,
+    "send_master": null,
+    "total_num": 5,
+    "uid": 77777777771,
+    "uname": "__MOCK_UNAME__"
+  }
+}
