@@ -1,0 +1,82 @@
+{
+  "cmd": "DANMU_MSG",
+  "info": [
+    [
+      0,
+      1,
+      25,
+      65532,
+      1664108400169,
+      0,
+      0,
+      "4475bb4a",
+      0,
+      2,
+      0,
+      "",
+      0,
+      "{}",
+      "{}",
+      {
+        "mode": 0,
+        "show_player_type": 0,
+        "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":65532,\"dm_type\":0,\"font_size\":25,\"player_mode\":1,\"show_player_type\":0,\"content\":\"这个夏天永不落幕！\",\"user_hash\":\"1148566346\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"recommend_score\":9,\"main_state_dm_color\":\"\",\"objective_state_dm_color\":\"\",\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"anniversary_crowd\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}"
+      },
+      {
+        "activity_identity": "3233432",
+        "activity_source": 1,
+        "not_show": 1
+      }
+    ],
+    "__MOCK_MESSAGE_CONTENT__",
+    [
+      77777777771,
+      "__MOCK_UNAME__",
+      0,
+      0,
+      0,
+      10000,
+      1,
+      ""
+    ],
+    [
+      22,
+      "__MOCK_BADGE_NAME__",
+      "__MOCK_BADGE_ANCHOR_UNAME__",
+      77777777773,
+      1725515,
+      "",
+      0,
+      6809855,
+      1725515,
+      5414290,
+      3,
+      1,
+      77777777772
+    ],
+    [
+      27,
+      0,
+      5805790,
+      ">50000",
+      0
+    ],
+    [
+      "",
+      ""
+    ],
+    0,
+    0,
+    null,
+    {
+      "ts": 1664108400,
+      "ct": "B1432FC3"
+    },
+    0,
+    0,
+    null,
+    null,
+    0,
+    70
+  ]
+}

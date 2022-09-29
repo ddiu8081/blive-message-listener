@@ -1,0 +1,82 @@
+{
+  "cmd": "DANMU_MSG",
+  "info": [
+    [
+      0,
+      4,
+      25,
+      14893055,
+      1662305318600,
+      336625456,
+      0,
+      "73cef3cc",
+      0,
+      0,
+      2,
+      "#19897EFF,#403F388E,#33897EFF",
+      0,
+      "{}",
+      "{}",
+      {
+        "mode": 0,
+        "show_player_type": 0,
+        "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":14893055,\"dm_type\":0,\"font_size\":25,\"player_mode\":4,\"show_player_type\":0,\"content\":\"好好好\",\"user_hash\":\"1942942668\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"recommend_score\":0,\"main_state_dm_color\":\"\",\"objective_state_dm_color\":\"\",\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"anniversary_crowd\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}"
+      },
+      {
+        "activity_identity": "",
+        "activity_source": 0,
+        "not_show": 0
+      }
+    ],
+    "__MOCK_MESSAGE_CONTENT__",
+    [
+      77777777771,
+      "__MOCK_UNAME__",
+      0,
+      0,
+      0,
+      10000,
+      1,
+      "#E17AFF"
+    ],
+    [
+      28,
+      "__MOCK_BADGE_NAME__",
+      "__MOCK_BADGE_ANCHOR_UNAME__",
+      77777777773,
+      398668,
+      "",
+      0,
+      16771156,
+      398668,
+      6850801,
+      2,
+      1,
+      77777777772
+    ],
+    [
+      24,
+      0,
+      5805790,
+      ">50000",
+      0
+    ],
+    [
+      "",
+      ""
+    ],
+    0,
+    2,
+    null,
+    {
+      "ts": 1662305318,
+      "ct": "5B4884E8"
+    },
+    0,
+    0,
+    null,
+    null,
+    0,
+    112
+  ]
+}

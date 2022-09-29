@@ -1,0 +1,90 @@
+{
+  "cmd": "DANMU_MSG",
+  "info": [
+    [
+      0,
+      1,
+      25,
+      16777215,
+      1662397982192,
+      1662392597,
+      0,
+      "b234008d",
+      0,
+      0,
+      5,
+      "#1453BAFF,#4C2263A2,#3353BAFF",
+      1,
+      {
+        "bulge_display": 1,
+        "emoticon_unique": "room_21452505_191",
+        "height": 162,
+        "in_player_area": 1,
+        "is_dynamic": 1,
+        "url": "http://i0.hdslb.com/bfs/live/f1f2cb500de4bd3a5992f85ae2be574dd65a605d.png",
+        "width": 162
+      },
+      "{}",
+      {
+        "mode": 0,
+        "show_player_type": 0,
+        "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":16777215,\"dm_type\":1,\"font_size\":25,\"player_mode\":1,\"show_player_type\":0,\"content\":\"哈哈\",\"user_hash\":\"2989752461\",\"emoticon_unique\":\"room_21452505_191\",\"bulge_display\":1,\"recommend_score\":10,\"main_state_dm_color\":\"\",\"objective_state_dm_color\":\"\",\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"anniversary_crowd\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}"
+      },
+      {
+        "activity_identity": "",
+        "activity_source": 0,
+        "not_show": 0
+      }
+    ],
+    "哈哈",
+    [
+      77777777771,
+      "__MOCK_UNAME__",
+      0,
+      0,
+      0,
+      10000,
+      1,
+      "#00D1F1"
+    ],
+    [
+      15,
+      "__MOCK_BADGE_NAME__",
+      "__MOCK_BADGE_ANCHOR_UNAME__",
+      77777777773,
+      12478086,
+      "",
+      0,
+      12478086,
+      12478086,
+      12478086,
+      0,
+      1,
+      77777777772
+    ],
+    [
+      15,
+      0,
+      6406234,
+      ">50000",
+      0
+    ],
+    [
+      "",
+      ""
+    ],
+    0,
+    3,
+    null,
+    {
+      "ts": 1662397982,
+      "ct": "C5436160"
+    },
+    0,
+    0,
+    null,
+    null,
+    0,
+    105
+  ]
+}

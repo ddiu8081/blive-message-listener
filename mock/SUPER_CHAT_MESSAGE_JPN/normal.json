@@ -1,0 +1,51 @@
+{
+  "cmd": "SUPER_CHAT_MESSAGE_JPN",
+  "data": {
+    "id": "4898652",
+    "uid": "77777777771",
+    "price": 100,
+    "rate": 1000,
+    "message": "__MOCK_MESSAGE_CONTENT__",
+    "message_jpn": "",
+    "is_ranked": 1,
+    "background_image": "https://i0.hdslb.com/bfs/live/a712efa5c6ebc67bafbe8352d3e74b820a00c13e.png",
+    "background_color": "#FFF1C5",
+    "background_icon": "",
+    "background_price_color": "#ECCF75",
+    "background_bottom_color": "#E2B52B",
+    "ts": 1661528878,
+    "token": "56657C04",
+    "medal_info": {
+      "icon_id": 0,
+      "target_id": 77777777772,
+      "special": "",
+      "anchor_uname": "__MOCK_BADGE_ANCHOR_UNAME__",
+      "anchor_roomid": 77777777773,
+      "medal_level": 26,
+      "medal_name": "__MOCK_BADGE_NAME__",
+      "medal_color": "#6154c"
+    },
+    "user_info": {
+      "uname": "__MOCK_UNAME__",
+      "face": "http://__MOCK_FACE__.jpg",
+      "face_frame": "https://i0.hdslb.com/bfs/live/80f732943cc3367029df65e267960d56736a82ee.png",
+      "guard_level": 3,
+      "user_level": 17,
+      "level_color": "#61c05a",
+      "is_vip": 0,
+      "is_svip": 0,
+      "is_main_vip": 0,
+      "title": "0",
+      "manager": 0
+    },
+    "time": 300,
+    "start_time": 1661528878,
+    "end_time": 1661529178,
+    "gift": {
+      "num": 1,
+      "gift_id": 12000,
+      "gift_name": "醒目留言"
+    }
+  },
+  "roomid": "77777777773"
+}
