@@ -1,0 +1,12 @@
+{
+  "cmd": "ROOM_CHANGE",
+  "data": {
+    "title": "直播间标题",
+    "area_id": 375,
+    "parent_area_id": 11,
+    "area_name": " 科技",
+    "parent_area_name": "知识",
+    "live_key": "0",
+    "sub_session_key": ""
+  }
+}
