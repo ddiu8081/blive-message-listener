@@ -5,6 +5,9 @@ import {
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
   INTERACT_WORD, ENTRY_EFFECT, type NewComerMsgHandler,
+  LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
+  ONLINE_RANK_COUNT, type RankCountChangeMsgHandler,
+  ROOM_CHANGE, type RoomInfoChangeHandler,
   SEND_GIFT, type GiftHandler,
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
   WATCHED_CHANGE, type WatchedChangeHandler,
@@ -29,6 +32,9 @@ export type MsgHandler = Partial<
   & DanmuMsgHandler
   & GuardBuyHandler
   & NewComerMsgHandler
+  & LikedChangeMsgHandler
+  & RankCountChangeMsgHandler
+  & RoomInfoChangeHandler
   & GiftHandler
   & SuperChatHandler
   & WatchedChangeHandler
@@ -116,6 +122,30 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
     instance.on(ENTRY_EFFECT.eventName, (data: WSMessage<any>) => {
       const parsedData = ENTRY_EFFECT.parser(data.data, roomId)
       handler[ENTRY_EFFECT.handlerName]?.(normalizeDanmu(ENTRY_EFFECT.eventName, parsedData))
+    })
+  }
+
+  // LIKE_INFO_V3_UPDATE
+  if (handler[LIKE_INFO_V3_UPDATE.handlerName]) {
+    instance.on(LIKE_INFO_V3_UPDATE.eventName, (data: WSMessage<any>) => {
+      const parsedData = LIKE_INFO_V3_UPDATE.parser(data.data)
+      handler[LIKE_INFO_V3_UPDATE.handlerName]?.(normalizeDanmu(LIKE_INFO_V3_UPDATE.eventName, parsedData))
+    })
+  }
+
+  // ONLINE_RANK_COUNT
+  if (handler[ONLINE_RANK_COUNT.handlerName]) {
+    instance.on(ONLINE_RANK_COUNT.eventName, (data: WSMessage<any>) => {
+      const parsedData = ONLINE_RANK_COUNT.parser(data.data)
+      handler[ONLINE_RANK_COUNT.handlerName]?.(normalizeDanmu(ONLINE_RANK_COUNT.eventName, parsedData))
+    })
+  }
+
+  // ROOM_CHANGE
+  if (handler[ROOM_CHANGE.handlerName]) {
+    instance.on(ROOM_CHANGE.eventName, (data: WSMessage<any>) => {
+      const parsedData = ROOM_CHANGE.parser(data.data)
+      handler[ROOM_CHANGE.handlerName]?.(normalizeDanmu(ROOM_CHANGE.eventName, parsedData))
     })
   }
 

@@ -171,9 +171,12 @@ export type Handler = {
 | --- | --- |
 | onLiveStart | 直播开始消息 |
 | onLiveEnd | 直播结束消息 |
-| onAttentionChange | 直播间热度更新消息 |
+| onAttentionChange | 直播间热度变化 |
 | onWatchedChange | 累计看过人数变化 |
+| onLikedChange | 累计点赞人数变化 |
+| onRankCountChange | 高能用户人数变化 |
 | onNewComer | 观众进入直播间 |
+| onRoomInfoChange | 直播间信息修改 |
 
 ##### handler.onLiveStart
 
@@ -215,11 +218,11 @@ export interface LiveEndMsg {
 
 ##### handler.onAttentionChange
 
-直播间热度更新消息
+直播间热度变化
 
 ```ts
 export type Handler = {
-  /** 直播间热度更新消息 */
+  /** 直播间热度变化 */
   onAttentionChange: (msg: Message<AttentionChangeMsg>) => void
 }
 
@@ -231,7 +234,7 @@ export interface AttentionChangeMsg {
 }
 ```
 
-#### handler.onWatchedChange
+##### handler.onWatchedChange
 
 累计看过人数变化
 
@@ -248,6 +251,42 @@ export interface WatchedChangeMsg {
   num: number
   /** 累计入场人数，格式化输出 */
   text_small: string
+}
+```
+
+##### handler.onLikedChange
+
+累计点赞人数变化
+
+```ts
+export type Handler = {
+  /** 累计点赞人数变化 */
+  onLikedChange: (msg: Message<LikedChangeMsg>) => void
+}
+
+type msgType = 'LIKE_INFO_V3_UPDATE'
+
+export interface LikedChangeMsg {
+  /** 直播间点赞人数 */
+  count: number
+}
+```
+
+##### handler.onRankCountChange
+
+高能用户人数变化
+
+```ts
+export type Handler = {
+  /** 高能用户人数变化 */
+  onRankCountChange: (msg: Message<RankCountChangeMsg>) => void
+}
+
+type msgType = 'ONLINE_RANK_COUNT'
+
+export interface RankCountChangeMsg {
+  /** 高能用户人数 */
+  count: number
 }
 ```
 
@@ -271,6 +310,32 @@ export interface NewComerMsg {
   user: User
   /** 入场时间，毫秒时间戳 */
   timestamp: number
+}
+```
+
+##### handler.onRoomInfoChange
+
+直播间信息修改
+
+```ts
+export type Handler = {
+  /** 直播间信息修改 */
+  onRoomInfoChange: (msg: Message<RoomInfoChangeMsg>) => void
+}
+
+type msgType = 'ROOM_CHANGE'
+
+export interface RoomInfoChangeMsg {
+  /** 直播间标题 */
+  title: number
+  /** 一级分区id */
+  parent_area_id: number
+  /** 一级分区名 */
+  parent_area_name: number
+  /** 二级分区id */
+  area_id: number
+  /** 二级分区名 */
+  area_name: number
 }
 ```
 
