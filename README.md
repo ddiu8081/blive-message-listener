@@ -2,13 +2,13 @@
 
 [![npm](https://img.shields.io/npm/v/blive-message-listener)](https://www.npmjs.com/package/blive-message-listener)
 
-Bilibili-live danmu listener with type.
+
 
 Bilibili 直播间弹幕监听器，支持类型输出。
 
 ## Features
 
-- 完整的类型支持
+- 将 [原始数据](mock) 转为更友好的格式输出
 - Node 环境与浏览器环境支持
 
 ## Install
