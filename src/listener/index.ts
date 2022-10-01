@@ -1,5 +1,7 @@
 import {
   HEARTBEAT, type AttentionChangeMsgHandler,
+  LIVE, type LiveStartMsgHandler, 
+  PREPARING, type LiveStopMsgHandler,
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
   INTERACT_WORD, ENTRY_EFFECT, type NewComerMsgHandler,
@@ -22,6 +24,8 @@ export type MsgHandler = Partial<
     onStartListen: () => void,
   }
   & AttentionChangeMsgHandler
+  & LiveStartMsgHandler
+  & LiveStopMsgHandler
   & DanmuMsgHandler
   & GuardBuyHandler
   & NewComerMsgHandler
@@ -68,6 +72,22 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
     instance.on(HEARTBEAT.eventName, (data: WSMessage<any>) => {
       const parsedData = HEARTBEAT.parser(data.data)
       handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData))
+    })
+  }
+
+  // LIVE
+  if (handler[LIVE.handlerName]) {
+    instance.on(LIVE.eventName, (data: WSMessage<any>) => {
+      const parsedData = LIVE.parser(data.data)
+      handler[LIVE.handlerName]?.(normalizeDanmu(LIVE.eventName, parsedData))
+    })
+  }
+
+  // PREPARING
+  if (handler[PREPARING.handlerName]) {
+    instance.on(PREPARING.eventName, (data: WSMessage<any>) => {
+      const parsedData = PREPARING.parser(data.data)
+      handler[PREPARING.handlerName]?.(normalizeDanmu(PREPARING.eventName, parsedData))
     })
   }
 

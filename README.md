@@ -152,6 +152,44 @@ export type Handler = {
 }
 ```
 
+### handler.onLiveStart
+
+直播开始消息
+
+```ts
+export type Handler = {
+  /** 直播开始消息 */
+  onLiveStart: (msg: Message<LiveStartMsg>) => void
+}
+
+type msgType = 'LIVE'
+
+export interface LiveStartMsg {
+  /** 开播平台 */
+  live_platform: string
+  /** 房间号 */
+  room_id: number
+}
+```
+
+### handler.onLiveEnd
+
+直播结束消息
+
+```ts
+export type Handler = {
+  /** 直播结束消息 */
+  onLiveEnd: (msg: Message<LiveEndMsg>) => void
+}
+
+type msgType = 'PREPARING'
+
+export interface LiveEndMsg {
+  /** 房间号 */
+  room_id: number
+}
+```
+
 ### handler.onIncomeDanmu
 
 收到普通弹幕消息

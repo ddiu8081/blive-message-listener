@@ -1,4 +1,6 @@
 export { HEARTBEAT, Handler as AttentionChangeMsgHandler, AttentionChangeMsg } from './HEARTBEAT'
+export { LIVE, Handler as LiveStartMsgHandler, LiveStartMsg } from './LIVE'
+export { PREPARING, Handler as LiveStopMsgHandler, LiveStopMsg } from './PREPARING'
 export { DANMU_MSG, Handler as DanmuMsgHandler, DanmuMsg } from './DANMU_MSG'
 export { GUARD_BUY, Handler as GuardBuyHandler, GuardBuyMsg } from './GUARD_BUY'
 export { INTERACT_WORD, ENTRY_EFFECT, Handler as NewComerMsgHandler, NewComerMsg } from './INTERACT_WORD_ENTRY_EFFECT'
