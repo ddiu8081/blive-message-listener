@@ -108,7 +108,20 @@ export interface User {
 }
 ```
 
-### handler.onOpen
+### Handler
+
+Type definition can be also found in [src/parser](src/parser).
+
+#### 连接基础信息
+
+| Handler | Description |
+| --- | --- |
+| onOpen | 连接成功 |
+| onClose | 连接关闭 |
+| onError | 连接错误 |
+| onStartListen | 开始监听消息 |
+
+##### Handler.onOpen
 
 连接成功
 
@@ -119,7 +132,7 @@ export type Handler = {
 }
 ```
 
-### handler.onClose
+##### Handler.onClose
 
 连接关闭
 
@@ -130,7 +143,7 @@ export type Handler = {
 }
 ```
 
-### handler.onError
+##### Handler.onError
 
 连接错误
 
@@ -141,7 +154,7 @@ export type Handler = {
 }
 ```
 
-### handler.onStartListen
+##### Handler.onStartListen
 
 开始监听消息
 
@@ -152,7 +165,17 @@ export type Handler = {
 }
 ```
 
-### handler.onLiveStart
+#### 直播间基础信息
+
+| Handler | Description |
+| --- | --- |
+| onLiveStart | 直播开始消息 |
+| onLiveEnd | 直播结束消息 |
+| onAttentionChange | 直播间热度更新消息 |
+| onWatchedChange | 累计看过人数变化 |
+| onNewComer | 观众进入直播间 |
+
+##### handler.onLiveStart
 
 直播开始消息
 
@@ -172,7 +195,7 @@ export interface LiveStartMsg {
 }
 ```
 
-### handler.onLiveEnd
+##### handler.onLiveEnd
 
 直播结束消息
 
@@ -190,7 +213,75 @@ export interface LiveEndMsg {
 }
 ```
 
-### handler.onIncomeDanmu
+##### handler.onAttentionChange
+
+直播间热度更新消息
+
+```ts
+export type Handler = {
+  /** 直播间热度更新消息 */
+  onAttentionChange: (msg: Message<AttentionChangeMsg>) => void
+}
+
+type msgType = 'heartbeat'
+
+export interface AttentionChangeMsg {
+  /** 直播间热度 */
+  attention: number
+}
+```
+
+#### handler.onWatchedChange
+
+累计看过人数变化
+
+```ts
+export type Handler = {
+  /** 累计看过人数变化 */
+  onWatchedChange: (msg: Message<WatchedChangeMsg>) => void
+}
+
+type msgType = 'WATCHED_CHANGE'
+
+export interface WatchedChangeMsg {
+  /** 累计入场人数 */
+  num: number
+  /** 累计入场人数，格式化输出 */
+  text_small: string
+}
+```
+
+##### handler.onNewComer
+
+观众进入直播间
+
+- 包括普通用户进入与舰长进入
+- 舰长进入直播间时，有几率会触发两次
+- 舰长进入直播间时，uname 超长可能会省略号截断
+
+```ts
+export type Handler = {
+  /** 观众进入直播间 */
+  onNewComer: (msg: Message<NewComerMsg>) => void
+}
+
+type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT'
+
+export interface NewComerMsg {
+  user: User
+  /** 入场时间，毫秒时间戳 */
+  timestamp: number
+}
+```
+
+#### 弹幕相关
+
+| Handler | Description |
+| --- | --- |
+| onIncomeDanmu | 收到普通弹幕消息 |
+| onIncomeSuperChat | 收到醒目留言 |
+
+##### handler.onIncomeDanmu
 
 收到普通弹幕消息
 
@@ -219,75 +310,39 @@ export interface DanmuMsg {
 }
 ```
 
-### handler.onGuardBuy
+##### handler.onIncomeSuperChat
 
-舰长上舰消息
+收到醒目留言
 
 ```ts
 export type Handler = {
-  /** 舰长上舰消息 */
-  onGuardBuy: (msg: Message<GuardBuyMsg>) => void
+  /** 收到醒目留言 */
+  onIncomeSuperChat: (msg: Message<SuperChatMsg>) => void
 }
 
-type msgType = 'GUARD_BUY'
+type msgType = 'SUPER_CHAT_MESSAGE'
 
-export interface GuardBuyMsg {
+export interface SuperChatMsg {
   user: User
-  /** 礼物id */
-  gift_id: number
-  /** 礼物名称 */
-  gift_name: string
-  /** 大航海信息 */
-  guard_level: GuardLevel
+  /** 弹幕内容 */
+  content: string
+  /** 弹幕颜色 */
+  content_color: string
   /** 价格，RMB */
   price: number
-  /** 等级生效时间 */
-  start_time: number
-  /** 等级过期时间 */
-  end_time: number
+  /** 持续时间 */
+  time: number
 }
 ```
 
-### handler.onAttentionChange
+#### 礼物相关
 
-直播间热度更新消息
+| Handler | Description |
+| --- | --- |
+| onGift | 收到礼物 |
+| onGuardBuy | 舰长上舰消息 |
 
-```ts
-export type Handler = {
-  /** 直播间热度更新消息 */
-  onAttentionChange: (msg: Message<AttentionChangeMsg>) => void
-}
-
-type msgType = 'heartbeat'
-
-export interface AttentionChangeMsg {
-  /** 直播间热度 */
-  attention: number
-}
-```
-
-### handler.onNewComer
-
-观众进入直播间
-
-* 包括普通用户进入与舰长进入。舰长进入直播间时，uname 超长可能会省略号截断。
-
-```ts
-export type Handler = {
-  /** 观众进入直播间 */
-  onNewComer: (msg: Message<NewComerMsg>) => void
-}
-
-type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT'
-
-export interface NewComerMsg {
-  user: User
-  /** 入场时间，毫秒时间戳 */
-  timestamp: number
-}
-```
-
-### handler.onGift
+##### handler.onGift
 
 收到礼物
 
@@ -322,52 +377,34 @@ export interface GiftMsg {
 }
 ```
 
-### handler.onIncomeSuperChat
+##### handler.onGuardBuy
 
-收到醒目留言
+舰长上舰消息
 
 ```ts
 export type Handler = {
-  /** 收到醒目留言 */
-  onIncomeSuperChat: (msg: Message<SuperChatMsg>) => void
+  /** 舰长上舰消息 */
+  onGuardBuy: (msg: Message<GuardBuyMsg>) => void
 }
 
-type msgType = 'SUPER_CHAT_MESSAGE'
+type msgType = 'GUARD_BUY'
 
-export interface SuperChatMsg {
+export interface GuardBuyMsg {
   user: User
-  /** 弹幕内容 */
-  content: string
-  /** 弹幕颜色 */
-  content_color: string
+  /** 礼物id */
+  gift_id: number
+  /** 礼物名称 */
+  gift_name: string
+  /** 大航海信息 */
+  guard_level: GuardLevel
   /** 价格，RMB */
   price: number
-  /** 持续时间 */
-  time: number
+  /** 等级生效时间 */
+  start_time: number
+  /** 等级过期时间 */
+  end_time: number
 }
 ```
-
-### handler.onWatchedChange
-
-累计看过人数变化
-
-```ts
-export type Handler = {
-  /** 累计看过人数变化 */
-  onWatchedChange: (msg: Message<WatchedChangeMsg>) => void
-}
-
-type msgType = 'WATCHED_CHANGE'
-
-export interface WatchedChangeMsg {
-  /** 累计入场人数 */
-  num: number
-  /** 累计入场人数，格式化输出 */
-  text_small: string
-}
-```
-
-Type definition can be also found in [src/parser](src/parser).
 
 ## Credits
 
