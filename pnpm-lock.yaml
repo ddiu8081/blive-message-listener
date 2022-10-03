@@ -1,16 +1,16 @@
 lockfileVersion: 5.4
 
 specifiers:
-  tiny-bilibili-ws: ^0.0.2
+  tiny-bilibili-ws: ^0.0.5
   tsup: ^6.2.3
-  typescript: ^4.8.2
+  typescript: ^4.8.4
 
 dependencies:
-  tiny-bilibili-ws: 0.0.2
+  tiny-bilibili-ws: 0.0.5
 
 devDependencies:
-  tsup: 6.2.3_typescript@4.8.2
-  typescript: 4.8.2
+  tsup: 6.2.3_typescript@4.8.4
+  typescript: 4.8.4
 
 packages:
 
@@ -504,14 +504,6 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /isomorphic-ws/5.0.0_ws@8.9.0:
-    resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
-    peerDependencies:
-      ws: '*'
-    dependencies:
-      ws: 8.9.0
-    dev: false
-
   /joycon/3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
@@ -749,11 +741,10 @@ packages:
       any-promise: 1.3.0
     dev: true
 
-  /tiny-bilibili-ws/0.0.2:
-    resolution: {integrity: sha512-DckKSO14WT40G+u+ZsUN89eHT23QE8VsSk26HD9tE5LLg85MgOcs++m0wgElpKXCmiKCdo+bvqCNOAgkvRUs6w==}
+  /tiny-bilibili-ws/0.0.5:
+    resolution: {integrity: sha512-MRJfp4h2BOuJE05RGEXP+chVa+6xlvKZXFVKWrXW+B50kuF5R4q0sX6P6ZzRS3gV8rsXCKgdWI9vk5DvbUkGHw==}
     dependencies:
       eventemitter3: 4.0.7
-      isomorphic-ws: 5.0.0_ws@8.9.0
       pako: 2.0.4
       ws: 8.9.0
     transitivePeerDependencies:
@@ -783,7 +774,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /tsup/6.2.3_typescript@4.8.2:
+  /tsup/6.2.3_typescript@4.8.4:
     resolution: {integrity: sha512-J5Pu2Dx0E1wlpIEsVFv9ryzP1pZ1OYsJ2cBHZ7GrKteytNdzaSz5hmLX7/nAxtypq+jVkVvA79d7S83ETgHQ5w==}
     engines: {node: '>=14'}
     hasBin: true
@@ -813,14 +804,14 @@ packages:
       source-map: 0.8.0-beta.0
       sucrase: 3.25.0
       tree-kill: 1.2.2
-      typescript: 4.8.2
+      typescript: 4.8.4
     transitivePeerDependencies:
       - supports-color
       - ts-node
     dev: true
 
-  /typescript/4.8.2:
-    resolution: {integrity: sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==}
+  /typescript/4.8.4:
+    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
