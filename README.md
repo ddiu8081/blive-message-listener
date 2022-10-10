@@ -138,7 +138,7 @@ export type Handler = {
 
 ```ts
 export type Handler = {
-  /** 连接成功 */
+  /** 连接关闭 */
   onClose: () => void,
 }
 ```
