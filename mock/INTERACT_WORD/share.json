@@ -1,0 +1,40 @@
+{
+  "cmd": "INTERACT_WORD",
+  "data": {
+    "contribution": {
+      "grade": 0
+    },
+    "dmscore": 2,
+    "fans_medal": {
+      "anchor_roomid": 77777777773,
+      "guard_level": 0,
+      "icon_id": 0,
+      "is_lighted": 0,
+      "medal_color": 6067854,
+      "medal_color_border": 12632256,
+      "medal_color_end": 12632256,
+      "medal_color_start": 12632256,
+      "medal_level": 1,
+      "medal_name": "__MOCK_BADGE_NAME__",
+      "score": 199,
+      "special": "",
+      "target_id": 77777777772
+    },
+    "identities": [
+      1
+    ],
+    "is_spread": 0,
+    "msg_type": 3,
+    "privilege_type": 0,
+    "roomid": 77777777774,
+    "score": 1665498658956,
+    "spread_desc": "",
+    "spread_info": "",
+    "tail_icon": 0,
+    "timestamp": 1665498658,
+    "trigger_time": 1665498658950536400,
+    "uid": 77777777771,
+    "uname": "__MOCK_UNAME__",
+    "uname_color": ""
+  }
+}
