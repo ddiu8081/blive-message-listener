@@ -305,12 +305,12 @@ export type Handler = {
 
 type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT'
 
-type UserActionType = 'enter' | 'follow' | 'share' | 'unknown'
+type UserAction = 'enter' | 'follow' | 'share' | 'unknown'
 
 export interface UserActionMsg {
   user: User
   /** 事件类型 */
-  type: UserActionType
+  action: UserAction
   /** 事件时间，毫秒时间戳 */
   timestamp: number
 }

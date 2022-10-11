@@ -1,25 +1,25 @@
 import { intToColorHex } from '../utils/color'
 import type { Message, User } from '../types/app'
 
-type UserActionType = 'enter' | 'follow' | 'share' | 'unknown'
+type UserAction = 'enter' | 'follow' | 'share' | 'unknown'
 
 export interface UserActionMsg {
   user: User
   /** 事件类型 */
-  type: UserActionType
+  action: UserAction
   /** 事件时间，毫秒时间戳 */
   timestamp: number
 }
 
 const parserNormal = (data: any, roomId: number): UserActionMsg => {
   const rawData = data.data
-  let eventType: UserActionType = 'unknown'
+  let actionType: UserAction = 'unknown'
   if (rawData.msg_type === 1) {
-    eventType = 'enter'
+    actionType = 'enter'
   } else if (rawData.msg_type === 2) {
-    eventType = 'follow'
+    actionType = 'follow'
   } else if (rawData.msg_type === 3) {
-    eventType = 'share'
+    actionType = 'share'
   }
   return {
     user: {
@@ -44,7 +44,7 @@ const parserNormal = (data: any, roomId: number): UserActionMsg => {
         room_admin: false,
       }
     },
-    type: eventType,
+    action: actionType,
     timestamp: Math.ceil(rawData.trigger_time / 1000000),
   }
 }
@@ -62,7 +62,7 @@ const parserGuard = (data: any, roomId: number): UserActionMsg => {
         room_admin: false,
       }
     },
-    type: 'enter',
+    action: 'enter',
     timestamp: Math.ceil(rawData.trigger_time / 1000000),
   }
 }
