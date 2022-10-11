@@ -4,7 +4,7 @@ import {
   PREPARING, type LiveStopMsgHandler,
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
-  INTERACT_WORD, ENTRY_EFFECT, type NewComerMsgHandler,
+  INTERACT_WORD, ENTRY_EFFECT, type UserActionMsgHandler,
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
   ONLINE_RANK_COUNT, type RankCountChangeMsgHandler,
   ROOM_CHANGE, type RoomInfoChangeHandler,
@@ -31,7 +31,7 @@ export type MsgHandler = Partial<
   & LiveStopMsgHandler
   & DanmuMsgHandler
   & GuardBuyHandler
-  & NewComerMsgHandler
+  & UserActionMsgHandler
   & LikedChangeMsgHandler
   & RankCountChangeMsgHandler
   & RoomInfoChangeHandler

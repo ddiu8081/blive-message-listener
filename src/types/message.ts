@@ -2,7 +2,7 @@ export type {
   AttentionChangeMsg,
   DanmuMsg,
   GuardBuyMsg,
-  NewComerMsg,
+  UserActionMsg,
   GiftMsg,
   SuperChatMsg,
   WatchedChangeMsg,

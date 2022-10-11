@@ -175,7 +175,7 @@ export type Handler = {
 | onWatchedChange | 累计看过人数变化 |
 | onLikedChange | 累计点赞人数变化 |
 | onRankCountChange | 高能用户人数变化 |
-| onNewComer | 观众进入直播间 |
+| onUserAction | 用户进入、关注、分享直播间 |
 | onRoomInfoChange | 直播间信息修改 |
 
 ##### handler.onLiveStart
@@ -290,25 +290,28 @@ export interface RankCountChangeMsg {
 }
 ```
 
-##### handler.onNewComer
+##### handler.onUserAction
 
-观众进入直播间
+用户进入、关注、分享直播间
 
-- 包括普通用户进入与舰长进入
 - 舰长进入直播间时，有几率会触发两次
 - 舰长进入直播间时，uname 超长可能会省略号截断
 
 ```ts
 export type Handler = {
-  /** 观众进入直播间 */
-  onNewComer: (msg: Message<NewComerMsg>) => void
+  /** 用户进入、关注、分享直播间 */
+  onUserAction: (msg: Message<UserActionMsg>) => void
 }
 
 type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT'
 
-export interface NewComerMsg {
+type UserActionType = 'enter' | 'follow' | 'share' | 'unknown'
+
+export interface UserActionMsg {
   user: User
-  /** 入场时间，毫秒时间戳 */
+  /** 事件类型 */
+  type: UserActionType
+  /** 事件时间，毫秒时间戳 */
   timestamp: number
 }
 ```

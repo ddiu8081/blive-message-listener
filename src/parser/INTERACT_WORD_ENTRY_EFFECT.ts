@@ -1,14 +1,26 @@
 import { intToColorHex } from '../utils/color'
 import type { Message, User } from '../types/app'
 
-export interface NewComerMsg {
+type UserActionType = 'enter' | 'follow' | 'share' | 'unknown'
+
+export interface UserActionMsg {
   user: User
-  /** 入场时间，毫秒时间戳 */
+  /** 事件类型 */
+  type: UserActionType
+  /** 事件时间，毫秒时间戳 */
   timestamp: number
 }
 
-const parserNormal = (data: any, roomId: number): NewComerMsg => {
+const parserNormal = (data: any, roomId: number): UserActionMsg => {
   const rawData = data.data
+  let eventType: UserActionType = 'unknown'
+  if (rawData.msg_type === 1) {
+    eventType = 'enter'
+  } else if (rawData.msg_type === 2) {
+    eventType = 'follow'
+  } else if (rawData.msg_type === 3) {
+    eventType = 'share'
+  }
   return {
     user: {
       uid: rawData.uid,
@@ -32,11 +44,12 @@ const parserNormal = (data: any, roomId: number): NewComerMsg => {
         room_admin: false,
       }
     },
+    type: eventType,
     timestamp: Math.ceil(rawData.trigger_time / 1000000),
   }
 }
 
-const parserGuard = (data: any, roomId: number): NewComerMsg => {
+const parserGuard = (data: any, roomId: number): UserActionMsg => {
   const rawData = data.data
   const uname = /<%(.*)%>/.exec(rawData.copy_writing)?.[1] || ''
   return {
@@ -49,11 +62,12 @@ const parserGuard = (data: any, roomId: number): NewComerMsg => {
         room_admin: false,
       }
     },
+    type: 'enter',
     timestamp: Math.ceil(rawData.trigger_time / 1000000),
   }
 }
 
-const parser = (data: any, roomId: number): NewComerMsg => {
+const parser = (data: any, roomId: number): UserActionMsg => {
   const msgType = data.cmd
   if (msgType === 'ENTRY_EFFECT') {
     return parserGuard(data, roomId)
@@ -66,16 +80,16 @@ const parser = (data: any, roomId: number): NewComerMsg => {
 export const INTERACT_WORD = {
   parser,
   eventName: 'INTERACT_WORD' as const,
-  handlerName: 'onNewComer' as const,
+  handlerName: 'onUserAction' as const,
 }
 
 export const ENTRY_EFFECT = {
   parser,
   eventName: 'ENTRY_EFFECT' as const,
-  handlerName: 'onNewComer' as const,
+  handlerName: 'onUserAction' as const,
 }
 
 export type Handler = {
-  /** 观众进入直播间 */
-  onNewComer: (msg: Message<NewComerMsg>) => void
+  /** 用户进入、关注、分享直播间 */
+  onUserAction: (msg: Message<UserActionMsg>) => void
 }
