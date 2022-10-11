@@ -44,7 +44,7 @@ const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
   const timestamp = Date.now()
   const randomText = Math.floor(Math.random() * 10000).toString()
   // @ts-ignore
-  const id = `${timestamp}_${msgType}_${body.user?.uid}_${randomText}`
+  const id = `${timestamp}:${msgType}:${body.user?.uid}:${randomText}`
   return {
     id,
     timestamp,
