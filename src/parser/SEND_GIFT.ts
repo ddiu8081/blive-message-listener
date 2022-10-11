@@ -19,6 +19,15 @@ export interface GiftMsg {
     uname: string
     room_id: number
   }
+  /** 礼物连击 */
+  combo?: {
+    /** 连击id */
+    batch_id: string
+    /** 当前连击数（礼物总数） */
+    combo_num: number
+    /** 连击礼物总价格，除以1000为RMB */
+    total_price: number
+  }
 }
 
 const parser = (data: any): GiftMsg => {
@@ -54,6 +63,13 @@ const parser = (data: any): GiftMsg => {
       uid: rawData.send_master.uid,
       uname: rawData.send_master.uname,
       room_id: rawData.send_master.room_id,
+    } : undefined,
+    // 礼物连击：
+    // data.combo_send 仅首次连击不为空；data.batch_combo_send 速度过快时可能为空；data.batch_combo_id 常驻存在
+    combo: rawData.batch_combo_id ? {
+      batch_id: rawData.batch_combo_id,
+      combo_num: rawData.super_batch_gift_num,
+      total_price: rawData.combo_total_coin,
     } : undefined,
   }
 }

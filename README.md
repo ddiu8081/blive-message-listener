@@ -442,6 +442,15 @@ export interface GiftMsg {
     uname: string
     room_id: number
   }
+  /** 礼物连击 */
+  combo?: {
+    /** 连击id */
+    batch_id: string
+    /** 当前连击数（礼物总数） */
+    combo_num: number
+    /** 连击礼物总价格，除以1000为RMB */
+    total_price: number
+  }
 }
 ```
 
