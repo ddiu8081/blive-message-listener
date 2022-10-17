@@ -363,6 +363,7 @@ type msgType = 'DANMU_MSG'
 
 export interface DanmuMsg {
   user: User
+  /** 弹幕内容 */
   content: string
   /** 发送时间，毫秒时间戳 */
   timestamp: number
