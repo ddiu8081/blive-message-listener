@@ -26,5 +26,6 @@ export const startListen = (roomId: number, handler: MsgHandler) => {
 }
 
 export type { MsgHandler }
-export type { Message, GuardLevel, User } from './types/app'
+export type { Message, User } from './types/app'
+export { GuardLevel } from './types/const'
 export * from './types/message'

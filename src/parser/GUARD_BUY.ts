@@ -1,4 +1,5 @@
-import type { Message, User, GuardLevel } from '../types/app'
+import type { Message, User } from '../types/app'
+import type { GuardLevel } from '../types/const'
 
 export interface GuardBuyMsg {
   user: User

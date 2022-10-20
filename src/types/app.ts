@@ -1,3 +1,5 @@
+import { GuardLevel } from './const'
+
 export interface User {
   /** 用户uid */
   uid: number
@@ -36,17 +38,6 @@ export interface User {
     /** 房管 */
     room_admin: boolean
   }
-}
-
-export enum GuardLevel {
-  /** 无 */
-  None = 0,
-  /** 总督 */
-  Zongdu = 1,
-  /** 提督 */
-  Tidu = 2,
-  /** 舰长 */
-  Jianzhang = 3,
 }
 
 export interface Message<T> {
