@@ -37,7 +37,7 @@ const parser = (data: any): GiftMsg => {
       uid: rawData.uid,
       uname: rawData.uname,
       face: rawData.face,
-      badge: rawData.medal_info ? {
+      badge: rawData.medal_info?.medal_level ? {
         active: rawData.medal_info.is_lighted === 1,
         name: rawData.medal_info.medal_name,
         level: rawData.medal_info.medal_level,
