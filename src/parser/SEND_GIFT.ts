@@ -41,7 +41,12 @@ const parser = (data: any): GiftMsg => {
         active: rawData.medal_info.is_lighted === 1,
         name: rawData.medal_info.medal_name,
         level: rawData.medal_info.medal_level,
-        color: intToColorHex(rawData.medal_info.medal_color_start),
+        color: intToColorHex(rawData.medal_info.medal_color),
+        gradient: [
+          intToColorHex(rawData.medal_info.medal_color_start),
+          intToColorHex(rawData.medal_info.medal_color_start),
+          intToColorHex(rawData.medal_info.medal_color_end),
+        ],
         anchor: {
           uid: rawData.medal_info.target_id,
           uname: rawData.medal_info.anchor_uname, // maybe ''
