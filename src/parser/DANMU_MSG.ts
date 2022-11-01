@@ -29,6 +29,11 @@ const parser = (data: any, roomId: number): DanmuMsg => {
         name: rawData[3][1],
         level: rawData[3][0],
         color: intToColorHex(rawData[3][4]),
+        gradient: [
+          intToColorHex(rawData[3][7]), 
+          intToColorHex(rawData[3][8]), 
+          intToColorHex(rawData[3][9]),
+        ],
         anchor: {
           uid: rawData[3][12],
           uname: rawData[3][2],

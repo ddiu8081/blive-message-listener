@@ -17,6 +17,8 @@ export interface User {
     level: number
     /** 牌子颜色 */
     color: string
+    /** 渐变色牌子，当用户长时间未消费，则会变为灰色，即 `#c0c0c0` */
+    gradient?: [string, string, string]
     /** 主播信息 */
     anchor: {
       /** 主播uid */

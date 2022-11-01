@@ -31,6 +31,11 @@ const parserNormal = (data: any, roomId: number): UserActionMsg => {
         name: rawData.fans_medal?.medal_name,
         level: rawData.fans_medal?.medal_level,
         color: intToColorHex(rawData.fans_medal?.medal_color_start),
+        gradient: [
+          intToColorHex(rawData.fans_medal?.medal_color_start),
+          intToColorHex(rawData.fans_medal?.medal_color),
+          intToColorHex(rawData.fans_medal?.medal_color_end),
+        ],
         anchor: {
           uid: rawData.fans_medal?.target_id,
           uname: '',
