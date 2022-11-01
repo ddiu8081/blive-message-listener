@@ -30,10 +30,10 @@ const parserNormal = (data: any, roomId: number): UserActionMsg => {
         active: rawData.fans_medal?.is_lighted,
         name: rawData.fans_medal?.medal_name,
         level: rawData.fans_medal?.medal_level,
-        color: intToColorHex(rawData.fans_medal?.medal_color_start),
+        color: intToColorHex(rawData.fans_medal?.medal_color),
         gradient: [
           intToColorHex(rawData.fans_medal?.medal_color_start),
-          intToColorHex(rawData.fans_medal?.medal_color),
+          intToColorHex(rawData.fans_medal?.medal_color_start),
           intToColorHex(rawData.fans_medal?.medal_color_end),
         ],
         anchor: {
