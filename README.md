@@ -499,6 +499,36 @@ export interface GuardBuyMsg {
 }
 ```
 
+#### 监听原始消息
+
+```ts
+export type Handler = {
+  /** 原始消息 */
+  raw: Record<string, (msg: any) => void>
+}
+```
+
+可在 `raw` 中监听任意原始消息。
+
+example:
+
+```ts
+const handler: MsgHandler = {
+  raw: {
+    'msg': (msg) => {
+      // 监听所有 cmd 消息
+      console.log(msg)
+    },
+    'INTERACT_WORD': (msg) => {
+      // 监听特定的 cmd
+      console.log(msg)
+    },
+  }
+}
+
+startListen(652581, handler)
+```
+
 ## Credits
 
 - Based on [tiny-bilibili-ws](https://github.com/starknt/tiny-bilibili-ws)
