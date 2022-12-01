@@ -6,7 +6,6 @@ class MsgQueue {
 	private items: QueueItem[] = []
 	push = (item: QueueItem) => {
     this.items.push(item)
-    this.debug()
     if (this.items.length > 10) {
       this.items.shift()
     }
@@ -17,7 +16,6 @@ class MsgQueue {
       return Math.abs(timestamp - queueTimestamp) < 1200 && content === queueContent
     })
   }
-  debug = () => console.log(this.items)
 }
 
 const msgQueue = new MsgQueue()
