@@ -64,7 +64,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[HEARTBEAT.handlerName]) {
     instance.on(HEARTBEAT.eventName, (data: WSMessage<any>) => {
       const parsedData = HEARTBEAT.parser(data.data)
-      handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData))
+      handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData, data.data))
     })
   }
 
@@ -72,7 +72,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[LIVE.handlerName]) {
     instance.on(LIVE.eventName, (data: WSMessage<any>) => {
       const parsedData = LIVE.parser(data.data)
-      handler[LIVE.handlerName]?.(normalizeDanmu(LIVE.eventName, parsedData))
+      handler[LIVE.handlerName]?.(normalizeDanmu(LIVE.eventName, parsedData, data.data))
     })
   }
 
@@ -80,7 +80,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[PREPARING.handlerName]) {
     instance.on(PREPARING.eventName, (data: WSMessage<any>) => {
       const parsedData = PREPARING.parser(data.data)
-      handler[PREPARING.handlerName]?.(normalizeDanmu(PREPARING.eventName, parsedData))
+      handler[PREPARING.handlerName]?.(normalizeDanmu(PREPARING.eventName, parsedData, data.data))
     })
   }
 
@@ -90,7 +90,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
     const handleDanmuMsg = (data: WSMessage<any>) => {
       const parsedData = DANMU_MSG.parser(data.data, roomId)
       if (checkIsDuplicateDanmuMsg(parsedData)) return
-      msgCallback(normalizeDanmu(DANMU_MSG.eventName, parsedData))
+      msgCallback(normalizeDanmu(DANMU_MSG.eventName, parsedData, data.data))
     }
     instance.on(DANMU_MSG.eventName, handleDanmuMsg)
     instance.on(DANMU_MSG_402220.eventName, handleDanmuMsg)
@@ -100,7 +100,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[GUARD_BUY.handlerName]) {
     instance.on(GUARD_BUY.eventName, (data: WSMessage<any>) => {
       const parsedData = GUARD_BUY.parser(data.data)
-      handler[GUARD_BUY.handlerName]?.(normalizeDanmu(GUARD_BUY.eventName, parsedData))
+      handler[GUARD_BUY.handlerName]?.(normalizeDanmu(GUARD_BUY.eventName, parsedData, data.data))
     })
   }
 
@@ -108,11 +108,11 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName]) {
     instance.on(INTERACT_WORD.eventName, (data: WSMessage<any>) => {
       const parsedData = INTERACT_WORD.parser(data.data, roomId)
-      handler[INTERACT_WORD.handlerName]?.(normalizeDanmu(INTERACT_WORD.eventName, parsedData))
+      handler[INTERACT_WORD.handlerName]?.(normalizeDanmu(INTERACT_WORD.eventName, parsedData, data.data))
     })
     instance.on(ENTRY_EFFECT.eventName, (data: WSMessage<any>) => {
       const parsedData = ENTRY_EFFECT.parser(data.data, roomId)
-      handler[ENTRY_EFFECT.handlerName]?.(normalizeDanmu(ENTRY_EFFECT.eventName, parsedData))
+      handler[ENTRY_EFFECT.handlerName]?.(normalizeDanmu(ENTRY_EFFECT.eventName, parsedData, data.data))
     })
   }
 
@@ -120,7 +120,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[LIKE_INFO_V3_UPDATE.handlerName]) {
     instance.on(LIKE_INFO_V3_UPDATE.eventName, (data: WSMessage<any>) => {
       const parsedData = LIKE_INFO_V3_UPDATE.parser(data.data)
-      handler[LIKE_INFO_V3_UPDATE.handlerName]?.(normalizeDanmu(LIKE_INFO_V3_UPDATE.eventName, parsedData))
+      handler[LIKE_INFO_V3_UPDATE.handlerName]?.(normalizeDanmu(LIKE_INFO_V3_UPDATE.eventName, parsedData, data.data))
     })
   }
 
@@ -128,7 +128,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[ONLINE_RANK_COUNT.handlerName]) {
     instance.on(ONLINE_RANK_COUNT.eventName, (data: WSMessage<any>) => {
       const parsedData = ONLINE_RANK_COUNT.parser(data.data)
-      handler[ONLINE_RANK_COUNT.handlerName]?.(normalizeDanmu(ONLINE_RANK_COUNT.eventName, parsedData))
+      handler[ONLINE_RANK_COUNT.handlerName]?.(normalizeDanmu(ONLINE_RANK_COUNT.eventName, parsedData, data.data))
     })
   }
 
@@ -136,7 +136,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[ROOM_CHANGE.handlerName]) {
     instance.on(ROOM_CHANGE.eventName, (data: WSMessage<any>) => {
       const parsedData = ROOM_CHANGE.parser(data.data)
-      handler[ROOM_CHANGE.handlerName]?.(normalizeDanmu(ROOM_CHANGE.eventName, parsedData))
+      handler[ROOM_CHANGE.handlerName]?.(normalizeDanmu(ROOM_CHANGE.eventName, parsedData, data.data))
     })
   }
 
@@ -144,7 +144,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[SEND_GIFT.handlerName]) {
     instance.on(SEND_GIFT.eventName, (data: WSMessage<any>) => {
       const parsedData = SEND_GIFT.parser(data.data)
-      handler[SEND_GIFT.handlerName]?.(normalizeDanmu(SEND_GIFT.eventName, parsedData))
+      handler[SEND_GIFT.handlerName]?.(normalizeDanmu(SEND_GIFT.eventName, parsedData, data.data))
     })
   }
 
@@ -152,7 +152,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[SUPER_CHAT_MESSAGE.handlerName]) {
     instance.on(SUPER_CHAT_MESSAGE.eventName, (data: WSMessage<any>) => {
       const parsedData = SUPER_CHAT_MESSAGE.parser(data.data, roomId)
-      handler[SUPER_CHAT_MESSAGE.handlerName]?.(normalizeDanmu(SUPER_CHAT_MESSAGE.eventName, parsedData))
+      handler[SUPER_CHAT_MESSAGE.handlerName]?.(normalizeDanmu(SUPER_CHAT_MESSAGE.eventName, parsedData, data.data))
     })
   }
 
@@ -160,7 +160,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   if (handler[WATCHED_CHANGE.handlerName]) {
     instance.on(WATCHED_CHANGE.eventName, (data: WSMessage<any>) => {
       const parsedData = WATCHED_CHANGE.parser(data.data)
-      handler[WATCHED_CHANGE.handlerName]?.(normalizeDanmu(WATCHED_CHANGE.eventName, parsedData))
+      handler[WATCHED_CHANGE.handlerName]?.(normalizeDanmu(WATCHED_CHANGE.eventName, parsedData, data.data))
     })
   }
 }

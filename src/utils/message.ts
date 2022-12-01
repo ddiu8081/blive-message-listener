@@ -20,7 +20,7 @@ class MsgQueue {
 
 const msgQueue = new MsgQueue()
 
-export const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
+export const normalizeDanmu = <T>(msgType: string, body: T, rawBody: any): Message<T> => {
   const timestamp = Date.now()
   const randomText = Math.floor(Math.random() * 10000).toString()
   // @ts-ignore
@@ -30,6 +30,7 @@ export const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
     timestamp,
     type: msgType,
     body,
+    raw: rawBody,
   }
 }
 

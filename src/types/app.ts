@@ -51,4 +51,6 @@ export interface Message<T> {
   type: string,
   /** 消息内容 */
   body: T
+  /** 原始消息内容 */
+  raw: any
 }
