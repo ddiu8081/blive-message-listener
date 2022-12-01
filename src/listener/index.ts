@@ -12,8 +12,8 @@ import {
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
-import type { Message } from '../types/app'
 import type { KeepLiveTCP, KeepLiveWS, Message as WSMessage } from 'tiny-bilibili-ws'
+import { normalizeDanmu, checkIsDuplicateDanmuMsg } from '../utils/message'
 
 export type MsgHandler = Partial<
   {
@@ -39,19 +39,6 @@ export type MsgHandler = Partial<
   & SuperChatHandler
   & WatchedChangeHandler
 >
-
-const normalizeDanmu = <T>(msgType: string, body: T): Message<T> => {
-  const timestamp = Date.now()
-  const randomText = Math.floor(Math.random() * 10000).toString()
-  // @ts-ignore
-  const id = `${timestamp}:${msgType}:${body.user?.uid}:${randomText}`
-  return {
-    id,
-    timestamp,
-    type: msgType,
-    body,
-  }
-}
 
 export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, handler?: MsgHandler) => {
   if (!handler) return
@@ -99,14 +86,14 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // DANMU_MSG
   if (handler[DANMU_MSG.handlerName] || handler[DANMU_MSG_402220.handlerName]) {
-    instance.on(DANMU_MSG.eventName, (data: WSMessage<any>) => {
+    const msgCallback = handler[DANMU_MSG.handlerName]!
+    const handleDanmuMsg = (data: WSMessage<any>) => {
       const parsedData = DANMU_MSG.parser(data.data, roomId)
-      handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData))
-    })
-    instance.on(DANMU_MSG_402220.eventName, (data: WSMessage<any>) => {
-      const parsedData = DANMU_MSG_402220.parser(data.data, roomId)
-      handler[DANMU_MSG_402220.handlerName]?.(normalizeDanmu(DANMU_MSG_402220.eventName, parsedData))
-    })
+      if (checkIsDuplicateDanmuMsg(parsedData)) return
+      msgCallback(normalizeDanmu(DANMU_MSG.eventName, parsedData))
+    }
+    instance.on(DANMU_MSG.eventName, handleDanmuMsg)
+    instance.on(DANMU_MSG_402220.eventName, handleDanmuMsg)
   }
 
   // GUARD_BUY
