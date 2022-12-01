@@ -1,0 +1,68 @@
+{
+  "cmd": "DANMU_MSG:4:0:2:2:2:0",
+  "info": [
+    [
+      0,
+      1,
+      25,
+      16777215,
+      1669884799391,
+      1669882419,
+      0,
+      "c7e84af0",
+      0,
+      0,
+      0,
+      "",
+      0,
+      "{}",
+      "{}",
+      {
+        "mode": 0,
+        "show_player_type": 0,
+        "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":16777215,\"dm_type\":0,\"font_size\":25,\"player_mode\":1,\"show_player_type\":0,\"content\":\"__MOCK_MESSAGE_CONTENT__\",\"user_hash\":\"3353889520\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"recommend_score\":2,\"main_state_dm_color\":\"\",\"objective_state_dm_color\":\"\",\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"anniversary_crowd\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}"
+      },
+      {
+        "activity_identity": "",
+        "activity_source": 0,
+        "not_show": 0
+      }
+    ],
+    "__MOCK_MESSAGE_CONTENT__",
+    [
+      77777777771,
+      "__MOCK_UNAME__",
+      0,
+      0,
+      0,
+      10000,
+      1,
+      ""
+    ],
+    [],
+    [
+      0,
+      0,
+      9868950,
+      ">50000",
+      0
+    ],
+    [
+      "",
+      ""
+    ],
+    0,
+    0,
+    null,
+    {
+      "ts": 1669884799,
+      "ct": "113C4255"
+    },
+    0,
+    0,
+    null,
+    null,
+    0,
+    7
+  ]
+}
