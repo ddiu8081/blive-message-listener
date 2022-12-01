@@ -2,7 +2,7 @@ import {
   HEARTBEAT, type AttentionChangeMsgHandler,
   LIVE, type LiveStartMsgHandler, 
   PREPARING, type LiveStopMsgHandler,
-  DANMU_MSG, type DanmuMsgHandler,
+  DANMU_MSG, DANMU_MSG_402220, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
   INTERACT_WORD, ENTRY_EFFECT, type UserActionMsgHandler,
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
@@ -98,10 +98,14 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   }
 
   // DANMU_MSG
-  if (handler[DANMU_MSG.handlerName]) {
+  if (handler[DANMU_MSG.handlerName] || handler[DANMU_MSG_402220.handlerName]) {
     instance.on(DANMU_MSG.eventName, (data: WSMessage<any>) => {
       const parsedData = DANMU_MSG.parser(data.data, roomId)
       handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData))
+    })
+    instance.on(DANMU_MSG_402220.eventName, (data: WSMessage<any>) => {
+      const parsedData = DANMU_MSG_402220.parser(data.data, roomId)
+      handler[DANMU_MSG_402220.handlerName]?.(normalizeDanmu(DANMU_MSG_402220.eventName, parsedData))
     })
   }
 
