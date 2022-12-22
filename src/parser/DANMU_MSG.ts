@@ -65,12 +65,6 @@ export const DANMU_MSG = {
   handlerName: 'onIncomeDanmu' as const,
 }
 
-export const DANMU_MSG_402220 = {
-  parser,
-  eventName: 'DANMU_MSG:4:0:2:2:2:0' as const,
-  handlerName: 'onIncomeDanmu' as const,
-}
-
 export type Handler = {
   /** 收到普通弹幕消息 */
   onIncomeDanmu: (msg: Message<DanmuMsg>) => void

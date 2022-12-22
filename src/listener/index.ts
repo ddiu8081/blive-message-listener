@@ -2,7 +2,7 @@ import {
   HEARTBEAT, type AttentionChangeMsgHandler,
   LIVE, type LiveStartMsgHandler, 
   PREPARING, type LiveStopMsgHandler,
-  DANMU_MSG, DANMU_MSG_402220, type DanmuMsgHandler,
+  DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
   INTERACT_WORD, ENTRY_EFFECT, type UserActionMsgHandler,
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
@@ -13,7 +13,7 @@ import {
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
 import type { KeepLiveTCP, KeepLiveWS, Message as WSMessage } from 'tiny-bilibili-ws'
-import { normalizeDanmu, checkIsDuplicateDanmuMsg } from '../utils/message'
+import { normalizeDanmu } from '../utils/message'
 
 export type MsgHandler = Partial<
   {
@@ -82,7 +82,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // LIVE
   if (handler[LIVE.handlerName] || rawHandlerNames.has(LIVE.eventName)) {
     rawHandlerNames.delete(LIVE.eventName)
-    instance.on(LIVE.eventName, (data: WSMessage<any>) => {
+    instance.on(LIVE.eventName as any, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[LIVE.eventName]?.(data.data)
       const parsedData = LIVE.parser(data.data)
       handler[LIVE.handlerName]?.(normalizeDanmu(LIVE.eventName, parsedData, data.data))
@@ -92,7 +92,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // PREPARING
   if (handler[PREPARING.handlerName] || rawHandlerNames.has(PREPARING.eventName)) {
     rawHandlerNames.delete(LIVE.eventName)
-    instance.on(PREPARING.eventName, (data: WSMessage<any>) => {
+    instance.on(PREPARING.eventName as any, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[PREPARING.eventName]?.(data.data)
       const parsedData = PREPARING.parser(data.data)
       handler[PREPARING.handlerName]?.(normalizeDanmu(PREPARING.eventName, parsedData, data.data))
@@ -100,22 +100,12 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   }
 
   // DANMU_MSG
-  if (handler[DANMU_MSG.handlerName] || rawHandlerNames.has(DANMU_MSG.eventName) || rawHandlerNames.has(DANMU_MSG_402220.eventName)) {
+  if (handler[DANMU_MSG.handlerName] || rawHandlerNames.has(DANMU_MSG.eventName)) {
     rawHandlerNames.delete(DANMU_MSG.eventName)
-    rawHandlerNames.delete(DANMU_MSG_402220.eventName)
-    const msgCallback = handler[DANMU_MSG.handlerName]!
-    const handleDanmuMsg = (data: WSMessage<any>) => {
-      const parsedData = DANMU_MSG.parser(data.data, roomId)
-      if (checkIsDuplicateDanmuMsg(parsedData)) return
-      msgCallback(normalizeDanmu(DANMU_MSG.eventName, parsedData, data.data))
-    }
     instance.on(DANMU_MSG.eventName, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[DANMU_MSG.eventName]?.(data.data)
-      handleDanmuMsg(data)
-    })
-    instance.on(DANMU_MSG_402220.eventName, (data: WSMessage<any>) => {
-      isHandleRaw && rawHandler[DANMU_MSG_402220.eventName]?.(data.data)
-      handleDanmuMsg(data)
+      const parsedData = DANMU_MSG.parser(data.data, roomId)
+      handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData, data.data))
     })
   }
 
@@ -168,7 +158,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // ROOM_CHANGE
   if (handler[ROOM_CHANGE.handlerName] || rawHandlerNames.has(ROOM_CHANGE.eventName)) {
     rawHandlerNames.delete(ROOM_CHANGE.eventName)
-    instance.on(ROOM_CHANGE.eventName, (data: WSMessage<any>) => {
+    instance.on(ROOM_CHANGE.eventName as any, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[ROOM_CHANGE.eventName]?.(data.data)
       const parsedData = ROOM_CHANGE.parser(data.data)
       handler[ROOM_CHANGE.handlerName]?.(normalizeDanmu(ROOM_CHANGE.eventName, parsedData, data.data))
@@ -208,7 +198,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // Rest raw events
   rawHandlerNames.forEach((eventName) => {
     console.log('rest', eventName)
-    instance.on(eventName, (data: WSMessage<any>) => {
+    instance.on(eventName as any, (data: WSMessage<any>) => {
       rawHandler[eventName](data.data)
     })
   })

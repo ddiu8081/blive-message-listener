@@ -1,24 +1,4 @@
 import type { Message } from '../types/app'
-import type { DanmuMsg } from '../parser'
-
-type QueueItem = [number, string]
-class MsgQueue {
-	private items: QueueItem[] = []
-	push = (item: QueueItem) => {
-    this.items.push(item)
-    if (this.items.length > 10) {
-      this.items.shift()
-    }
-  }
-  has = ( [timestamp, content]: QueueItem ) => {
-    return this.items.some(i => {
-      const [queueTimestamp, queueContent] = i
-      return Math.abs(timestamp - queueTimestamp) < 1200 && content === queueContent
-    })
-  }
-}
-
-const msgQueue = new MsgQueue()
 
 export const normalizeDanmu = <T>(msgType: string, body: T, rawBody: any): Message<T> => {
   const timestamp = Date.now()
@@ -32,14 +12,4 @@ export const normalizeDanmu = <T>(msgType: string, body: T, rawBody: any): Messa
     body,
     raw: rawBody,
   }
-}
-
-export const checkIsDuplicateDanmuMsg = (msg: DanmuMsg) => {
-  const msgIdentifier = `${msg.user.uid}:${msg.content}`
-  const queueItem: QueueItem = [msg.timestamp, msgIdentifier]
-  if (msgQueue.has(queueItem)) {
-    return true
-  }
-  msgQueue.push(queueItem)
-  return false
 }
