@@ -2,9 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/blive-message-listener)](https://www.npmjs.com/package/blive-message-listener)
 
-
-
-Bilibili 直播间弹幕监听器，支持类型输出。
+类型友好的 Bilibili 直播间弹幕监听库。
 
 ## Features
 
