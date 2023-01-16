@@ -344,15 +344,15 @@ type msgType = 'ROOM_CHANGE'
 
 export interface RoomInfoChangeMsg {
   /** 直播间标题 */
-  title: number
+  title: string
   /** 一级分区id */
   parent_area_id: number
   /** 一级分区名 */
-  parent_area_name: number
+  parent_area_name: string
   /** 二级分区id */
   area_id: number
   /** 二级分区名 */
-  area_name: number
+  area_name: string
 }
 ```
 
