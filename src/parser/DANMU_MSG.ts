@@ -9,17 +9,56 @@ export interface DanmuMsg {
   timestamp: number
   /** 是否为天选抽奖弹幕 */
   lottery: boolean
-  /** 弹幕表情 */
+  /** 表情弹幕内容 */
   emoticon?: {
     id: string
     height: number
     width: number
     url: string
   }
+  /** 弹幕内小表情映射，key为表情文字，如"[妙]" */
+  in_message_emoticon?: Record<string, {
+    id: string
+    emoticon_id: number
+    height: number
+    width: number
+    url: string
+    description: string
+  }>
 }
 
 const parser = (data: any, roomId: number): DanmuMsg => {
   const rawData = data.info
+  const content = rawData[1]
+  // 是否包含中括号
+  const parseInMessageEmoticon = /\[.*?\]/.test(content)
+  console.log('parseInMessageEmoticon', parseInMessageEmoticon)
+  let inMessageEmoticon
+  if (parseInMessageEmoticon) {
+    const messageExtraInfo = JSON.parse(rawData[0][15].extra)
+    const emoctionDict: Record<string, {
+      id: string
+      emoticon_id: number
+      height: number
+      width: number
+      url: string
+      description: string
+    }> = {}
+    if (messageExtraInfo.emots) {
+      inMessageEmoticon = Object.keys(messageExtraInfo.emots).reduce((acc, key) => {
+        const emoticon = messageExtraInfo.emots[key]
+        acc[key] = {
+          id: emoticon.emoticon_unique,
+          emoticon_id: emoticon.emoticon_id,
+          height: emoticon.height,
+          width: emoticon.width,
+          url: emoticon.url,
+          description: emoticon.descript,
+        }
+        return acc
+      }, emoctionDict)
+    }
+  }
   return {
     user: {
       uid: rawData[2][0],
@@ -47,7 +86,7 @@ const parser = (data: any, roomId: number): DanmuMsg => {
         room_admin: rawData[2][2] === 1,
       },
     },
-    content: rawData[1],
+    content,
     timestamp: rawData[0][4],
     lottery: rawData[0][9] !== 0,
     emoticon: rawData[0][13]?.emoticon_unique ? {
@@ -56,6 +95,7 @@ const parser = (data: any, roomId: number): DanmuMsg => {
       width: rawData[0][13].width,
       url: rawData[0][13].url,
     } : undefined,
+    in_message_emoticon: inMessageEmoticon,
   }
 }
 

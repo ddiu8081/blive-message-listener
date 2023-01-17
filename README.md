@@ -383,13 +383,22 @@ export interface DanmuMsg {
   timestamp: number
   /** 是否为天选抽奖弹幕 */
   lottery: boolean
-  /** 弹幕表情 */
+  /** 表情弹幕内容 */
   emoticon?: {
     id: string
     height: number
     width: number
     url: string
   }
+  /** 弹幕内小表情映射，key为表情文字，如"[妙]" */
+  in_message_emoticon?: Record<string, {
+    id: string
+    emoticon_id: number
+    height: number
+    width: number
+    url: string
+    description: string
+  }>
 }
 ```
 
