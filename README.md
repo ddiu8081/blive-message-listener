@@ -137,6 +137,9 @@ Type definition can be also found in [src/parser](src/parser).
 | onError | 连接错误 |
 | onStartListen | 开始监听消息 |
 
+<details>
+<summary>Type Definitions</summary>
+  
 ##### Handler.onOpen
 
 连接成功
@@ -180,6 +183,7 @@ export type Handler = {
   onStartListen: () => void,
 }
 ```
+</details>
 
 #### 直播间基础信息
 
@@ -193,6 +197,9 @@ export type Handler = {
 | onRankCountChange | 高能用户人数变化 |
 | onUserAction | 用户进入、关注、分享直播间 |
 | onRoomInfoChange | 直播间信息修改 |
+
+<details>
+<summary>Type Definitions</summary>
 
 ##### handler.onLiveStart
 
@@ -357,6 +364,7 @@ export interface RoomInfoChangeMsg {
   area_name: string
 }
 ```
+</details>
 
 #### 弹幕相关
 
@@ -364,6 +372,9 @@ export interface RoomInfoChangeMsg {
 | --- | --- |
 | onIncomeDanmu | 收到普通弹幕消息 |
 | onIncomeSuperChat | 收到醒目留言 |
+
+<details>
+<summary>Type Definitions</summary>
 
 ##### handler.onIncomeDanmu
 
@@ -428,6 +439,7 @@ export interface SuperChatMsg {
   time: number
 }
 ```
+</details>
 
 #### 礼物相关
 
@@ -435,6 +447,9 @@ export interface SuperChatMsg {
 | --- | --- |
 | onGift | 收到礼物 |
 | onGuardBuy | 舰长上舰消息 |
+
+<details>
+<summary>Type Definitions</summary>
 
 ##### handler.onGift
 
@@ -508,6 +523,7 @@ export interface GuardBuyMsg {
   end_time: number
 }
 ```
+</details>
 
 #### 监听原始消息
 
