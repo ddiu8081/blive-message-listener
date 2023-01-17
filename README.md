@@ -525,12 +525,42 @@ export interface GuardBuyMsg {
 ```
 </details>
 
+#### 房间管理相关
+
+| Handler | Description |
+| --- | --- |
+| onRoomWarn | 房间被警告/切断 |
+
+<details>
+<summary>Type Definitions</summary>
+
+##### handler.onRoomWarn
+
+房间被超管警告、切断
+
+```ts
+export type Handler = {
+  /** 房间被超管警告、切断 */
+  onRoomWarn: (msg: Message<GiftMsg>) => void
+}
+
+type msgType = 'WARNING' ｜ 'CUT_OFF'
+
+export interface RoomWarnMsg {
+  /** 处理类型 */
+  type: 'warning' | 'cut'
+  /** 处理原因 */
+  msg: string
+}
+```
+</details>
+
 #### 监听原始消息
 
 ```ts
 export type Handler = {
   /** 原始消息 */
-  raw: Record<string, (msg: any) => void>
+  raw: Record<'msg' | string, (msg: any) => void>
 }
 ```
 

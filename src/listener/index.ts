@@ -10,6 +10,7 @@ import {
   ROOM_CHANGE, type RoomInfoChangeHandler,
   SEND_GIFT, type GiftHandler,
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
+  WARNING, CUT_OFF, type RoomWarnHandler,
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
 import type { KeepLiveTCP, KeepLiveWS, Message as WSMessage } from 'tiny-bilibili-ws'
@@ -37,10 +38,11 @@ export type MsgHandler = Partial<
   & RoomInfoChangeHandler
   & GiftHandler
   & SuperChatHandler
+  & RoomWarnHandler
   & WatchedChangeHandler
   & {
     /** 原始消息 */
-    raw: Record<string, (msg: any) => void>
+    raw: Record<'msg' | string, (msg: any) => void>
   }
 >
 
@@ -120,9 +122,11 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   }
 
   // INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK
-  if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName] || rawHandlerNames.has(INTERACT_WORD.eventName) || rawHandlerNames.has(ENTRY_EFFECT.eventName)) {
+  if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName] || handler[LIKE_INFO_V3_CLICK.handlerName] ||
+    rawHandlerNames.has(INTERACT_WORD.eventName) || rawHandlerNames.has(ENTRY_EFFECT.eventName) || rawHandlerNames.has(LIKE_INFO_V3_CLICK.eventName)) {
     rawHandlerNames.delete(INTERACT_WORD.eventName)
     rawHandlerNames.delete(ENTRY_EFFECT.eventName)
+    rawHandlerNames.delete(LIKE_INFO_V3_CLICK.eventName)
     instance.on(INTERACT_WORD.eventName, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[INTERACT_WORD.eventName]?.(data.data)
       const parsedData = INTERACT_WORD.parser(data.data, roomId)
@@ -187,6 +191,22 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
       isHandleRaw && rawHandler[SUPER_CHAT_MESSAGE.eventName]?.(data.data)
       const parsedData = SUPER_CHAT_MESSAGE.parser(data.data, roomId)
       handler[SUPER_CHAT_MESSAGE.handlerName]?.(normalizeDanmu(SUPER_CHAT_MESSAGE.eventName, parsedData, data.data))
+    })
+  }
+
+  // WARNING, CUT_OFF
+  if (handler[WARNING.handlerName] || handler[CUT_OFF.handlerName] || rawHandlerNames.has(WARNING.eventName) || rawHandlerNames.has(CUT_OFF.eventName)) {
+    rawHandlerNames.delete(WARNING.eventName)
+    rawHandlerNames.delete(CUT_OFF.eventName)
+    instance.on(WARNING.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[WARNING.eventName]?.(data.data)
+      const parsedData = WARNING.parser(data.data, roomId)
+      handler[WARNING.handlerName]?.(normalizeDanmu(WARNING.eventName, parsedData, data.data))
+    })
+    instance.on(CUT_OFF.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[CUT_OFF.eventName]?.(data.data)
+      const parsedData = CUT_OFF.parser(data.data, roomId)
+      handler[CUT_OFF.handlerName]?.(normalizeDanmu(CUT_OFF.eventName, parsedData, data.data))
     })
   }
 

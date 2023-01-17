@@ -9,5 +9,6 @@ export { ONLINE_RANK_COUNT, type Handler as RankCountChangeMsgHandler, type Rank
 export { ROOM_CHANGE, type Handler as RoomInfoChangeHandler, type RoomInfoChangeMsg } from './ROOM_CHANGE'
 export { SEND_GIFT, type Handler as GiftHandler, type GiftMsg } from './SEND_GIFT'
 export { SUPER_CHAT_MESSAGE, type Handler as SuperChatHandler, type SuperChatMsg } from './SUPER_CHAT_MESSAGE'
+export { WARNING, CUT_OFF, type Handler as RoomWarnHandler, type RoomWarnMsg } from './WARNING_CUT_OFF'
 export { WATCHED_CHANGE, type Handler as WatchedChangeHandler, type WatchedChangeMsg } from './WATCHED_CHANGE'
 
