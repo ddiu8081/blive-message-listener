@@ -39,7 +39,7 @@ const instance = startListen(652581, handler)
 instance.close()
 ```
 
-> 需传入房间的长id。短id需转为长id才能接收到消息。(#19 )
+> 需传入房间的长id。短id需转为长id才能接收到消息。(https://github.com/ddiu8081/blive-message-listener/issues/19)
 
 ## Handlers & Type Definitions
 
@@ -308,20 +308,20 @@ export interface RankCountChangeMsg {
 
 ##### handler.onUserAction
 
-用户进入、关注、分享直播间
+用户进入、关注、分享、点赞直播间
 
 - 舰长进入直播间时，有几率会触发两次
 - 舰长进入直播间时，uname 超长可能会省略号截断
 
 ```ts
 export type Handler = {
-  /** 用户进入、关注、分享直播间 */
+  /** 用户进入、关注、分享、点赞直播间 */
   onUserAction: (msg: Message<UserActionMsg>) => void
 }
 
-type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT'
+type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT' | 'LIKE_INFO_V3_CLICK'
 
-type UserAction = 'enter' | 'follow' | 'share' | 'unknown'
+type UserAction = 'enter' | 'follow' | 'share' | 'like' | 'unknown'
 
 export interface UserActionMsg {
   user: User

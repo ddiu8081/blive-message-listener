@@ -4,7 +4,7 @@ import {
   PREPARING, type LiveStopMsgHandler,
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
-  INTERACT_WORD, ENTRY_EFFECT, type UserActionMsgHandler,
+  INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type UserActionMsgHandler,
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
   ONLINE_RANK_COUNT, type RankCountChangeMsgHandler,
   ROOM_CHANGE, type RoomInfoChangeHandler,
@@ -119,7 +119,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
     })
   }
 
-  // INTERACT_WORD, ENTRY_EFFECT
+  // INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK
   if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName] || rawHandlerNames.has(INTERACT_WORD.eventName) || rawHandlerNames.has(ENTRY_EFFECT.eventName)) {
     rawHandlerNames.delete(INTERACT_WORD.eventName)
     rawHandlerNames.delete(ENTRY_EFFECT.eventName)
@@ -132,6 +132,11 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
       isHandleRaw && rawHandler[ENTRY_EFFECT.eventName]?.(data.data)
       const parsedData = ENTRY_EFFECT.parser(data.data, roomId)
       handler[ENTRY_EFFECT.handlerName]?.(normalizeDanmu(ENTRY_EFFECT.eventName, parsedData, data.data))
+    })
+    instance.on(LIKE_INFO_V3_CLICK.eventName, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[LIKE_INFO_V3_CLICK.eventName]?.(data.data)
+      const parsedData = LIKE_INFO_V3_CLICK.parser(data.data, roomId)
+      handler[LIKE_INFO_V3_CLICK.handlerName]?.(normalizeDanmu(LIKE_INFO_V3_CLICK.eventName, parsedData, data.data))
     })
   }
 

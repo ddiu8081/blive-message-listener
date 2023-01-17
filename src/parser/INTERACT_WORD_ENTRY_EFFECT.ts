@@ -1,7 +1,7 @@
 import { intToColorHex } from '../utils/color'
 import type { Message, User } from '../types/app'
 
-type UserAction = 'enter' | 'follow' | 'share' | 'unknown'
+type UserAction = 'enter' | 'follow' | 'share' | 'like' | 'unknown'
 
 export interface UserActionMsg {
   user: User
@@ -72,10 +72,41 @@ const parserGuard = (data: any, roomId: number): UserActionMsg => {
   }
 }
 
+const parserLike = (data: any, roomId: number): UserActionMsg => {
+  const rawData = data.data
+  return {
+    user: {
+      uid: rawData.uid,
+      uname: rawData.uname,
+      badge: rawData.fans_medal?.target_id ? {
+        active: rawData.fans_medal?.is_lighted,
+        name: rawData.fans_medal?.medal_name,
+        level: rawData.fans_medal?.medal_level,
+        color: intToColorHex(rawData.fans_medal?.medal_color),
+        gradient: [
+          intToColorHex(rawData.fans_medal?.medal_color_start),
+          intToColorHex(rawData.fans_medal?.medal_color_start),
+          intToColorHex(rawData.fans_medal?.medal_color_end),
+        ],
+        anchor: {
+          uid: rawData.fans_medal?.target_id,
+          uname: '',
+          room_id: rawData.fans_medal?.anchor_roomid, // 返回为 0
+          is_same_room: rawData.fans_medal?.anchor_roomid === roomId,
+        }
+      } : undefined,
+    },
+    action: 'like',
+    timestamp: Date.now(),
+  }
+}
+
 const parser = (data: any, roomId: number): UserActionMsg => {
   const msgType = data.cmd
   if (msgType === 'ENTRY_EFFECT') {
     return parserGuard(data, roomId)
+  } else if (msgType === 'LIKE_INFO_V3_CLICK') {
+    return parserLike(data, roomId)
   } else {
     // INTERACT_WORD
     return parserNormal(data, roomId)
@@ -94,7 +125,13 @@ export const ENTRY_EFFECT = {
   handlerName: 'onUserAction' as const,
 }
 
+export const LIKE_INFO_V3_CLICK = {
+  parser,
+  eventName: 'LIKE_INFO_V3_CLICK' as const,
+  handlerName: 'onUserAction' as const,
+}
+
 export type Handler = {
-  /** 用户进入、关注、分享直播间 */
+  /** 用户进入、关注、分享、点赞直播间 */
   onUserAction: (msg: Message<UserActionMsg>) => void
 }
