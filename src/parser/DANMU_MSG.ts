@@ -32,7 +32,6 @@ const parser = (data: any, roomId: number): DanmuMsg => {
   const content = rawData[1]
   // 是否包含中括号
   const parseInMessageEmoticon = /\[.*?\]/.test(content)
-  console.log('parseInMessageEmoticon', parseInMessageEmoticon)
   let inMessageEmoticon
   if (parseInMessageEmoticon) {
     const messageExtraInfo = JSON.parse(rawData[0][15].extra)

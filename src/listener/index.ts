@@ -197,7 +197,6 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
 
   // Rest raw events
   rawHandlerNames.forEach((eventName) => {
-    console.log('rest', eventName)
     instance.on(eventName as any, (data: WSMessage<any>) => {
       rawHandler[eventName](data.data)
     })
