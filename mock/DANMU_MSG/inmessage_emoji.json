@@ -1,0 +1,68 @@
+{
+  "cmd": "DANMU_MSG",
+  "info": [
+    [
+      0,
+      1,
+      25,
+      16777215,
+      1673937625350,
+      1673937162,
+      0,
+      "63ad848c",
+      0,
+      0,
+      0,
+      "",
+      0,
+      "{}",
+      "{}",
+      {
+        "mode": 0,
+        "show_player_type": 0,
+        "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":16777215,\"dm_type\":0,\"font_size\":25,\"player_mode\":1,\"show_player_type\":0,\"content\":\"__MOCK_MESSAGE_CONTENT__[花][妙]\",\"user_hash\":\"1672316044\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"recommend_score\":0,\"main_state_dm_color\":\"\",\"objective_state_dm_color\":\"\",\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"anniversary_crowd\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\",\"animation\":{},\"emots\":{\"[妙]\":{\"emoticon_id\":210,\"emoji\":\"[妙]\",\"descript\":\"[妙]\",\"url\":\"http://i0.hdslb.com/bfs/live/08f735d950a0fba267dda140673c9ab2edf6410d.png\",\"width\":20,\"height\":20,\"emoticon_unique\":\"emoji_210\"},\"[花]\":{\"emoticon_id\":209,\"emoji\":\"[花]\",\"descript\":\"[花]\",\"url\":\"http://i0.hdslb.com/bfs/live/7dd2ef03e13998575e4d8a803c6e12909f94e72b.png\",\"width\":20,\"height\":20,\"emoticon_unique\":\"emoji_209\"}}}"
+      },
+      {
+        "activity_identity": "",
+        "activity_source": 0,
+        "not_show": 0
+      }
+    ],
+    "__MOCK_MESSAGE_CONTENT__[花][妙]",
+    [
+      77777777771,
+      "__MOCK_UNAME__",
+      0,
+      0,
+      0,
+      10000,
+      1,
+      ""
+    ],
+    [],
+    [
+      12,
+      0,
+      6406234,
+      ">50000",
+      1
+    ],
+    [
+      "",
+      ""
+    ],
+    0,
+    0,
+    null,
+    {
+      "ts": 1673937625,
+      "ct": "7EBFD4DA"
+    },
+    0,
+    0,
+    null,
+    null,
+    0,
+    210
+  ]
+}
