@@ -1,0 +1,11 @@
+{
+  "cmd": "ROOM_BLOCK_MSG",
+  "data": {
+    "dmscore": 30,
+    "operator": 2,
+    "uid": 77777777771,
+    "uname": "__MOCK_UNAME__"
+  },
+  "uid": "77777777771",
+  "uname": "__MOCK_UNAME__"
+}

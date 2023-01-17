@@ -1,0 +1,35 @@
+{
+  "cmd": "LIKE_INFO_V3_CLICK",
+  "data": {
+    "show_area": 0,
+    "msg_type": 6,
+    "like_icon": "https://i0.hdslb.com/bfs/live/23678e3d90402bea6a65251b3e728044c21b1f0f.png",
+    "uid": 77777777771,
+    "like_text": "为主播点赞了",
+    "uname": "__MOCK_UNAME__",
+    "uname_color": "",
+    "identities": [
+      3,
+      1
+    ],
+    "fans_medal": {
+      "target_id": 77777777772,
+      "medal_level": 5,
+      "medal_name": "__MOCK_BADGE_NAME__",
+      "medal_color": 6126494,
+      "medal_color_start": 6126494,
+      "medal_color_end": 6126494,
+      "medal_color_border": 6126494,
+      "is_lighted": 1,
+      "guard_level": 0,
+      "special": "",
+      "icon_id": 0,
+      "anchor_roomid": 0,
+      "score": 2500
+    },
+    "contribution_info": {
+      "grade": 0
+    },
+    "dmscore": 20
+  }
+}
