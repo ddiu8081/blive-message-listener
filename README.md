@@ -39,6 +39,8 @@ const instance = startListen(652581, handler)
 instance.close()
 ```
 
+> 需传入房间的长id。短id需转为长id才能接收到消息。(#19 )
+
 ## Handlers & Type Definitions
 
 ### Common
