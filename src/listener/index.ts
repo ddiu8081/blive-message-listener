@@ -8,6 +8,7 @@ import {
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
   ONLINE_RANK_COUNT, type RankCountChangeMsgHandler,
   ROOM_CHANGE, type RoomInfoChangeHandler,
+  ROOM_SILENT_ON, ROOM_SILENT_OFF, type RoomSilentMsgHandler,
   SEND_GIFT, type GiftHandler,
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
   WARNING, CUT_OFF, type RoomWarnHandler,
@@ -36,6 +37,7 @@ export type MsgHandler = Partial<
   & LikedChangeMsgHandler
   & RankCountChangeMsgHandler
   & RoomInfoChangeHandler
+  & RoomSilentMsgHandler
   & GiftHandler
   & SuperChatHandler
   & RoomWarnHandler
@@ -171,6 +173,22 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
       isHandleRaw && rawHandler[ROOM_CHANGE.eventName]?.(data.data)
       const parsedData = ROOM_CHANGE.parser(data.data)
       handler[ROOM_CHANGE.handlerName]?.(normalizeDanmu(ROOM_CHANGE.eventName, parsedData, data.data))
+    })
+  }
+
+  // ROOM_SILENT_ON, ROOM_SILENT_OFF
+  if (handler[ROOM_SILENT_ON.handlerName] || handler[ROOM_SILENT_OFF.handlerName] || rawHandlerNames.has(ROOM_SILENT_ON.eventName) || rawHandlerNames.has(ROOM_SILENT_OFF.eventName)) {
+    rawHandlerNames.delete(ROOM_SILENT_ON.eventName)
+    rawHandlerNames.delete(ROOM_SILENT_OFF.eventName)
+    instance.on(ROOM_SILENT_ON.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[ROOM_SILENT_ON.eventName]?.(data.data)
+      const parsedData = ROOM_SILENT_ON.parser(data.data, roomId)
+      handler[ROOM_SILENT_ON.handlerName]?.(normalizeDanmu(ROOM_SILENT_ON.eventName, parsedData, data.data))
+    })
+    instance.on(ROOM_SILENT_OFF.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[ROOM_SILENT_OFF.eventName]?.(data.data)
+      const parsedData = ROOM_SILENT_OFF.parser(data.data, roomId)
+      handler[ROOM_SILENT_OFF.handlerName]?.(normalizeDanmu(ROOM_SILENT_OFF.eventName, parsedData, data.data))
     })
   }
 

@@ -530,6 +530,7 @@ export interface GuardBuyMsg {
 | Handler | Description |
 | --- | --- |
 | onRoomWarn | 房间被超管警告、切断 |
+| onRoomSilent | 房间开启、关闭全局禁言 |
 
 <details>
 <summary>Type Definitions</summary>
@@ -541,7 +542,7 @@ export interface GuardBuyMsg {
 ```ts
 export type Handler = {
   /** 房间被超管警告、切断 */
-  onRoomWarn: (msg: Message<GiftMsg>) => void
+  onRoomWarn: (msg: Message<RoomWarnMsg>) => void
 }
 
 type msgType = 'WARNING' ｜ 'CUT_OFF'
@@ -551,6 +552,28 @@ export interface RoomWarnMsg {
   type: 'warning' | 'cut'
   /** 处理原因 */
   msg: string
+}
+```
+
+##### handler.onRoomSilent
+
+房间开启、关闭全局禁言
+
+```ts
+export type Handler = {
+  /** 房间开启、关闭全局禁言 */
+  onRoomSilent: (msg: Message<RoomSilentMsg>) => void
+}
+
+type msgType = 'ROOM_SILENT_ON' ｜ 'ROOM_SILENT_OFF'
+
+export interface RoomSilentMsg {
+  /** 禁言类型（按用户等级、勋章等级、全员、关闭） */
+  type: 'level' | 'medal' | 'member' | 'off'
+  /** 禁言等级 */
+  level: number
+  /** 禁言结束时间，秒级时间戳，-1 为无限 */
+  second: number
 }
 ```
 </details>
