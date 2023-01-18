@@ -534,6 +534,7 @@ export interface GuardBuyMsg {
 | --- | --- |
 | onRoomWarn | 房间被超管警告、切断 |
 | onRoomSilent | 房间开启、关闭全局禁言 |
+| onRoomAdminSet | 房间设立、撤销房管 |
 
 <details>
 <summary>Type Definitions</summary>
@@ -577,6 +578,26 @@ export interface RoomSilentMsg {
   level: number
   /** 禁言结束时间，秒级时间戳，-1 为无限 */
   second: number
+}
+```
+
+##### handler.onRoomAdminSet
+
+房间设立、撤销房管
+
+```ts
+export type Handler = {
+  /** 房间设立、撤销房管 */
+  onRoomAdminSet: (msg: Message<RoomAdminSetMsg>) => void
+}
+
+type msgType = 'room_admin_entrance' ｜ 'ROOM_ADMIN_REVOKE'
+
+export interface RoomAdminSetMsg {
+  /** 类型（设立、撤销） */
+  type: 'set' | 'revoke'
+  /** 用户uid */
+  uid: number
 }
 ```
 </details>

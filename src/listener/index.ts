@@ -7,6 +7,7 @@ import {
   INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type UserActionMsgHandler,
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
   ONLINE_RANK_COUNT, type RankCountChangeMsgHandler,
+  room_admin_entrance, ROOM_ADMIN_REVOKE, type RoomAdminSetMsgHandler,
   ROOM_CHANGE, type RoomInfoChangeHandler,
   ROOM_SILENT_ON, ROOM_SILENT_OFF, type RoomSilentMsgHandler,
   SEND_GIFT, type GiftHandler,
@@ -36,6 +37,7 @@ export type MsgHandler = Partial<
   & UserActionMsgHandler
   & LikedChangeMsgHandler
   & RankCountChangeMsgHandler
+  & RoomAdminSetMsgHandler
   & RoomInfoChangeHandler
   & RoomSilentMsgHandler
   & GiftHandler
@@ -163,6 +165,22 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
       isHandleRaw && rawHandler[ONLINE_RANK_COUNT.eventName]?.(data.data)
       const parsedData = ONLINE_RANK_COUNT.parser(data.data)
       handler[ONLINE_RANK_COUNT.handlerName]?.(normalizeDanmu(ONLINE_RANK_COUNT.eventName, parsedData, data.data))
+    })
+  }
+
+  // room_admin_entrance, ROOM_ADMIN_REVOKE
+  if (handler[room_admin_entrance.handlerName] || handler[ROOM_ADMIN_REVOKE.handlerName] || rawHandlerNames.has(room_admin_entrance.eventName) || rawHandlerNames.has(ROOM_SILENT_OFF.eventName)) {
+    rawHandlerNames.delete(room_admin_entrance.eventName)
+    rawHandlerNames.delete(ROOM_ADMIN_REVOKE.eventName)
+    instance.on(room_admin_entrance.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[room_admin_entrance.eventName]?.(data.data)
+      const parsedData = room_admin_entrance.parser(data.data, roomId)
+      handler[room_admin_entrance.handlerName]?.(normalizeDanmu(room_admin_entrance.eventName, parsedData, data.data))
+    })
+    instance.on(ROOM_ADMIN_REVOKE.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[ROOM_ADMIN_REVOKE.eventName]?.(data.data)
+      const parsedData = ROOM_ADMIN_REVOKE.parser(data.data, roomId)
+      handler[ROOM_ADMIN_REVOKE.handlerName]?.(normalizeDanmu(ROOM_ADMIN_REVOKE.eventName, parsedData, data.data))
     })
   }
 

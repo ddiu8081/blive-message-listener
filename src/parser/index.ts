@@ -6,6 +6,7 @@ export { GUARD_BUY, type Handler as GuardBuyHandler, type GuardBuyMsg } from './
 export { INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type Handler as UserActionMsgHandler, type UserActionMsg } from './INTERACT_WORD_ENTRY_EFFECT'
 export { LIKE_INFO_V3_UPDATE, type Handler as LikedChangeMsgHandler, type LikedChangeMsg } from './LIKE_INFO_V3_UPDATE'
 export { ONLINE_RANK_COUNT, type Handler as RankCountChangeMsgHandler, type RankCountChangeMsg } from './ONLINE_RANK_COUNT'
+export { room_admin_entrance, ROOM_ADMIN_REVOKE, type Handler as RoomAdminSetMsgHandler, type RoomAdminSetMsg } from './ROOM_ADMIN'
 export { ROOM_CHANGE, type Handler as RoomInfoChangeHandler, type RoomInfoChangeMsg } from './ROOM_CHANGE'
 export { ROOM_SILENT_ON, ROOM_SILENT_OFF, type Handler as RoomSilentMsgHandler, type RoomSilentMsg } from './ROOM_SILENT'
 export { SEND_GIFT, type Handler as GiftHandler, type GiftMsg } from './SEND_GIFT'
