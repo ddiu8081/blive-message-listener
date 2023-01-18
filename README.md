@@ -428,6 +428,9 @@ export type Handler = {
 type msgType = 'SUPER_CHAT_MESSAGE'
 
 export interface SuperChatMsg {
+  /** 消息id */
+  id: number
+  /** 发送用户 */
   user: User
   /** 弹幕内容 */
   content: string

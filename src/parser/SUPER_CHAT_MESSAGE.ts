@@ -1,6 +1,9 @@
 import type { Message, User } from '../types/app'
 
 export interface SuperChatMsg {
+  /** 消息id */
+  id: number
+  /** 发送用户 */
   user: User
   /** 弹幕内容 */
   content: string
@@ -16,6 +19,7 @@ const parser = (data: any, roomId: number): SuperChatMsg => {
   const rawData = data.data
   const { medal_info, user_info } = data.data
   return {
+    id: rawData.id,
     user: {
       uid: rawData.uid,
       uname: rawData.user_info.uname,
