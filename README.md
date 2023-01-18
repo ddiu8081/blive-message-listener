@@ -195,7 +195,7 @@ export type Handler = {
 | onWatchedChange | 累计看过人数变化 |
 | onLikedChange | 累计点赞人数变化 |
 | onRankCountChange | 高能用户人数变化 |
-| onUserAction | 用户进入、关注、分享直播间 |
+| onUserAction | 用户进入、关注、分享、点赞直播间 |
 | onRoomInfoChange | 直播间信息修改 |
 
 <details>
@@ -529,7 +529,7 @@ export interface GuardBuyMsg {
 
 | Handler | Description |
 | --- | --- |
-| onRoomWarn | 房间被警告/切断 |
+| onRoomWarn | 房间被超管警告、切断 |
 
 <details>
 <summary>Type Definitions</summary>

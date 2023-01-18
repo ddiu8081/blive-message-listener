@@ -30,10 +30,9 @@ export interface DanmuMsg {
 const parser = (data: any, roomId: number): DanmuMsg => {
   const rawData = data.info
   const content = rawData[1]
-  // 是否包含中括号
-  const parseInMessageEmoticon = /\[.*?\]/.test(content)
+  const shouldParseInMessageEmoticon = /\[.*?\]/.test(content)
   let inMessageEmoticon
-  if (parseInMessageEmoticon) {
+  if (shouldParseInMessageEmoticon) {
     const messageExtraInfo = JSON.parse(rawData[0][15].extra)
     const emoctionDict: Record<string, {
       id: string
