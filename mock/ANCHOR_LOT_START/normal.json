@@ -1,0 +1,45 @@
+{
+  "cmd": "ANCHOR_LOT_START",
+  "data": {
+    "asset_icon": "https://i0.hdslb.com/bfs/live/627ee2d9e71c682810e7dc4400d5ae2713442c02.png",
+    "asset_icon_webp": "https://i0.hdslb.com/bfs/live/b47453a0d42f30673b6d030159a96d07905d677a.webp",
+    "award_image": "",
+    "award_name": "情书",
+    "award_num": 1,
+    "award_price_text": "价值52电池",
+    "award_type": 1,
+    "cur_gift_num": 0,
+    "current_time": 1674450380,
+    "danmu": "__MOCK_MESSAGE_CONTENT__",
+    "danmu_new": [
+      {
+        "danmu": "__MOCK_MESSAGE_CONTENT__",
+        "danmu_view": "",
+        "reject": false
+      }
+    ],
+    "danmu_type": 0,
+    "gift_id": 0,
+    "gift_name": "",
+    "gift_num": 0,
+    "gift_price": 0,
+    "goaway_time": 180,
+    "goods_id": -99998,
+    "id": 3783024,
+    "is_broadcast": 1,
+    "join_type": 0,
+    "lot_status": 0,
+    "max_time": 900,
+    "require_text": "关注主播",
+    "require_type": 1,
+    "require_value": 0,
+    "room_id": 77777777774,
+    "send_gift_ensure": 0,
+    "show_panel": 1,
+    "start_dont_popup": 0,
+    "status": 1,
+    "time": 899,
+    "url": "https://live.bilibili.com/p/html/live-lottery/anchor-join.html?is_live_half_webview=1&hybrid_biz=live-lottery-anchor&hybrid_half_ui=1,5,100p,100p,000000,0,30,0,0,1;2,5,100p,100p,000000,0,30,0,0,1;3,5,100p,100p,000000,0,30,0,0,1;4,5,100p,100p,000000,0,30,0,0,1;5,5,100p,100p,000000,0,30,0,0,1;6,5,100p,100p,000000,0,30,0,0,1;7,5,100p,100p,000000,0,30,0,0,1;8,5,100p,100p,000000,0,30,0,0,1",
+    "web_url": "https://live.bilibili.com/p/html/live-lottery/anchor-join.html"
+  }
+}

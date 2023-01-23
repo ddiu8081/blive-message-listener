@@ -1,0 +1,8 @@
+{
+  "cmd": "ANCHOR_LOT_CHECKSTATUS",
+  "data": {
+    "id": 3783024,
+    "status": 4,
+    "uid": 77777777775
+  }
+}

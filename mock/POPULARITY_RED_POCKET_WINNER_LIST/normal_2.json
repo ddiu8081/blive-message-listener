@@ -1,0 +1,159 @@
+{
+  "cmd": "POPULARITY_RED_POCKET_WINNER_LIST",
+  "data": {
+    "lot_id": 8649776,
+    "total_num": 21,
+    "winner_info": [
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4692262,
+        31213
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4697565,
+        31213
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4650330,
+        31213
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4666099,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4692349,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4692261,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4666101,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4706407,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4647353,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4647351,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4650329,
+        31212
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4697566,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4666100,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4666102,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4697567,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4647352,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4666103,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4692350,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4699069,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4666104,
+        31214
+      ],
+      [
+        77777777771,
+        "__MOCK_UNAME__",
+        4699070,
+        31214
+      ]
+    ],
+    "awards": {
+      "31212": {
+        "award_type": 1,
+        "award_name": "打call",
+        "award_pic": "https://s1.hdslb.com/bfs/live/461be640f60788c1d159ec8d6c5d5cf1ef3d1830.png",
+        "award_big_pic": "https://i0.hdslb.com/bfs/live/9e6521c57f24c7149c054d265818d4b82059f2ef.png",
+        "award_price": 500
+      },
+      "31213": {
+        "award_type": 1,
+        "award_name": "这个好诶",
+        "award_pic": "https://s1.hdslb.com/bfs/live/9260c680959428c45b3a2742e42ea7ae75e457ef.png",
+        "award_big_pic": "https://i0.hdslb.com/bfs/live/dafd2e9e5c3086377124a9328e840cd21a3f6847.png",
+        "award_price": 1000
+      },
+      "31214": {
+        "award_type": 1,
+        "award_name": "牛哇",
+        "award_pic": "https://s1.hdslb.com/bfs/live/91ac8e35dd93a7196325f1e2052356e71d135afb.png",
+        "award_big_pic": "https://i0.hdslb.com/bfs/live/3b74c117b4f265edcea261bc5608a58d3a7c300a.png",
+        "award_price": 100
+      }
+    },
+    "version": 1
+  }
+}

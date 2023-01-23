@@ -1,0 +1,32 @@
+{
+  "cmd": "POPULARITY_RED_POCKET_NEW",
+  "data": {
+    "lot_id": 8649776,
+    "start_time": 1674466205,
+    "current_time": 1674466205,
+    "wait_num": 0,
+    "uname": "__MOCK_UNAME__",
+    "uid": 77777777771,
+    "action": "送出",
+    "num": 1,
+    "gift_name": "红包",
+    "gift_id": 13000,
+    "price": 100,
+    "name_color": "#00D1F1",
+    "medal_info": {
+      "target_id": 77777777772,
+      "special": "",
+      "icon_id": 0,
+      "anchor_uname": "",
+      "anchor_roomid": 0,
+      "medal_level": 27,
+      "medal_name": "__MOCK_BADGE_NAME__",
+      "medal_color": 398668,
+      "medal_color_start": 398668,
+      "medal_color_end": 6850801,
+      "medal_color_border": 6809855,
+      "is_lighted": 1,
+      "guard_level": 3
+    }
+  }
+}
