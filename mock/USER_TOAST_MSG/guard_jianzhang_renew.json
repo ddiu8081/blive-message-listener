@@ -1,0 +1,28 @@
+{
+  "cmd": "USER_TOAST_MSG",
+  "data": {
+    "anchor_show": true,
+    "color": "#00D1F1",
+    "dmscore": 90,
+    "effect_id": 397,
+    "end_time": 1674568760,
+    "face_effect_id": 44,
+    "gift_id": 10003,
+    "guard_level": 3,
+    "is_show": 0,
+    "num": 1,
+    "op_type": 3,
+    "payflow_id": "2301242159108192199408068",
+    "price": 138000,
+    "role_name": "舰长",
+    "room_effect_id": 590,
+    "start_time": 1674568760,
+    "svga_block": 0,
+    "target_guard_count": 2073,
+    "toast_msg": "<%__MOCK_UNAME__%> 开通了舰长，今天是TA陪伴主播的第91天",
+    "uid": 77777777771,
+    "unit": "月",
+    "user_show": true,
+    "username": "__MOCK_UNAME__"
+  }
+}

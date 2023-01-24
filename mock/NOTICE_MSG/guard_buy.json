@@ -1,0 +1,46 @@
+{
+  "cmd": "NOTICE_MSG",
+  "id": 755,
+  "name": "【新】舰长跑马灯",
+  "full": {
+    "head_icon": "https://i0.hdslb.com/bfs/live/9fe0397f142174516969a55bcb8705d658c658fb.png",
+    "tail_icon": "https://i0.hdslb.com/bfs/live/822da481fdaba986d738db5d8fd469ffa95a8fa1.webp",
+    "head_icon_fa": "https://i0.hdslb.com/bfs/live/9fe0397f142174516969a55bcb8705d658c658fb.png",
+    "tail_icon_fa": "https://i0.hdslb.com/bfs/live/7d7af6107ef808438e6c3b4db0c7868bf78e5172.png",
+    "head_icon_fan": 1,
+    "tail_icon_fan": 4,
+    "background": "#FFB03CFF",
+    "color": "#FFFFFFFF",
+    "highlight": "#B25AC1FF",
+    "time": 10
+  },
+  "half": {
+    "head_icon": "",
+    "tail_icon": "",
+    "background": "",
+    "color": "",
+    "highlight": "",
+    "time": 0
+  },
+  "side": {
+    "head_icon": "https://i0.hdslb.com/bfs/live/21b524fcc316e6d438415607d5531ecc2bf9f4ff.png",
+    "background": "#FFE9C8FF",
+    "color": "#EF903AFF",
+    "highlight": "#D54900FF",
+    "border": "#FFCFA4FF"
+  },
+  "roomid": 77777777774,
+  "real_roomid": 77777777774,
+  "msg_common": "",
+  "msg_self": "<%__MOCK_UNAME__%> 开通了舰长，今天是TA陪伴主播的第<%91%>天",
+  "link_url": "",
+  "msg_type": 3,
+  "shield_uid": -1,
+  "business_id": "",
+  "scatter": {
+    "min": 0,
+    "max": 0
+  },
+  "marquee_id": "",
+  "notice_type": 0
+}
