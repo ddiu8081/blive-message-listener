@@ -450,6 +450,8 @@ export interface SuperChatMsg {
 | --- | --- |
 | onGift | 收到礼物 |
 | onGuardBuy | 舰长上舰消息 |
+| onRedPocketStart | 用户开启红包抽奖 |
+| onRedPocketEnd | 红包抽奖结果 |
 
 <details>
 <summary>Type Definitions</summary>
@@ -524,6 +526,93 @@ export interface GuardBuyMsg {
   start_time: number
   /** 等级过期时间 */
   end_time: number
+}
+```
+
+##### handler.onRedPocketStart
+
+用户开启红包抽奖
+
+```ts
+export type Handler = {
+  /** 用户开启红包抽奖 */
+  onRedPocketStart: (msg: Message<RedPocketStartMsg>) => void
+}
+
+type msgType = 'POPULARITY_RED_POCKET_START'
+
+export interface RedPocketStartMsg {
+  /** 红包抽奖id */
+  id: number
+  /** 红包发送用户 */
+  user: User
+  /** 开始时间，秒级时间戳 */
+  start_time: number
+  /** 结束时间，秒级时间戳 */
+  end_time: number
+  /** 持续时间，秒 */
+  duration: number
+  /** 口令弹幕内容 */
+  danmu: string
+  /** 红包奖品 */
+  awards: RedPocketStartAward[]
+  /** 奖品总价值，除以1000为RMB */
+  total_price: number
+}
+
+interface RedPocketStartAward {
+  /** 奖品id */
+  gift_id: number
+  /** 奖品名称 */
+  gift_name: string
+  /** 奖品图片 */
+  gift_pic: string
+  /** 奖品数量 */
+  num: number
+}
+```
+
+##### handler.onRedPocketEnd
+
+红包抽奖结果
+
+```ts
+export type Handler = {
+  /** 红包抽奖结果 */
+  onRedPocketEnd: (msg: Message<RedPocketEndMsg>) => void
+}
+
+type msgType = 'POPULARITY_RED_POCKET_WINNER_LIST'
+
+export interface RedPocketEndMsg {
+  /** 红包抽奖id */
+  id: number
+  /** 中奖人数 */
+  total_num: number
+  /** 中奖列表 */
+  winner: ({
+    /** 中奖用户uid */
+    uid: number
+    /** 中奖用户昵称 */
+    uname: string
+    /** 奖品id */
+    award_id: number
+  } & RedPocketEndAward)[]
+  /** 红包奖品列表 */
+  awards: Record<string, RedPocketEndAward>
+}
+
+interface RedPocketEndAward {
+  /** 奖品类型，待补充 */
+  award_type: number
+  /** 奖品名称 */
+  award_name: string
+  /** 奖品图片 */
+  award_pic: string
+  /** 奖品图片大图 */
+  award_big_pic: string
+  /** 奖品价值，除以1000为RMB */
+  award_price: number
 }
 ```
 </details>

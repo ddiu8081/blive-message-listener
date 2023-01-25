@@ -7,6 +7,8 @@ import {
   INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type UserActionMsgHandler,
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
   ONLINE_RANK_COUNT, type RankCountChangeMsgHandler,
+  POPULARITY_RED_POCKET_START, type RedPocketStartMsgHandler,
+  POPULARITY_RED_POCKET_WINNER_LIST, type RedPocketEndMsgHandler,
   room_admin_entrance, ROOM_ADMIN_REVOKE, type RoomAdminSetMsgHandler,
   ROOM_CHANGE, type RoomInfoChangeHandler,
   ROOM_SILENT_ON, ROOM_SILENT_OFF, type RoomSilentMsgHandler,
@@ -37,6 +39,8 @@ export type MsgHandler = Partial<
   & UserActionMsgHandler
   & LikedChangeMsgHandler
   & RankCountChangeMsgHandler
+  & RedPocketStartMsgHandler
+  & RedPocketEndMsgHandler
   & RoomAdminSetMsgHandler
   & RoomInfoChangeHandler
   & RoomSilentMsgHandler
@@ -165,6 +169,26 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
       isHandleRaw && rawHandler[ONLINE_RANK_COUNT.eventName]?.(data.data)
       const parsedData = ONLINE_RANK_COUNT.parser(data.data)
       handler[ONLINE_RANK_COUNT.handlerName]?.(normalizeDanmu(ONLINE_RANK_COUNT.eventName, parsedData, data.data))
+    })
+  }
+
+  // POPULARITY_RED_POCKET_START
+  if (handler[POPULARITY_RED_POCKET_START.handlerName] || rawHandlerNames.has(POPULARITY_RED_POCKET_START.eventName)) {
+    rawHandlerNames.delete(POPULARITY_RED_POCKET_START.eventName)
+    instance.on(POPULARITY_RED_POCKET_START.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[POPULARITY_RED_POCKET_START.eventName]?.(data.data)
+      const parsedData = POPULARITY_RED_POCKET_START.parser(data.data, roomId)
+      handler[POPULARITY_RED_POCKET_START.handlerName]?.(normalizeDanmu(POPULARITY_RED_POCKET_START.eventName, parsedData, data.data))
+    })
+  }
+
+  // POPULARITY_RED_POCKET_WINNER_LIST
+  if (handler[POPULARITY_RED_POCKET_WINNER_LIST.handlerName] || rawHandlerNames.has(POPULARITY_RED_POCKET_WINNER_LIST.eventName)) {
+    rawHandlerNames.delete(POPULARITY_RED_POCKET_WINNER_LIST.eventName)
+    instance.on(POPULARITY_RED_POCKET_WINNER_LIST.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[POPULARITY_RED_POCKET_WINNER_LIST.eventName]?.(data.data)
+      const parsedData = POPULARITY_RED_POCKET_WINNER_LIST.parser(data.data, roomId)
+      handler[POPULARITY_RED_POCKET_WINNER_LIST.handlerName]?.(normalizeDanmu(POPULARITY_RED_POCKET_WINNER_LIST.eventName, parsedData, data.data))
     })
   }
 
