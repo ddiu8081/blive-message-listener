@@ -5,11 +5,11 @@ export interface RedPocketEndMsg {
   id: number
   /** 中奖人数 */
   total_num: number
-  /** 中奖列表 */
+  /** 中奖用户列表 */
   winner: ({
-    /** 中奖用户uid */
+    /** 用户uid */
     uid: number
-    /** 中奖用户昵称 */
+    /** 用户昵称 */
     uname: string
     /** 奖品id */
     award_id: number
