@@ -1,0 +1,40 @@
+{
+  "cmd": "ANCHOR_LOT_AWARD",
+  "data": {
+    "award_dont_popup": 1,
+    "award_image": "",
+    "award_name": "AirPodsPro",
+    "award_num": 1,
+    "award_type": 0,
+    "award_users": [
+      {
+        "uid": 77777777771,
+        "uname": "__MOCK_UNAME__",
+        "face": "http://__MOCK_FACE__.jpg",
+        "level": 0,
+        "color": 9868950,
+        "num": 1
+      },
+      {
+        "uid": 77777777771,
+        "uname": "__MOCK_UNAME__",
+        "face": "http://__MOCK_FACE__.jpg",
+        "level": 15,
+        "color": 6406234,
+        "num": 1
+      },
+      {
+        "uid": 77777777771,
+        "uname": "__MOCK_UNAME__",
+        "face": "http://__MOCK_FACE__.jpg",
+        "level": 20,
+        "color": 6406234,
+        "num": 1
+      }
+    ],
+    "id": 3798530,
+    "lot_status": 2,
+    "url": "https://live.bilibili.com/p/html/live-lottery/anchor-join.html?is_live_half_webview=1&hybrid_biz=live-lottery-anchor&hybrid_half_ui=1,5,100p,100p,000000,0,30,0,0,1;2,5,100p,100p,000000,0,30,0,0,1;3,5,100p,100p,000000,0,30,0,0,1;4,5,100p,100p,000000,0,30,0,0,1;5,5,100p,100p,000000,0,30,0,0,1;6,5,100p,100p,000000,0,30,0,0,1;7,5,100p,100p,000000,0,30,0,0,1;8,5,100p,100p,000000,0,30,0,0,1",
+    "web_url": "https://live.bilibili.com/p/html/live-lottery/anchor-join.html"
+  }
+}
