@@ -1,6 +1,8 @@
 export { HEARTBEAT, type Handler as AttentionChangeMsgHandler, type AttentionChangeMsg } from './HEARTBEAT'
 export { LIVE, type Handler as LiveStartMsgHandler, type LiveStartMsg } from './LIVE'
 export { PREPARING, type Handler as LiveStopMsgHandler, type LiveEndMsg } from './PREPARING'
+export { ANCHOR_LOT_AWARD, type Handler as AnchorLotteryEndMsgHandler, type AnchorLotteryEndMsg } from './ANCHOR_LOT_AWARD'
+export { ANCHOR_LOT_START, type Handler as AnchorLotteryStartMsgHandler, type AnchorLotteryStartMsg } from './ANCHOR_LOT_START'
 export { DANMU_MSG, type Handler as DanmuMsgHandler, type DanmuMsg } from './DANMU_MSG'
 export { GUARD_BUY, type Handler as GuardBuyHandler, type GuardBuyMsg } from './GUARD_BUY'
 export { INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type Handler as UserActionMsgHandler, type UserActionMsg } from './INTERACT_WORD_ENTRY_EFFECT'

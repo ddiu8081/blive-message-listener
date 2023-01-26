@@ -452,6 +452,8 @@ export interface SuperChatMsg {
 | onGuardBuy | 舰长上舰消息 |
 | onRedPocketStart | 红包抽奖开始 |
 | onRedPocketEnd | 红包抽奖结果 |
+| onAnchorLotteryStart | 主播天选时刻抽奖开启 |
+| onAnchorLotteryEnd | 主播天选时刻抽奖结果 |
 
 <details>
 <summary>Type Definitions</summary>
@@ -615,6 +617,106 @@ interface RedPocketEndAward {
   award_big_pic: string
   /** 奖品价值，除以1000为RMB */
   award_price: number
+}
+```
+
+##### handler.onAnchorLotteryStart
+
+主播天选时刻抽奖开启
+
+```ts
+export type Handler = {
+  /** 主播天选时刻抽奖开启 */
+  onAnchorLotteryStart: (msg: Message<AnchorLotteryStartMsg>) => void
+}
+
+type msgType = 'ANCHOR_LOT_START'
+
+export interface AnchorLotteryStartMsg {
+  /** 天选抽奖id */
+  id: number
+  /** 开始时间，秒级时间戳 */
+  start_time: number
+  /** 持续时间，秒 */
+  duration: number
+  /** 天选奖品信息 */
+  award: {
+    /** 奖品图片 */
+    image: string
+    /** 奖品名称 */
+    name: string
+    /** 奖品数量 */
+    num: number
+    /** 是否为虚拟礼物奖品 */
+    virtual: boolean
+    /** 虚拟奖品价值描述，实物奖品为空 */
+    price_text: string
+  }
+  /** 抽奖要求 */
+  require: {
+    /** 口令弹幕内容，无需弹幕为空字符串 */
+    danmu: string
+    /** 需送主播礼物，无需送礼为空 */
+    gift: {
+      /** 礼物id */
+      id: string
+      /** 礼物名称 */
+      name: string
+      /** 礼物数量 */
+      num: number
+      /** 单个礼物价值，除以1000为RMB */
+      price: number
+    } | null
+    /** 抽奖参与人群要求，无要求为空 */
+    user: {
+      /** 参与人群限制（关注/粉丝勋章/大航海） */
+      type: 'follow' | 'medal' | 'guard'
+      /** 参与人群限制等级，如粉丝勋章等级 */
+      value: number
+      /** 参与人群限制描述 */
+      text: string
+    } | null
+  }
+}
+```
+
+##### handler.onAnchorLotteryEnd
+
+主播天选时刻抽奖结果
+
+```ts
+export type Handler = {
+  /** 主播天选时刻抽奖结果 */
+  onAnchorLotteryEnd: (msg: Message<AnchorLotteryEndMsg>) => void
+}
+
+type msgType = 'ANCHOR_LOT_AWARD'
+
+export interface AnchorLotteryEndMsg {
+  /** 天选抽奖id */
+  id: number
+  /** 天选奖品信息 */
+  award: {
+    /** 奖品图片 */
+    image: string
+    /** 奖品名称 */
+    name: string
+    /** 是否为虚拟礼物奖品 */
+    virtual: boolean
+  }
+  /** 中奖用户列表 */
+  winner: ({
+    /** 用户uid */
+    uid: number
+    /** 用户昵称 */
+    uname: string
+    /** 用户头像 */
+    face: number
+    /** 用户粉丝勋章等级 */
+    level: number
+    /** 中奖数量 */
+    num: number
+  })[]
 }
 ```
 </details>

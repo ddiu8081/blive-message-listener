@@ -2,6 +2,8 @@ import {
   HEARTBEAT, type AttentionChangeMsgHandler,
   LIVE, type LiveStartMsgHandler, 
   PREPARING, type LiveStopMsgHandler,
+  ANCHOR_LOT_AWARD, type AnchorLotteryEndMsgHandler,
+  ANCHOR_LOT_START, type AnchorLotteryStartMsgHandler,
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
   INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type UserActionMsgHandler,
@@ -34,6 +36,8 @@ export type MsgHandler = Partial<
   & AttentionChangeMsgHandler
   & LiveStartMsgHandler
   & LiveStopMsgHandler
+  & AnchorLotteryEndMsgHandler
+  & AnchorLotteryStartMsgHandler
   & DanmuMsgHandler
   & GuardBuyHandler
   & UserActionMsgHandler
@@ -106,6 +110,26 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
       isHandleRaw && rawHandler[PREPARING.eventName]?.(data.data)
       const parsedData = PREPARING.parser(data.data)
       handler[PREPARING.handlerName]?.(normalizeDanmu(PREPARING.eventName, parsedData, data.data))
+    })
+  }
+
+  // ANCHOR_LOT_AWARD
+  if (handler[ANCHOR_LOT_AWARD.handlerName] || rawHandlerNames.has(ANCHOR_LOT_AWARD.eventName)) {
+    rawHandlerNames.delete(ANCHOR_LOT_AWARD.eventName)
+    instance.on(ANCHOR_LOT_AWARD.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[ANCHOR_LOT_AWARD.eventName]?.(data.data)
+      const parsedData = ANCHOR_LOT_AWARD.parser(data.data, roomId)
+      handler[ANCHOR_LOT_AWARD.handlerName]?.(normalizeDanmu(ANCHOR_LOT_AWARD.eventName, parsedData, data.data))
+    })
+  }
+
+  // ANCHOR_LOT_START
+  if (handler[ANCHOR_LOT_START.handlerName] || rawHandlerNames.has(ANCHOR_LOT_START.eventName)) {
+    rawHandlerNames.delete(ANCHOR_LOT_START.eventName)
+    instance.on(ANCHOR_LOT_START.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[ANCHOR_LOT_START.eventName]?.(data.data)
+      const parsedData = ANCHOR_LOT_START.parser(data.data, roomId)
+      handler[ANCHOR_LOT_START.handlerName]?.(normalizeDanmu(ANCHOR_LOT_START.eventName, parsedData, data.data))
     })
   }
 
