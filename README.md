@@ -450,7 +450,7 @@ export interface SuperChatMsg {
 | --- | --- |
 | onGift | 收到礼物 |
 | onGuardBuy | 舰长上舰消息 |
-| onRedPocketStart | 用户开启红包抽奖 |
+| onRedPocketStart | 红包抽奖开始 |
 | onRedPocketEnd | 红包抽奖结果 |
 
 <details>
@@ -531,11 +531,11 @@ export interface GuardBuyMsg {
 
 ##### handler.onRedPocketStart
 
-用户开启红包抽奖
+红包抽奖开始
 
 ```ts
 export type Handler = {
-  /** 用户开启红包抽奖 */
+  /** 红包抽奖开始 */
   onRedPocketStart: (msg: Message<RedPocketStartMsg>) => void
 }
 
@@ -558,6 +558,8 @@ export interface RedPocketStartMsg {
   awards: RedPocketStartAward[]
   /** 奖品总价值，除以1000为RMB */
   total_price: number
+  /** 剩余等待的红包数 */
+  wait_num: number
 }
 
 interface RedPocketStartAward {

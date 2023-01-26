@@ -17,6 +17,8 @@ export interface RedPocketStartMsg {
   awards: RedPocketStartAward[]
   /** 奖品总价值，除以1000为RMB */
   total_price: number
+  /** 剩余等待的红包数 */
+  wait_num: number
 }
 
 interface RedPocketStartAward {
@@ -46,6 +48,7 @@ const parser = (data: any, roomId: number): RedPocketStartMsg => {
     danmu: rawData.danmu,
     awards: rawData.awards,
     total_price: rawData.total_price,
+    wait_num: rawData.wait_num,
   }
 }
 
@@ -56,6 +59,6 @@ export const POPULARITY_RED_POCKET_START = {
 }
 
 export type Handler = {
-  /** 用户开启红包抽奖 */
+  /** 红包抽奖开始 */
   onRedPocketStart: (msg: Message<RedPocketStartMsg>) => void
 }
