@@ -438,7 +438,7 @@ export interface SuperChatMsg {
   content_color: string
   /** 价格，RMB */
   price: number
-  /** 持续时间 */
+  /** 持续时间，秒 */
   time: number
 }
 ```
