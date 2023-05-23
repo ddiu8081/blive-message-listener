@@ -1,4 +1,5 @@
 import type { Message } from '../types/app'
+import type { LIVE as DataType } from 'tiny-bilibili-ws'
 
 export interface LiveStartMsg {
   /** 开播平台 */
@@ -7,7 +8,7 @@ export interface LiveStartMsg {
   room_id: number
 }
 
-const parser = (data: any): LiveStartMsg => {
+const parser = (data: DataType): LiveStartMsg => {
   return {
     live_platform: data.live_platform,
     room_id: data.roomid,

@@ -1,11 +1,13 @@
 import type { Message } from '../types/app'
+import type { PREPARING as DataType } from 'tiny-bilibili-ws'
+
 
 export interface LiveEndMsg {
   /** 房间号 */
   room_id: number
 }
 
-const parser = (data: any): LiveEndMsg => {
+const parser = (data: DataType): LiveEndMsg => {
   return {
     room_id: parseInt(data.roomid),
   }

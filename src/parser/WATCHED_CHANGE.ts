@@ -1,4 +1,5 @@
 import type { Message } from '../types/app'
+import type { WATCHED_CHANGE as DataType } from 'tiny-bilibili-ws'
 
 export interface WatchedChangeMsg {
   /** 累计入场人数 */
@@ -7,7 +8,7 @@ export interface WatchedChangeMsg {
   text_small: string
 }
 
-const parser = (data: any): WatchedChangeMsg => {
+const parser = (data: DataType): WatchedChangeMsg => {
   const rawData = data.data
   return {
     num: rawData.num,

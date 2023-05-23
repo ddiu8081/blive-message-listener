@@ -1,5 +1,6 @@
 import { intToColorHex } from '../utils/color'
 import type { Message, User } from '../types/app'
+import type { DANMU_MSG as DataType } from 'tiny-bilibili-ws'
 
 export interface DanmuMsg {
   user: User
@@ -27,7 +28,7 @@ export interface DanmuMsg {
   }>
 }
 
-const parser = (data: any, roomId: number): DanmuMsg => {
+const parser = (data: DataType, roomId: number): DanmuMsg => {
   const rawData = data.info
   const content = rawData[1]
   const shouldParseInMessageEmoticon = /\[.*?\]/.test(content)
@@ -79,7 +80,7 @@ const parser = (data: any, roomId: number): DanmuMsg => {
         },
       } : undefined,
       identity: {
-        rank: rawData[4][4],
+        rank: rawData[4][4] as any,
         guard_level: rawData[7],
         room_admin: rawData[2][2] === 1,
       },
@@ -87,11 +88,11 @@ const parser = (data: any, roomId: number): DanmuMsg => {
     content,
     timestamp: rawData[0][4],
     lottery: rawData[0][9] !== 0,
-    emoticon: rawData[0][13]?.emoticon_unique ? {
-      id: rawData[0][13].emoticon_unique,
-      height: rawData[0][13].height,
-      width: rawData[0][13].width,
-      url: rawData[0][13].url,
+    emoticon: (rawData[0][13] as any)?.emoticon_unique ? {
+      id: (rawData[0][13] as any).emoticon_unique,
+      height: (rawData[0][13] as any).height,
+      width: (rawData[0][13] as any).width,
+      url: (rawData[0][13] as any).url,
     } : undefined,
     in_message_emoticon: inMessageEmoticon,
   }

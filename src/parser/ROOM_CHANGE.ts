@@ -1,4 +1,5 @@
 import type { Message } from '../types/app'
+import type { ROOM_CHANGE as DataType } from 'tiny-bilibili-ws'
 
 export interface RoomInfoChangeMsg {
   /** 直播间标题 */
@@ -13,7 +14,7 @@ export interface RoomInfoChangeMsg {
   area_name: string
 }
 
-const parser = (data: any): RoomInfoChangeMsg => {
+const parser = (data: DataType): RoomInfoChangeMsg => {
   const rawData = data.data
   return {
     title: rawData.title,

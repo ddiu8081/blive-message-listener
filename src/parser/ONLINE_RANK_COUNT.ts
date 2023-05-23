@@ -1,11 +1,12 @@
 import type { Message } from '../types/app'
+import type { ONLINE_RANK_COUNT as DataType } from 'tiny-bilibili-ws'
 
 export interface RankCountChangeMsg {
   /** 高能用户人数 */
   count: number
 }
 
-const parser = (data: any): RankCountChangeMsg => {
+const parser = (data: DataType): RankCountChangeMsg => {
   const rawData = data.data
   return {
     count: rawData.count,
