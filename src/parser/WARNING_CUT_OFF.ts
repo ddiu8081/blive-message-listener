@@ -1,4 +1,5 @@
 import type { Message } from '../types/app'
+import type { WARNING as DataType } from 'tiny-bilibili-ws'
 
 export interface RoomWarnMsg {
   /** 处理类型 */
@@ -7,7 +8,7 @@ export interface RoomWarnMsg {
   msg: string
 }
 
-const parser = (data: any, roomId: number): RoomWarnMsg => {
+const parser = (data: DataType, roomId: number): RoomWarnMsg => {
   const msgType = data.cmd
   const rawData = data
 

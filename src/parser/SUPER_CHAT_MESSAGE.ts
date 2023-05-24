@@ -1,4 +1,5 @@
 import type { Message, User } from '../types/app'
+import type { SUPER_CHAT_MESSAGE as DataType } from 'tiny-bilibili-ws'
 
 export interface SuperChatMsg {
   /** 消息id */
@@ -15,7 +16,7 @@ export interface SuperChatMsg {
   time: number
 }
 
-const parser = (data: any, roomId: number): SuperChatMsg => {
+const parser = (data: DataType, roomId: number): SuperChatMsg => {
   const rawData = data.data
   const { medal_info, user_info } = data.data
   return {

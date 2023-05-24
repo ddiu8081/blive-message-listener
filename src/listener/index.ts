@@ -20,6 +20,7 @@ import {
   WATCHED_CHANGE, type WatchedChangeHandler,
 } from '../parser'
 import type { KeepLiveTCP, KeepLiveWS, Message as WSMessage } from 'tiny-bilibili-ws'
+import type { KeepLiveWS as KeepLiveWSB } from 'tiny-bilibili-ws/browser'
 import { normalizeDanmu } from '../utils/message'
 
 export type MsgHandler = Partial<
@@ -58,7 +59,7 @@ export type MsgHandler = Partial<
   }
 >
 
-export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, handler?: MsgHandler) => {
+export const listenAll = (instance: KeepLiveTCP | KeepLiveWS | KeepLiveWSB, roomId: number, handler?: MsgHandler) => {
   if (!handler) return
 
   // Raw message handler
@@ -86,17 +87,17 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // HEARTBEAT
   if (handler[HEARTBEAT.handlerName] || rawHandlerNames.has(HEARTBEAT.eventName)) {
     rawHandlerNames.delete(HEARTBEAT.eventName)
-    instance.on(HEARTBEAT.eventName, (data: WSMessage<any>) => {
-      isHandleRaw && rawHandler[HEARTBEAT.eventName]?.(data.data)
-      const parsedData = HEARTBEAT.parser(data.data)
-      handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData, data.data))
+    instance.on(HEARTBEAT.eventName, (data) => {
+      isHandleRaw && rawHandler[HEARTBEAT.eventName]?.(data)
+      const parsedData = HEARTBEAT.parser(data)
+      handler[HEARTBEAT.handlerName]?.(normalizeDanmu(HEARTBEAT.eventName, parsedData, data))
     })
   }
 
   // LIVE
   if (handler[LIVE.handlerName] || rawHandlerNames.has(LIVE.eventName)) {
     rawHandlerNames.delete(LIVE.eventName)
-    instance.on(LIVE.eventName as any, (data: WSMessage<any>) => {
+    instance.on(LIVE.eventName, (data) => {
       isHandleRaw && rawHandler[LIVE.eventName]?.(data.data)
       const parsedData = LIVE.parser(data.data)
       handler[LIVE.handlerName]?.(normalizeDanmu(LIVE.eventName, parsedData, data.data))
@@ -106,7 +107,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // PREPARING
   if (handler[PREPARING.handlerName] || rawHandlerNames.has(PREPARING.eventName)) {
     rawHandlerNames.delete(LIVE.eventName)
-    instance.on(PREPARING.eventName as any, (data: WSMessage<any>) => {
+    instance.on(PREPARING.eventName, (data) => {
       isHandleRaw && rawHandler[PREPARING.eventName]?.(data.data)
       const parsedData = PREPARING.parser(data.data)
       handler[PREPARING.handlerName]?.(normalizeDanmu(PREPARING.eventName, parsedData, data.data))
@@ -116,7 +117,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // ANCHOR_LOT_AWARD
   if (handler[ANCHOR_LOT_AWARD.handlerName] || rawHandlerNames.has(ANCHOR_LOT_AWARD.eventName)) {
     rawHandlerNames.delete(ANCHOR_LOT_AWARD.eventName)
-    instance.on(ANCHOR_LOT_AWARD.eventName as any, (data: WSMessage<any>) => {
+    instance.on(ANCHOR_LOT_AWARD.eventName, (data) => {
       isHandleRaw && rawHandler[ANCHOR_LOT_AWARD.eventName]?.(data.data)
       const parsedData = ANCHOR_LOT_AWARD.parser(data.data, roomId)
       handler[ANCHOR_LOT_AWARD.handlerName]?.(normalizeDanmu(ANCHOR_LOT_AWARD.eventName, parsedData, data.data))
@@ -126,7 +127,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // ANCHOR_LOT_START
   if (handler[ANCHOR_LOT_START.handlerName] || rawHandlerNames.has(ANCHOR_LOT_START.eventName)) {
     rawHandlerNames.delete(ANCHOR_LOT_START.eventName)
-    instance.on(ANCHOR_LOT_START.eventName as any, (data: WSMessage<any>) => {
+    instance.on(ANCHOR_LOT_START.eventName, (data) => {
       isHandleRaw && rawHandler[ANCHOR_LOT_START.eventName]?.(data.data)
       const parsedData = ANCHOR_LOT_START.parser(data.data, roomId)
       handler[ANCHOR_LOT_START.handlerName]?.(normalizeDanmu(ANCHOR_LOT_START.eventName, parsedData, data.data))
@@ -136,7 +137,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // DANMU_MSG
   if (handler[DANMU_MSG.handlerName] || rawHandlerNames.has(DANMU_MSG.eventName)) {
     rawHandlerNames.delete(DANMU_MSG.eventName)
-    instance.on(DANMU_MSG.eventName, (data: WSMessage<any>) => {
+    instance.on(DANMU_MSG.eventName, (data) => {
       isHandleRaw && rawHandler[DANMU_MSG.eventName]?.(data.data)
       const parsedData = DANMU_MSG.parser(data.data, roomId)
       handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData, data.data))
@@ -146,7 +147,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // GUARD_BUY
   if (handler[GUARD_BUY.handlerName] || rawHandlerNames.has(GUARD_BUY.eventName)) {
     rawHandlerNames.delete(GUARD_BUY.eventName)
-    instance.on(GUARD_BUY.eventName, (data: WSMessage<any>) => {
+    instance.on(GUARD_BUY.eventName, (data) => {
       isHandleRaw && rawHandler[GUARD_BUY.eventName]?.(data.data)
       const parsedData = GUARD_BUY.parser(data.data)
       handler[GUARD_BUY.handlerName]?.(normalizeDanmu(GUARD_BUY.eventName, parsedData, data.data))
@@ -179,7 +180,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // LIKE_INFO_V3_UPDATE
   if (handler[LIKE_INFO_V3_UPDATE.handlerName] || rawHandlerNames.has(LIKE_INFO_V3_UPDATE.eventName)) {
     rawHandlerNames.delete(LIKE_INFO_V3_UPDATE.eventName)
-    instance.on(LIKE_INFO_V3_UPDATE.eventName, (data: WSMessage<any>) => {
+    instance.on(LIKE_INFO_V3_UPDATE.eventName, (data) => {
       isHandleRaw && rawHandler[LIKE_INFO_V3_UPDATE.eventName]?.(data.data)
       const parsedData = LIKE_INFO_V3_UPDATE.parser(data.data)
       handler[LIKE_INFO_V3_UPDATE.handlerName]?.(normalizeDanmu(LIKE_INFO_V3_UPDATE.eventName, parsedData, data.data))
@@ -189,7 +190,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // ONLINE_RANK_COUNT
   if (handler[ONLINE_RANK_COUNT.handlerName] || rawHandlerNames.has(ONLINE_RANK_COUNT.eventName)) {
     rawHandlerNames.delete(ONLINE_RANK_COUNT.eventName)
-    instance.on(ONLINE_RANK_COUNT.eventName, (data: WSMessage<any>) => {
+    instance.on(ONLINE_RANK_COUNT.eventName, (data) => {
       isHandleRaw && rawHandler[ONLINE_RANK_COUNT.eventName]?.(data.data)
       const parsedData = ONLINE_RANK_COUNT.parser(data.data)
       handler[ONLINE_RANK_COUNT.handlerName]?.(normalizeDanmu(ONLINE_RANK_COUNT.eventName, parsedData, data.data))
@@ -199,7 +200,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // POPULARITY_RED_POCKET_START
   if (handler[POPULARITY_RED_POCKET_START.handlerName] || rawHandlerNames.has(POPULARITY_RED_POCKET_START.eventName)) {
     rawHandlerNames.delete(POPULARITY_RED_POCKET_START.eventName)
-    instance.on(POPULARITY_RED_POCKET_START.eventName as any, (data: WSMessage<any>) => {
+    instance.on(POPULARITY_RED_POCKET_START.eventName, (data) => {
       isHandleRaw && rawHandler[POPULARITY_RED_POCKET_START.eventName]?.(data.data)
       const parsedData = POPULARITY_RED_POCKET_START.parser(data.data, roomId)
       handler[POPULARITY_RED_POCKET_START.handlerName]?.(normalizeDanmu(POPULARITY_RED_POCKET_START.eventName, parsedData, data.data))
@@ -209,7 +210,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // POPULARITY_RED_POCKET_WINNER_LIST
   if (handler[POPULARITY_RED_POCKET_WINNER_LIST.handlerName] || rawHandlerNames.has(POPULARITY_RED_POCKET_WINNER_LIST.eventName)) {
     rawHandlerNames.delete(POPULARITY_RED_POCKET_WINNER_LIST.eventName)
-    instance.on(POPULARITY_RED_POCKET_WINNER_LIST.eventName as any, (data: WSMessage<any>) => {
+    instance.on(POPULARITY_RED_POCKET_WINNER_LIST.eventName, (data) => {
       isHandleRaw && rawHandler[POPULARITY_RED_POCKET_WINNER_LIST.eventName]?.(data.data)
       const parsedData = POPULARITY_RED_POCKET_WINNER_LIST.parser(data.data, roomId)
       handler[POPULARITY_RED_POCKET_WINNER_LIST.handlerName]?.(normalizeDanmu(POPULARITY_RED_POCKET_WINNER_LIST.eventName, parsedData, data.data))
@@ -235,7 +236,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // ROOM_CHANGE
   if (handler[ROOM_CHANGE.handlerName] || rawHandlerNames.has(ROOM_CHANGE.eventName)) {
     rawHandlerNames.delete(ROOM_CHANGE.eventName)
-    instance.on(ROOM_CHANGE.eventName as any, (data: WSMessage<any>) => {
+    instance.on(ROOM_CHANGE.eventName, (data) => {
       isHandleRaw && rawHandler[ROOM_CHANGE.eventName]?.(data.data)
       const parsedData = ROOM_CHANGE.parser(data.data)
       handler[ROOM_CHANGE.handlerName]?.(normalizeDanmu(ROOM_CHANGE.eventName, parsedData, data.data))
@@ -271,7 +272,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // SUPER_CHAT_MESSAGE
   if (handler[SUPER_CHAT_MESSAGE.handlerName] || rawHandlerNames.has(SUPER_CHAT_MESSAGE.eventName)) {
     rawHandlerNames.delete(SUPER_CHAT_MESSAGE.eventName)
-    instance.on(SUPER_CHAT_MESSAGE.eventName, (data: WSMessage<any>) => {
+    instance.on(SUPER_CHAT_MESSAGE.eventName, (data) => {
       isHandleRaw && rawHandler[SUPER_CHAT_MESSAGE.eventName]?.(data.data)
       const parsedData = SUPER_CHAT_MESSAGE.parser(data.data, roomId)
       handler[SUPER_CHAT_MESSAGE.handlerName]?.(normalizeDanmu(SUPER_CHAT_MESSAGE.eventName, parsedData, data.data))
@@ -297,7 +298,7 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS, roomId: number, ha
   // WATCHED_CHANGE
   if (handler[WATCHED_CHANGE.handlerName] || rawHandlerNames.has(WATCHED_CHANGE.eventName)) {
     rawHandlerNames.delete(WATCHED_CHANGE.eventName)
-    instance.on(WATCHED_CHANGE.eventName, (data: WSMessage<any>) => {
+    instance.on(WATCHED_CHANGE.eventName, (data) => {
       isHandleRaw && rawHandler[WATCHED_CHANGE.eventName]?.(data.data)
       const parsedData = WATCHED_CHANGE.parser(data.data)
       handler[WATCHED_CHANGE.handlerName]?.(normalizeDanmu(WATCHED_CHANGE.eventName, parsedData, data.data))

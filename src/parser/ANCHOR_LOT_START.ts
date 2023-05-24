@@ -1,4 +1,5 @@
 import type { Message } from '../types/app'
+import type { ANCHOR_LOT_START as DataType } from 'tiny-bilibili-ws'
 
 export interface AnchorLotteryStartMsg {
   /** 天选抽奖id */
@@ -47,7 +48,7 @@ export interface AnchorLotteryStartMsg {
   }
 }
 
-const parser = (data: any, roomId: number): AnchorLotteryStartMsg => {
+const parser = (data: DataType, roomId: number): AnchorLotteryStartMsg => {
   const rawData = data.data
 
   return {
@@ -58,13 +59,13 @@ const parser = (data: any, roomId: number): AnchorLotteryStartMsg => {
       image: rawData.award_image,
       name: rawData.award_name,
       num: rawData.award_num,
-      virtual: rawData.award_type === 1,
-      price_text: rawData.award_price_text || '',
+      virtual: (rawData as any).award_type === 1,
+      price_text: (rawData as any).award_price_text || '',
     },
     require: {
       danmu: rawData.danmu || '',
       gift: rawData.gift_id ? {
-        id: rawData.gift_id,
+        id:  `${rawData.gift_id}`,
         name: rawData.gift_name,
         num: rawData.gift_num,
         price: rawData.gift_price,

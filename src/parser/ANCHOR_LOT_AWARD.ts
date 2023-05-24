@@ -1,4 +1,5 @@
 import type { Message } from '../types/app'
+import type { ANCHOR_LOT_AWARD as DataType } from 'tiny-bilibili-ws'
 
 export interface AnchorLotteryEndMsg {
   /** 天选抽奖id */
@@ -27,7 +28,7 @@ export interface AnchorLotteryEndMsg {
   })[]
 }
 
-const parser = (data: any, roomId: number): AnchorLotteryEndMsg => {
+const parser = (data: DataType, roomId: number): AnchorLotteryEndMsg => {
   const rawData = data.data
 
   return {
@@ -35,7 +36,7 @@ const parser = (data: any, roomId: number): AnchorLotteryEndMsg => {
     award: {
       image: rawData.award_image,
       name: rawData.award_name,
-      virtual: rawData.award_type === 1,
+      virtual: (rawData as any).award_type === 1,
     },
     winner: rawData.award_users.map((user: any) => ({
       uid: user.uid,

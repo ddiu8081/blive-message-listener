@@ -5,7 +5,7 @@ export interface AttentionChangeMsg {
   attention: number
 }
 
-const parser = (data: any): AttentionChangeMsg => {
+const parser = (data: number): AttentionChangeMsg => {
   return {
     attention: data,
   }

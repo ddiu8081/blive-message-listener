@@ -1,5 +1,6 @@
 import { intToColorHex } from '../utils/color'
 import type { Message, User } from '../types/app'
+import type { INTERACT_WORD as DataType } from 'tiny-bilibili-ws'
 
 type UserAction = 'enter' | 'follow' | 'share' | 'like' | 'unknown'
 
@@ -11,7 +12,7 @@ export interface UserActionMsg {
   timestamp: number
 }
 
-const parserNormal = (data: any, roomId: number): UserActionMsg => {
+const parserNormal = (data: DataType & {  data: { face?: string } }, roomId: number): UserActionMsg => {
   const rawData = data.data
   let actionType: UserAction = 'unknown'
   if (rawData.msg_type === 1) {
@@ -25,9 +26,9 @@ const parserNormal = (data: any, roomId: number): UserActionMsg => {
     user: {
       uid: rawData.uid,
       uname: rawData.uname,
-      face: rawData.face,
+      face: rawData?.face,
       badge: rawData.fans_medal?.target_id ? {
-        active: rawData.fans_medal?.is_lighted,
+        active: !!rawData.fans_medal?.is_lighted,
         name: rawData.fans_medal?.medal_name,
         level: rawData.fans_medal?.medal_level,
         color: intToColorHex(rawData.fans_medal?.medal_color),

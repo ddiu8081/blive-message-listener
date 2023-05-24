@@ -1,5 +1,6 @@
 import type { Message, User } from '../types/app'
 import type { GuardLevel } from '../types/const'
+import type { GUARD_BUY as DataType } from 'tiny-bilibili-ws'
 
 export interface GuardBuyMsg {
   user: User
@@ -17,7 +18,7 @@ export interface GuardBuyMsg {
   end_time: number
 }
 
-const parser = (data: any): GuardBuyMsg => {
+const parser = (data: DataType): GuardBuyMsg => {
   const rawData = data.data
   return {
     user: {

@@ -1,4 +1,6 @@
 import type { Message } from '../types/app'
+import type { ROOM_SILENT_OFF as ROOM_SILENT_OFF_TYPE, ROOM_SILENT_ON as ROOM_SILENT_ON_TYPE } from 'tiny-bilibili-ws'
+
 
 export interface RoomSilentMsg {
   /** 禁言类型（按用户等级、勋章等级、全员、关闭） */
@@ -9,12 +11,12 @@ export interface RoomSilentMsg {
   second: number
 }
 
-const parser = (data: any, roomId: number): RoomSilentMsg => {
+const parser = (data: ROOM_SILENT_OFF_TYPE | ROOM_SILENT_ON_TYPE, roomId: number): RoomSilentMsg => {
   const msgType = data.cmd
   const rawData = data.data
 
   return {
-    type: msgType === 'ROOM_SILENT_OFF' ? 'off' : rawData.type,
+    type: msgType === 'ROOM_SILENT_OFF' ? 'off' : rawData.type as 'level' | 'medal' | 'member' | 'off',
     level: rawData.level,
     second: rawData.second,
   }

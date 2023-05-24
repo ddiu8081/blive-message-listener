@@ -1,4 +1,5 @@
 import type { Message, User } from '../types/app'
+import type { POPULARITY_RED_POCKET_START as DataType } from 'tiny-bilibili-ws'
 
 export interface RedPocketStartMsg {
   /** 红包抽奖id */
@@ -32,7 +33,7 @@ interface RedPocketStartAward {
   num: number
 }
 
-const parser = (data: any, roomId: number): RedPocketStartMsg => {
+const parser = (data: DataType, roomId: number): RedPocketStartMsg => {
   const rawData = data.data
 
   return {

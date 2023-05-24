@@ -1,11 +1,12 @@
 import type { Message } from '../types/app'
+import type { LIKE_INFO_V3_UPDATE as DataType } from 'tiny-bilibili-ws'
 
 export interface LikedChangeMsg {
   /** 直播间点赞人数 */
   count: number
 }
 
-const parser = (data: any): LikedChangeMsg => {
+const parser = (data: DataType): LikedChangeMsg => {
   const rawData = data.data
   return {
     count: rawData.click_count,
