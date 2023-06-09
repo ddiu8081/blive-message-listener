@@ -1,4 +1,4 @@
-import { startListen, type MsgHandler } from '../dist/index'
+import { startListen, type MsgHandler } from 'blive-message-listener'
 
 const handler: MsgHandler = {
   onStartListen: () => {

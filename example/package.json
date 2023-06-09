@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "node": "tsx node/node.ts",
+    "browser": "esbuild browser/src.ts --bundle --minify --outfile=browser/dist.js && serve browser"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "blive-message-listener": "latest",
+    "esbuild": "^0.17.19",
+    "serve": "^14.2.0",
+    "tsx": "^3.12.7"
+  }
+}
