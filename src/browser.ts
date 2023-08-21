@@ -1,10 +1,19 @@
 import { KeepLiveWS } from 'tiny-bilibili-ws/browser'
-import type { MessageListener } from '.'
-
 import { listenAll, type MsgHandler } from './listener'
+import type { MessageListener } from '.'
+import type { WSOptions } from 'tiny-bilibili-ws'
 
-export const startListen = (roomId: number, handler: MsgHandler) => {
-  const live = new KeepLiveWS(roomId)
+interface MessageListenerWSOptions {
+  /**
+   * tiny-bilibili-ws 连接选项
+   *
+   * @see https://github.com/starknt/tiny-bilibili-ws
+   */
+  ws?: WSOptions
+}
+
+export const startListen = (roomId: number, handler: MsgHandler, options?: MessageListenerWSOptions) => {
+  const live = new KeepLiveWS(roomId, options?.ws)
 
   listenAll(live, roomId, handler)
 

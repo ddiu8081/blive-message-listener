@@ -1,6 +1,6 @@
 import { KeepLiveTCP } from 'tiny-bilibili-ws'
-
 import { listenAll, type MsgHandler } from './listener'
+import type { TCPOptions } from 'tiny-bilibili-ws'
 
 export interface MessageListener {
   /** 直播间房间号 */
@@ -11,8 +11,17 @@ export interface MessageListener {
   getAttention: () => Promise<number>
 }
 
-export const startListen = (roomId: number, handler: MsgHandler) => {
-  const live = new KeepLiveTCP(roomId)
+interface MessageListenerTCPOptions {
+  /**
+   * tiny-bilibili-ws 连接选项
+   *
+   * @see https://github.com/starknt/tiny-bilibili-ws
+   */
+  ws?: TCPOptions
+}
+
+export const startListen = (roomId: number, handler: MsgHandler, options?: MessageListenerTCPOptions) => {
+  const live = new KeepLiveTCP(roomId, options?.ws)
 
   listenAll(live, roomId, handler)
 

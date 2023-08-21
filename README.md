@@ -41,6 +41,21 @@ instance.close()
 
 > 需传入房间的长id。短id需转为长id才能接收到消息。(https://github.com/ddiu8081/blive-message-listener/issues/19)
 
+## Options
+
+你可以向 `startListen` 传入第三个参数 `options` 来手动配置连接选项。
+
+```ts
+interface MessageListenerOptions {
+  /**
+   * tiny-bilibili-ws 连接选项
+   *
+   * @see https://github.com/starknt/tiny-bilibili-ws
+   */
+  ws?: WSOptions | TCPOptions
+}
+```
+
 ## Handlers & Type Definitions
 
 ### Common

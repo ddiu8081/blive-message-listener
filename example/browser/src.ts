@@ -13,11 +13,11 @@ const handler: MsgHandler = {
     logDom!.innerHTML += `${JSON.stringify(msg.body)}<br>`
   },
   raw: {
-    'INTERACT_WORD': (msg) => {
+    INTERACT_WORD: (msg) => {
       console.log(msg)
       logDom!.innerHTML += `${JSON.stringify(msg)}<br>`
     },
-  }
+  },
 }
 
 startListen(652581, handler)
