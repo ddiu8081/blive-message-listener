@@ -1,14 +1,26 @@
 import { KeepLiveTCP } from 'tiny-bilibili-ws'
 import { listenAll, type MsgHandler } from './listener'
-import type { TCPOptions } from 'tiny-bilibili-ws'
+import type { TCPOptions, WS_OP } from 'tiny-bilibili-ws'
 
 export interface MessageListener {
   /** 直播间房间号 */
   roomId: number
+  /** 人气值 */
+  online: number
+  /** 是否关闭 */
+  closed: boolean
   /** 关闭连接 */
   close: () => void
   /** 刷新当前直播间热度 */
   getAttention: () => Promise<number>
+  /** 刷新当前直播间热度 */
+  getOnline: () => Promise<number>
+  /** 重新连接 */
+  reconnect: () => void
+  /** 发送心跳 */
+  heartbeat: () => void
+  /** 发送消息 */
+  send: (op: WS_OP, data?: Record<string, any> | string) => void
 }
 
 interface MessageListenerTCPOptions {
@@ -27,8 +39,14 @@ export const startListen = (roomId: number, handler: MsgHandler, options?: Messa
 
   const listenerInstance: MessageListener = {
     roomId: live.roomId,
+    online: live.online,
+    closed: live.closed,
     close: () => live.close(),
     getAttention: () => live.getOnline(),
+    getOnline: () => live.getOnline(),
+    reconnect: () => live.reconnect(),
+    heartbeat: () => live.heartbeat(),
+    send: (op, data) => live.send(op, data),
   }
 
   return listenerInstance
