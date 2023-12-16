@@ -39,7 +39,8 @@ const instance = startListen(652581, handler)
 instance.close()
 ```
 
-> 需传入房间的长id。短id需转为长id才能接收到消息。(https://github.com/ddiu8081/blive-message-listener/issues/19)
+> 1. 需传入房间的长id。短id需转为长id才能接收到消息。(https://github.com/ddiu8081/blive-message-listener/issues/19)
+> 2. 2023年7月后需登录后才可展示完整用户名，可参考下一节 Options 配置连接选项 (https://github.com/ddiu8081/blive-message-listener/issues/29)
 
 ## Options
 
