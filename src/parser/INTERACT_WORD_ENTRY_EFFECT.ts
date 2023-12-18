@@ -106,12 +106,12 @@ const parser = (data: any, roomId: number): UserActionMsg => {
   const msgType = data.cmd
   if (msgType === 'ENTRY_EFFECT') {
     return parserGuard(data, roomId)
-  } else if (msgType === 'LIKE_INFO_V3_CLICK') {
-    return parserLike(data, roomId)
-  } else {
-    // INTERACT_WORD
-    return parserNormal(data, roomId)
   }
+  if (msgType === 'LIKE_INFO_V3_CLICK') {
+    return parserLike(data, roomId)
+  }
+  // INTERACT_WORD
+  return parserNormal(data, roomId)
 }
 
 export const INTERACT_WORD = {

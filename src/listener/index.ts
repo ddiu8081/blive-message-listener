@@ -306,9 +306,9 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS | KeepLiveWSB, room
   }
 
   // Rest raw events
-  rawHandlerNames.forEach((eventName) => {
+  for (const eventName of rawHandlerNames) {
     instance.on(eventName as any, (data: WSMessage<any>) => {
-      rawHandler[eventName](data.data)
+      rawHandler[eventName]?.(data.data)
     })
-  })
+  }
 }

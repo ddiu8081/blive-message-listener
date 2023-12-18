@@ -2,8 +2,7 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "indentSize": 2,
-    "lineWidth": 180
+    "indentWidth": 2
   },
   "javascript": {
     "formatter": {
@@ -16,9 +15,6 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "style": {
-        "noImplicitBoolean": "off"
-      },
       "suspicious": {
         "noExplicitAny": "off"
       }
