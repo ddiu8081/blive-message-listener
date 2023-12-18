@@ -57,6 +57,17 @@ interface MessageListenerOptions {
 }
 ```
 
+```ts
+startListen(652581, handler, {
+  ws: {
+    platform: 'web',
+    uid: 541993,
+    key: '<login_key>',
+    buvid: '<login_buvid>',
+  }
+})
+```
+
 ## Handlers & Type Definitions
 
 ### Common
