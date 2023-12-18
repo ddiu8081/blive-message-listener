@@ -40,7 +40,7 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "tiny-bilibili-ws": "^0.1.9"
+    "tiny-bilibili-ws": "^0.1.10"
   },
   "devDependencies": {
     "tsup": "^8.0.1",
