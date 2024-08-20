@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "blive-message-listener": "latest",
+    "blive-message-listener": "file:../",
     "esbuild": "^0.17.19",
     "serve": "^14.2.0",
     "tsx": "^3.12.7"

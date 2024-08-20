@@ -1,7 +1,7 @@
 import { KeepLiveWS } from 'tiny-bilibili-ws/browser'
 import { listenAll, type MsgHandler } from './listener'
 import type { MessageListener } from '.'
-import type { WSOptions } from 'tiny-bilibili-ws'
+import type { BrowserWSOptions } from 'tiny-bilibili-ws/browser'
 
 interface MessageListenerWSOptions {
   /**
@@ -9,11 +9,11 @@ interface MessageListenerWSOptions {
    *
    * @see https://github.com/starknt/tiny-bilibili-ws
    */
-  ws?: WSOptions
+  ws?: BrowserWSOptions
 }
 
 export const startListen = (roomId: number, handler: MsgHandler, options?: MessageListenerWSOptions) => {
-  const live = new KeepLiveWS(roomId, options?.ws)
+  const live = new KeepLiveWS(roomId, options?.ws!)
 
   listenAll(live, roomId, handler)
 
