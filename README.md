@@ -60,6 +60,16 @@ interface MessageListenerOptions {
 ```ts
 startListen(652581, handler, {
   ws: {
+    headers: {
+      Cookie: 'xxx',
+    },
+    uid: 0,
+  }
+})
+
+// or
+startListen(652581, handler, {
+  ws: {
     platform: 'web',
     uid: 541993,
     key: '<login_key>',

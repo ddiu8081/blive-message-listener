@@ -14,4 +14,11 @@ const handler: MsgHandler = {
   },
 }
 
-startListen(652581, handler)
+startListen(652581, handler, {
+  ws: {
+    headers: {
+      Cookie: 'LIVE_BUVID=xxx; buvid3=xxx; xxx',
+    },
+    uid: 541993,
+  },
+})

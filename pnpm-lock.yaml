@@ -28,8 +28,8 @@ importers:
         specifier: 0.23.1
         version: 0.23.1
       serve:
-        specifier: ^14.2.0
-        version: 14.2.0
+        specifier: ^14.2.3
+        version: 14.2.3
       tsx:
         specifier: 4.17.0
         version: 4.17.0
@@ -301,15 +301,15 @@ packages:
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
-  '@zeit/schemas@2.29.0':
-    resolution: {integrity: sha512-g5QiLIfbg3pLuYUJPlisNKY+epQJTcMDsOnVNkscrDP1oi7vmJnzOANYJI/1pZcVJ6umUkBv3aFtlg1UvUHGzA==}
+  '@zeit/schemas@2.36.0':
+    resolution: {integrity: sha512-7kjMwcChYEzMKjeex9ZFXkt1AyNov9R5HZtjBKVsmVpw7pa7ZtlCGvCBC2vnnXctaYN+aRI61HjIqeetZW5ROg==}
 
   accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
     engines: {node: '>= 0.6'}
 
-  ajv@8.11.0:
-    resolution: {integrity: sha512-wGgprdCvMalC0BztXvitD2hC04YffAvtsUn93JbGXYLAtCUO4xd17mCCZQxUOItiBwZvJScWo8NIvQMQ71rdpg==}
+  ajv@8.12.0:
+    resolution: {integrity: sha512-sRu1kpcO9yLtYxBKvqfTeh9KzZEwO3STyX1HT+4CaDzC6HpTGYhIhPIzj9XuKU7KYDwnaeh5hcOwjy1QuJzBPA==}
 
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
@@ -375,7 +375,7 @@ packages:
       esbuild: '>=0.18'
 
   bytes@3.0.0:
-    resolution: {integrity: sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=}
+    resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}
     engines: {node: '>= 0.8'}
 
   cac@6.7.14:
@@ -430,14 +430,14 @@ packages:
     engines: {node: '>= 0.8.0'}
 
   concat-map@0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   consola@3.2.3:
     resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
     engines: {node: ^14.18.0 || >=16.10.0}
 
   content-disposition@0.5.2:
-    resolution: {integrity: sha1-DPaLud318r55YcOoUXjLhdunjLQ=}
+    resolution: {integrity: sha512-kRGRZw3bLlFISDBgwTSA1TMBFN6J6GWDeubmDE3AF+3+yXL8hTWv8r5rkLbqYXY4RjPk/EzHnClI3zQf1cFmHA==}
     engines: {node: '>= 0.6'}
 
   cross-spawn@7.0.3:
@@ -806,8 +806,8 @@ packages:
   serve-handler@6.1.5:
     resolution: {integrity: sha512-ijPFle6Hwe8zfmBxJdE+5fta53fdIY0lHISJvuikXB3VYFafRjMRpOffSPvCYsbKyBA7pvy9oYr/BT1O3EArlg==}
 
-  serve@14.2.0:
-    resolution: {integrity: sha512-+HOw/XK1bW8tw5iBilBz/mJLWRzM8XM6MPxL4J/dKzdxq1vfdEWSwhaR7/yS8EJp5wzvP92p1qirysJvnEtjXg==}
+  serve@14.2.3:
+    resolution: {integrity: sha512-VqUFMC7K3LDGeGnJM9h56D3XGKb6KGgOw0cVNtA26yYXHCcpxf3xwCTUaQoWlVS7i8Jdh3GjQkOB23qsXyjoyQ==}
     engines: {node: '>= 14'}
     hasBin: true
 
@@ -1134,14 +1134,14 @@ snapshots:
 
   '@types/estree@1.0.5': {}
 
-  '@zeit/schemas@2.29.0': {}
+  '@zeit/schemas@2.36.0': {}
 
   accepts@1.3.8:
     dependencies:
       mime-types: 2.1.35
       negotiator: 0.6.3
 
-  ajv@8.11.0:
+  ajv@8.12.0:
     dependencies:
       fast-deep-equal: 3.1.3
       json-schema-traverse: 1.0.0
@@ -1619,10 +1619,10 @@ snapshots:
       path-to-regexp: 2.2.1
       range-parser: 1.2.0
 
-  serve@14.2.0:
+  serve@14.2.3:
     dependencies:
-      '@zeit/schemas': 2.29.0
-      ajv: 8.11.0
+      '@zeit/schemas': 2.36.0
+      ajv: 8.12.0
       arg: 5.0.2
       boxen: 7.0.0
       chalk: 5.0.1
