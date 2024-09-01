@@ -22,7 +22,7 @@ importers:
   example:
     devDependencies:
       blive-message-listener:
-        specifier: link:../
+        specifier: workspace:*
         version: link:..
       esbuild:
         specifier: 0.23.1

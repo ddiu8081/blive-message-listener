@@ -2,8 +2,9 @@
   "name": "blive-message-listener",
   "version": "0.4.8",
   "description": "Bilibili-live danmu listener with type",
+  "type": "module",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/ddiu8081/blive-message-listener#readme",
   "repository": {
@@ -19,13 +20,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
     "./browser": {
       "types": "./dist/browser.d.ts",
       "require": "./dist/browser.cjs",
-      "import": "./dist/browser.mjs"
+      "import": "./dist/browser.js"
     }
   },
   "files": [
