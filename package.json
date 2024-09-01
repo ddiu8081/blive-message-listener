@@ -45,5 +45,6 @@
   "devDependencies": {
     "tsup": "8.2.4",
     "typescript": "5.5.4"
-  }
+  },
+  "packageManager": "pnpm@9.9.0"
 }

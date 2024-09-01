@@ -13,7 +13,7 @@
   "devDependencies": {
     "blive-message-listener": "link:../",
     "esbuild": "0.23.1",
-    "serve": "^14.2.0",
+    "serve": "^14.2.3",
     "tsx": "4.17.0"
   }
 }
