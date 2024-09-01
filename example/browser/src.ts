@@ -24,4 +24,10 @@ const handler: MsgHandler = {
   },
 }
 
-startListen(652581, handler)
+startListen(953650, handler, {
+  ws: {
+    uid: 541993,
+    url: 'wss://xxxxxx.chat.bilibili.com:2245/sub',
+    key: 'xxxxxx',
+  },
+})
