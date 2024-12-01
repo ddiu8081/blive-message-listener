@@ -18,6 +18,7 @@ export const startListen = (roomId: number, handler: MsgHandler, options?: Messa
   listenAll(live, roomId, handler)
 
   const listenerInstance: MessageListener = {
+    live: live,
     roomId: live.roomId,
     online: live.online,
     closed: live.closed,

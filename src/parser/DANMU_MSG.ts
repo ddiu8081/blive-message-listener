@@ -6,6 +6,10 @@ export interface DanmuMsg {
   user: User
   /** 弹幕内容 */
   content: string
+  /** 弹幕类型：1 2 3：普通弹幕；4：底部弹幕；5：顶部弹幕 */
+  type: number
+  /** 弹幕颜色 */
+  content_color: string
   /** 发送时间，毫秒时间戳 */
   timestamp: number
   /** 是否为天选抽奖弹幕 */
@@ -86,6 +90,8 @@ const parser = (data: DataType, roomId: number): DanmuMsg => {
       },
     },
     content,
+    type: rawData[0][1],
+    content_color: intToColorHex(rawData[0][3]),
     timestamp: rawData[0][4],
     lottery: rawData[0][9] !== 0,
     emoticon: (rawData[0][13] as any)?.emoticon_unique ? {

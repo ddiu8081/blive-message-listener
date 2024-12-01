@@ -1,8 +1,11 @@
 import { KeepLiveTCP } from 'tiny-bilibili-ws'
 import { listenAll, type MsgHandler } from './listener'
 import type { TCPOptions, WS_OP } from 'tiny-bilibili-ws'
+import type { KeepLiveWS } from 'tiny-bilibili-ws/browser'
 
 export interface MessageListener {
+  /** tiny-bilibili-ws 实例 */
+  live: KeepLiveTCP | KeepLiveWS
   /** 直播间房间号 */
   roomId: number
   /** 人气值 */
@@ -38,6 +41,7 @@ export const startListen = (roomId: number, handler: MsgHandler, options?: Messa
   listenAll(live, roomId, handler)
 
   const listenerInstance: MessageListener = {
+    live: live,
     roomId: live.roomId,
     online: live.online,
     closed: live.closed,

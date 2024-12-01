@@ -429,6 +429,10 @@ export interface DanmuMsg {
   user: User
   /** 弹幕内容 */
   content: string
+  /** 弹幕类型：1 2 3：普通弹幕；4：底部弹幕；5：顶部弹幕 */
+  type: number
+  /** 弹幕颜色 */
+  content_color: string
   /** 发送时间，毫秒时间戳 */
   timestamp: number
   /** 是否为天选抽奖弹幕 */
