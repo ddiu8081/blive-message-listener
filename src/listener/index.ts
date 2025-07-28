@@ -140,6 +140,9 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS | KeepLiveWSB, room
     instance.on(DANMU_MSG.eventName, (data) => {
       isHandleRaw && rawHandler[DANMU_MSG.eventName]?.(data.data)
       const parsedData = DANMU_MSG.parser(data.data, roomId)
+      if (!parsedData) {
+        return
+      }
       handler[DANMU_MSG.handlerName]?.(normalizeDanmu(DANMU_MSG.eventName, parsedData, data.data))
     })
   }

@@ -32,8 +32,11 @@ export interface DanmuMsg {
   }>
 }
 
-const parser = (data: DataType, roomId: number): DanmuMsg => {
+const parser = (data: DataType, roomId: number): DanmuMsg | null => {
   const rawData = data.info
+  if (!rawData) {
+    return null
+  }
   const content = rawData[1]
   const shouldParseInMessageEmoticon = /\[.*?\]/.test(content)
   let inMessageEmoticon

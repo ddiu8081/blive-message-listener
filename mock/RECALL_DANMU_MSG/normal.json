@@ -1,0 +1,7 @@
+{
+  "cmd": "RECALL_DANMU_MSG",
+  "data": {
+    "recall_type": 2,
+    "target_id": 77777777771
+  }
+}
