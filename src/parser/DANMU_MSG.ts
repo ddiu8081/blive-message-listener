@@ -69,7 +69,7 @@ const parser = (data: DataType, roomId: number): DanmuMsg | null => {
     user: {
       uid: rawData[2][0],
       uname: rawData[2][1],
-      badge: rawData[3].length ? {
+      badge: rawData[3]?.length ? {
         active: rawData[3][7] !== 12632256,
         name: rawData[3][1],
         level: rawData[3][0],
