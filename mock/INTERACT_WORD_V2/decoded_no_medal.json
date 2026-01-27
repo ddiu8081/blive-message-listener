@@ -1,0 +1,21 @@
+{
+  "uid": 77777777771,
+  "uname": "__MOCK_UNAME__",
+  "msg_type": 1,
+  "room_id": 77777777774,
+  "timestamp": 1769539537,
+  "score": 1769552053935,
+  "rank_info": {},
+  "trigger_time": 1769539536825720600,
+  "uinfo": {
+    "uid": 77777777771,
+    "base": {
+      "uname": "__MOCK_UNAME__",
+      "face": "http://__MOCK_FACE__.jpg"
+    },
+    "wealth": {
+      "level": 6
+    },
+    "guard": {}
+  }
+}

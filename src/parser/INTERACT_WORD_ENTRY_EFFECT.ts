@@ -1,6 +1,7 @@
 import { intToColorHex } from '../utils/color'
 import type { Message, User } from '../types/app'
 import type { INTERACT_WORD as DataType } from 'tiny-bilibili-ws'
+import { decode as decodeInteractWordV2 } from '../protobuf/INTERACT_WORD_V2.proto'
 
 type UserAction = 'enter' | 'follow' | 'share' | 'like' | 'unknown'
 
@@ -12,7 +13,7 @@ export interface UserActionMsg {
   timestamp: number
 }
 
-const parserNormal = (data: DataType & {  data: { face?: string } }, roomId: number): UserActionMsg => {
+const parserInteractWord = (data: DataType & {  data: { face?: string } }, roomId: number): UserActionMsg => {
   const rawData = data.data
   let actionType: UserAction = 'unknown'
   if (rawData.msg_type === 1) {
@@ -53,6 +54,53 @@ const parserNormal = (data: DataType & {  data: { face?: string } }, roomId: num
     action: actionType,
     timestamp: Math.ceil(rawData.trigger_time / 1000000),
   }
+}
+
+const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg => {
+  const decodedData = decodeInteractWordV2(data.data.pb)
+  let actionType: UserAction = 'unknown'
+  if (decodedData.msg_type === 1) {
+    actionType = 'enter'
+  } else if (decodedData.msg_type === 2) {
+    actionType = 'follow'
+  } else if (decodedData.msg_type === 3) {
+    actionType = 'share'
+  }
+  // 优先使用 uinfo 中的信息，如果没有则使用顶层信息
+  const userInfo = decodedData.uinfo || {}
+  const fansMedal = decodedData.fans_medal || userInfo?.medal_info
+  
+  return {
+    user: {
+      uid: userInfo.uid || decodedData.uid,
+      uname: userInfo.base?.uname || decodedData.uname,
+      face: userInfo.base?.face,
+      badge: fansMedal ? {
+        active: !!fansMedal.is_lighted,
+        name: fansMedal.medal_name,
+        level: fansMedal.medal_level,
+        color: intToColorHex(fansMedal.color),
+        gradient: [
+          intToColorHex(fansMedal.color_start),
+          intToColorHex(fansMedal.color_start),
+          intToColorHex(fansMedal.color_end),
+        ],
+        anchor: {
+          uid: fansMedal.target_id || fansMedal.ruid,
+          uname: '',
+          room_id: fansMedal.room_id,
+          is_same_room: fansMedal.room_id === roomId,
+        }
+      } : undefined,
+      identity: {
+        rank: 0,
+        guard_level: fansMedal?.guard_level || userInfo?.guard?.level || 0,
+        room_admin: false,
+      }
+    },
+    action: actionType,
+    timestamp: Math.ceil(decodedData.trigger_time / 1000000),
+  } satisfies UserActionMsg
 }
 
 const parserGuard = (data: any, roomId: number): UserActionMsg => {
@@ -110,8 +158,11 @@ const parser = (data: any, roomId: number): UserActionMsg => {
   if (msgType === 'LIKE_INFO_V3_CLICK') {
     return parserLike(data, roomId)
   }
+  if (msgType === 'INTERACT_WORD_V2') {
+    return parserInteractWordV2(data, roomId)
+  }
   // INTERACT_WORD
-  return parserNormal(data, roomId)
+  return parserInteractWord(data, roomId)
 }
 
 export const INTERACT_WORD = {
@@ -129,6 +180,12 @@ export const ENTRY_EFFECT = {
 export const LIKE_INFO_V3_CLICK = {
   parser,
   eventName: 'LIKE_INFO_V3_CLICK' as const,
+  handlerName: 'onUserAction' as const,
+}
+
+export const INTERACT_WORD_V2 = {
+  parser,
+  eventName: 'INTERACT_WORD_V2' as const,
   handlerName: 'onUserAction' as const,
 }
 

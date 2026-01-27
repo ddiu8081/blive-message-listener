@@ -1,0 +1,7 @@
+{
+  "cmd": "INTERACT_WORD_V2",
+  "data": {
+    "dmscore": 20,
+    "pb": "[protobuf_data_base64]"
+  }
+}

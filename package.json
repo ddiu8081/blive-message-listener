@@ -41,6 +41,7 @@
   ],
   "sideEffects": false,
   "dependencies": {
+    "protobufjs": "^8.0.0",
     "tiny-bilibili-ws": "^1.0.2"
   },
   "devDependencies": {

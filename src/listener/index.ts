@@ -6,7 +6,7 @@ import {
   ANCHOR_LOT_START, type AnchorLotteryStartMsgHandler,
   DANMU_MSG, type DanmuMsgHandler,
   GUARD_BUY, type GuardBuyHandler,
-  INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type UserActionMsgHandler,
+  INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, INTERACT_WORD_V2, type UserActionMsgHandler,
   LIKE_INFO_V3_UPDATE, type LikedChangeMsgHandler,
   ONLINE_RANK_COUNT, type RankCountChangeMsgHandler,
   POPULARITY_RED_POCKET_START, type RedPocketStartMsgHandler,
@@ -157,12 +157,13 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS | KeepLiveWSB, room
     })
   }
 
-  // INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK
-  if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName] || handler[LIKE_INFO_V3_CLICK.handlerName] ||
-    rawHandlerNames.has(INTERACT_WORD.eventName) || rawHandlerNames.has(ENTRY_EFFECT.eventName) || rawHandlerNames.has(LIKE_INFO_V3_CLICK.eventName)) {
+  // INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, INTERACT_WORD_V2
+  if (handler[INTERACT_WORD.handlerName] || handler[ENTRY_EFFECT.handlerName] || handler[LIKE_INFO_V3_CLICK.handlerName] || handler[INTERACT_WORD_V2.handlerName] ||
+    rawHandlerNames.has(INTERACT_WORD.eventName) || rawHandlerNames.has(ENTRY_EFFECT.eventName) || rawHandlerNames.has(LIKE_INFO_V3_CLICK.eventName) || rawHandlerNames.has(INTERACT_WORD_V2.eventName)) {
     rawHandlerNames.delete(INTERACT_WORD.eventName)
     rawHandlerNames.delete(ENTRY_EFFECT.eventName)
     rawHandlerNames.delete(LIKE_INFO_V3_CLICK.eventName)
+    rawHandlerNames.delete(INTERACT_WORD_V2.eventName)
     instance.on(INTERACT_WORD.eventName, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[INTERACT_WORD.eventName]?.(data.data)
       const parsedData = INTERACT_WORD.parser(data.data, roomId)
@@ -177,6 +178,11 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS | KeepLiveWSB, room
       isHandleRaw && rawHandler[LIKE_INFO_V3_CLICK.eventName]?.(data.data)
       const parsedData = LIKE_INFO_V3_CLICK.parser(data.data, roomId)
       handler[LIKE_INFO_V3_CLICK.handlerName]?.(normalizeDanmu(LIKE_INFO_V3_CLICK.eventName, parsedData, data.data))
+    })
+    instance.on(INTERACT_WORD_V2.eventName as any, (data: WSMessage<any>) => {
+      isHandleRaw && rawHandler[INTERACT_WORD_V2.eventName]?.(data.data)
+      const parsedData = INTERACT_WORD_V2.parser(data.data, roomId)
+      handler[INTERACT_WORD_V2.handlerName]?.(normalizeDanmu(INTERACT_WORD_V2.eventName, parsedData, data.data))
     })
   }
 

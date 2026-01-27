@@ -363,7 +363,7 @@ export type Handler = {
   onUserAction: (msg: Message<UserActionMsg>) => void
 }
 
-type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT' | 'LIKE_INFO_V3_CLICK'
+type msgType = 'INTERACT_WORD' | 'ENTRY_EFFECT' | 'LIKE_INFO_V3_CLICK' | 'INTERACT_WORD_V2'
 
 type UserAction = 'enter' | 'follow' | 'share' | 'like' | 'unknown'
 

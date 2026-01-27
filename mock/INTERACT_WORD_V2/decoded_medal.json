@@ -1,0 +1,56 @@
+{
+  "uid": 77777777771,
+  "uname": "__MOCK_UNAME__",
+  "msg_type": 1,
+  "room_id": 77777777774,
+  "timestamp": 1769539537,
+  "score": 1769552053935,
+  "fans_medal": {
+    "target_id": 77777777772,
+    "medal_level": 21,
+    "medal_name": "__MOCK_BADGE_NAME__",
+    "color": 1725515,
+    "color_start": 1725515,
+    "color_end": 5414290,
+    "color_border": 1725515,
+    "is_lighted": 1,
+    "guard_level": 3,
+    "room_id": 77777777773,
+    "score": 2516
+  },
+  "rank_info": {},
+  "trigger_time": 1769539536825720600,
+  "uinfo": {
+    "uid": 77777777771,
+    "base": {
+      "uname": "__MOCK_UNAME__",
+      "face": "http://__MOCK_FACE__.jpg"
+    },
+    "medal_info": {
+      "medal_name": "__MOCK_BADGE_NAME__",
+      "medal_level": 21,
+      "color_start": 1725515,
+      "color_end": 5414290,
+      "color_border": 1725515,
+      "color": 1725515,
+      "id": 2,
+      "is_lighted": 1,
+      "ruid": 77777777772,
+      "guard_level": 3,
+      "score": 2516,
+      "guard_icon": "https://i0.hdslb.com/bfs/live/48360c8f3b7de8031e86ff1ef4a2dfc0ec2a61c2.png",
+      "v2_medal_color_start": "#3FB4F699",
+      "v2_medal_color_end": "#3FB4F699",
+      "v2_medal_color_border": "#3FB4F699",
+      "v2_medal_color_text": "#FFFFFF",
+      "v2_medal_color_level": "#3FB4F6E6"
+    },
+    "wealth": {
+      "level": 16
+    },
+    "guard": {
+      "level": 3,
+      "expired_str": "2026-01-31 23:59:59"
+    }
+  }
+}

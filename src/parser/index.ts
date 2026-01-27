@@ -5,7 +5,7 @@ export { ANCHOR_LOT_AWARD, type Handler as AnchorLotteryEndMsgHandler, type Anch
 export { ANCHOR_LOT_START, type Handler as AnchorLotteryStartMsgHandler, type AnchorLotteryStartMsg } from './ANCHOR_LOT_START'
 export { DANMU_MSG, type Handler as DanmuMsgHandler, type DanmuMsg } from './DANMU_MSG'
 export { GUARD_BUY, type Handler as GuardBuyHandler, type GuardBuyMsg } from './GUARD_BUY'
-export { INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, type Handler as UserActionMsgHandler, type UserActionMsg } from './INTERACT_WORD_ENTRY_EFFECT'
+export { INTERACT_WORD, ENTRY_EFFECT, LIKE_INFO_V3_CLICK, INTERACT_WORD_V2, type Handler as UserActionMsgHandler, type UserActionMsg } from './INTERACT_WORD_ENTRY_EFFECT'
 export { LIKE_INFO_V3_UPDATE, type Handler as LikedChangeMsgHandler, type LikedChangeMsg } from './LIKE_INFO_V3_UPDATE'
 export { ONLINE_RANK_COUNT, type Handler as RankCountChangeMsgHandler, type RankCountChangeMsg } from './ONLINE_RANK_COUNT'
 export { POPULARITY_RED_POCKET_START, type Handler as RedPocketStartMsgHandler, type RedPocketStartMsg } from './POPULARITY_RED_POCKET_START'
