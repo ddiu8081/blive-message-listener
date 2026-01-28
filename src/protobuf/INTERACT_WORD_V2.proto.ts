@@ -1,6 +1,5 @@
 import protobuf from 'protobufjs'
 
-// converted from https://github.com/SocialSisterYi/bilibili-API-collect/issues/1332#issuecomment-3046115843
 const protoRoot = protobuf.Root.fromJSON({
   nested: {
     InteractWordV2: {
