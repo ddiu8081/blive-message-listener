@@ -69,13 +69,14 @@ const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg => {
   // 优先使用 uinfo 中的信息，如果没有则使用顶层信息
   const userInfo = decodedData.uinfo || {}
   const fansMedal = decodedData.fans_medal || userInfo?.medal_info
+  const anchorUid = fansMedal?.target_id || fansMedal?.ruid
   
   return {
     user: {
       uid: userInfo.uid || decodedData.uid,
       uname: userInfo.base?.uname || decodedData.uname,
       face: userInfo.base?.face,
-      badge: fansMedal ? {
+      badge: fansMedal && anchorUid ? {
         active: !!fansMedal.is_lighted,
         name: fansMedal.medal_name,
         level: fansMedal.medal_level,
@@ -86,7 +87,7 @@ const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg => {
           intToColorHex(fansMedal.color_end),
         ],
         anchor: {
-          uid: fansMedal.target_id || fansMedal.ruid,
+          uid: anchorUid,
           uname: '',
           room_id: fansMedal.room_id,
           is_same_room: fansMedal.room_id === roomId,
