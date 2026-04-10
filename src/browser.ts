@@ -20,8 +20,8 @@ export const startListen = (roomId: number, handler: MsgHandler, options?: Messa
   const listenerInstance: MessageListener = {
     live: live,
     roomId: live.roomId,
-    online: live.online,
-    closed: live.closed,
+    get online() { return live.online },
+    get closed() { return live.closed },
     close: () => live.close(),
     getAttention: () => live.getOnline(),
     getOnline: () => live.getOnline(),
