@@ -167,21 +167,25 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS | KeepLiveWSB, room
     instance.on(INTERACT_WORD.eventName, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[INTERACT_WORD.eventName]?.(data.data)
       const parsedData = INTERACT_WORD.parser(data.data, roomId)
+      if (!parsedData) return
       handler[INTERACT_WORD.handlerName]?.(normalizeDanmu(INTERACT_WORD.eventName, parsedData, data.data))
     })
     instance.on(ENTRY_EFFECT.eventName, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[ENTRY_EFFECT.eventName]?.(data.data)
       const parsedData = ENTRY_EFFECT.parser(data.data, roomId)
+      if (!parsedData) return
       handler[ENTRY_EFFECT.handlerName]?.(normalizeDanmu(ENTRY_EFFECT.eventName, parsedData, data.data))
     })
     instance.on(LIKE_INFO_V3_CLICK.eventName, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[LIKE_INFO_V3_CLICK.eventName]?.(data.data)
       const parsedData = LIKE_INFO_V3_CLICK.parser(data.data, roomId)
+      if (!parsedData) return
       handler[LIKE_INFO_V3_CLICK.handlerName]?.(normalizeDanmu(LIKE_INFO_V3_CLICK.eventName, parsedData, data.data))
     })
     instance.on(INTERACT_WORD_V2.eventName as any, (data: WSMessage<any>) => {
       isHandleRaw && rawHandler[INTERACT_WORD_V2.eventName]?.(data.data)
       const parsedData = INTERACT_WORD_V2.parser(data.data, roomId)
+      if (!parsedData) return
       handler[INTERACT_WORD_V2.handlerName]?.(normalizeDanmu(INTERACT_WORD_V2.eventName, parsedData, data.data))
     })
   }

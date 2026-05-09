@@ -13,8 +13,9 @@ export interface UserActionMsg {
   timestamp: number
 }
 
-const parserInteractWord = (data: DataType & {  data: { face?: string } }, roomId: number): UserActionMsg => {
-  const rawData = data.data
+const parserInteractWord = (data: DataType & {  data?: { face?: string } }, roomId: number): UserActionMsg | null => {
+  const rawData = data?.data
+  if (!rawData) return null
   let actionType: UserAction = 'unknown'
   if (rawData.msg_type === 1) {
     actionType = 'enter'
@@ -56,7 +57,8 @@ const parserInteractWord = (data: DataType & {  data: { face?: string } }, roomI
   }
 }
 
-const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg => {
+const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg | null => {
+  if (!data?.data?.pb) return null
   const decodedData = decodeInteractWordV2(data.data.pb)
   let actionType: UserAction = 'unknown'
   if (decodedData.msg_type === 1) {
@@ -104,9 +106,10 @@ const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg => {
   } satisfies UserActionMsg
 }
 
-const parserGuard = (data: any, roomId: number): UserActionMsg => {
-  const rawData = data.data
-  const uname = /<%(.*)%>/.exec(rawData.copy_writing)?.[1] || ''
+const parserGuard = (data: any, roomId: number): UserActionMsg | null => {
+  const rawData = data?.data
+  if (!rawData) return null
+  const uname = /<%(.*)%>/.exec(rawData.copy_writing ?? '')?.[1] || ''
   return {
     user: {
       uid: rawData.uid,
@@ -122,8 +125,9 @@ const parserGuard = (data: any, roomId: number): UserActionMsg => {
   }
 }
 
-const parserLike = (data: any, roomId: number): UserActionMsg => {
-  const rawData = data.data
+const parserLike = (data: any, roomId: number): UserActionMsg | null => {
+  const rawData = data?.data
+  if (!rawData) return null
   return {
     user: {
       uid: rawData.uid,
@@ -151,7 +155,7 @@ const parserLike = (data: any, roomId: number): UserActionMsg => {
   }
 }
 
-const parser = (data: any, roomId: number): UserActionMsg => {
+const parser = (data: any, roomId: number): UserActionMsg | null => {
   const msgType = data.cmd
   if (msgType === 'ENTRY_EFFECT') {
     return parserGuard(data, roomId)
