@@ -1,11 +1,11 @@
-import { KeepLiveTCP } from 'tiny-bilibili-ws'
+import { KeepLiveTCP, KeepLiveWS } from 'tiny-bilibili-ws'
 import { listenAll, type MsgHandler } from './listener'
-import type { TCPOptions, WS_OP } from 'tiny-bilibili-ws'
-import type { KeepLiveWS } from 'tiny-bilibili-ws/browser'
+import type { TCPOptions, WSOptions, WS_OP } from 'tiny-bilibili-ws'
+import type { KeepLiveWS as BrowserKeepLiveWS } from 'tiny-bilibili-ws/browser'
 
 export interface MessageListener {
   /** tiny-bilibili-ws 实例 */
-  live: KeepLiveTCP | KeepLiveWS
+  live: KeepLiveTCP | KeepLiveWS | BrowserKeepLiveWS
   /** 直播间房间号 */
   roomId: number
   /** 人气值 */
@@ -27,6 +27,8 @@ export interface MessageListener {
 }
 
 interface MessageListenerTCPOptions {
+  /** 连接方式，默认使用 TCP */
+  transport?: 'tcp'
   /**
    * tiny-bilibili-ws 连接选项
    *
@@ -35,8 +37,23 @@ interface MessageListenerTCPOptions {
   ws?: TCPOptions
 }
 
-export const startListen = (roomId: number, handler: MsgHandler, options?: MessageListenerTCPOptions) => {
-  const live = new KeepLiveTCP(roomId, options?.ws)
+interface MessageListenerWSOptions {
+  /** 使用 WebSocket 连接 */
+  transport: 'ws'
+  /**
+   * tiny-bilibili-ws 连接选项
+   *
+   * @see https://github.com/starknt/tiny-bilibili-ws
+   */
+  ws?: WSOptions
+}
+
+type MessageListenerOptions = MessageListenerTCPOptions | MessageListenerWSOptions
+
+export const startListen = (roomId: number, handler: MsgHandler, options?: MessageListenerOptions) => {
+  const live = options?.transport === 'ws'
+    ? new KeepLiveWS(roomId, options.ws)
+    : new KeepLiveTCP(roomId, options?.ws)
 
   listenAll(live, roomId, handler)
 
