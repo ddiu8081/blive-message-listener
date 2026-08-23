@@ -1,7 +1,7 @@
-import { KeepLiveWS } from 'tiny-bilibili-ws/browser'
-import { listenAll, type MsgHandler } from './listener'
-import type { MessageListener } from '.'
 import type { BrowserWSOptions } from 'tiny-bilibili-ws/browser'
+import { KeepLiveWS } from 'tiny-bilibili-ws/browser'
+import type { MessageListener } from '.'
+import { listenAll, type MsgHandler } from './listener'
 
 interface MessageListenerWSOptions {
   /**
@@ -12,21 +12,33 @@ interface MessageListenerWSOptions {
   ws?: BrowserWSOptions
 }
 
-export const startListen = (roomId: number, handler: MsgHandler, options?: MessageListenerWSOptions) => {
-  const live = new KeepLiveWS(roomId, options?.ws!)
+export const startListen = (
+  roomId: number,
+  handler: MsgHandler,
+  options?: MessageListenerWSOptions
+) => {
+  if (!options?.ws) {
+    throw new Error('Browser connections require options.ws with a WebSocket URL and key')
+  }
+
+  const live = new KeepLiveWS(roomId, options.ws)
 
   listenAll(live, roomId, handler)
 
   const listenerInstance: MessageListener = {
-    live: live,
-    roomId: live.roomId,
-    get online() { return live.online },
-    get closed() { return live.closed },
     close: () => live.close(),
+    get closed() {
+      return live.closed
+    },
     getAttention: () => live.getOnline(),
     getOnline: () => live.getOnline(),
-    reconnect: () => live.reconnect(),
     heartbeat: () => live.heartbeat(),
+    live,
+    get online() {
+      return live.online
+    },
+    reconnect: () => live.reconnect(),
+    roomId: live.roomId,
     send: (op, data) => live.send(op, data),
   }
 

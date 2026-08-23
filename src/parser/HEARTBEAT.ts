@@ -5,16 +5,14 @@ export interface AttentionChangeMsg {
   attention: number
 }
 
-const parser = (data: number): AttentionChangeMsg => {
-  return {
-    attention: data,
-  }
-}
+const parser = (data: number): AttentionChangeMsg => ({
+  attention: data,
+})
 
 export const HEARTBEAT = {
-  parser,
   eventName: 'heartbeat' as const,
   handlerName: 'onAttentionChange' as const,
+  parser,
 }
 
 export type Handler = {

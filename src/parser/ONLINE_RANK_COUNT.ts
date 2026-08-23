@@ -1,5 +1,5 @@
-import type { Message } from '../types/app'
 import type { ONLINE_RANK_COUNT as DataType } from 'tiny-bilibili-ws'
+import type { Message } from '../types/app'
 
 export interface RankCountChangeMsg {
   /** 高能用户人数 */
@@ -14,9 +14,9 @@ const parser = (data: DataType): RankCountChangeMsg => {
 }
 
 export const ONLINE_RANK_COUNT = {
-  parser,
   eventName: 'ONLINE_RANK_COUNT' as const,
   handlerName: 'onRankCountChange' as const,
+  parser,
 }
 
 export type Handler = {

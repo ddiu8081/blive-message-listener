@@ -18,15 +18,15 @@ const parser = (data: any, roomId: number): RoomAdminSetMsg => {
 }
 
 export const room_admin_entrance = {
-  parser,
   eventName: 'room_admin_entrance' as const,
   handlerName: 'onRoomAdminSet' as const,
+  parser,
 }
 
 export const ROOM_ADMIN_REVOKE = {
-  parser,
   eventName: 'ROOM_ADMIN_REVOKE' as const,
   handlerName: 'onRoomAdminSet' as const,
+  parser,
 }
 
 export type Handler = {

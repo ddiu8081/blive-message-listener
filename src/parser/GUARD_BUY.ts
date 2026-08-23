@@ -1,9 +1,10 @@
+import type { GUARD_BUY as DataType } from 'tiny-bilibili-ws'
 import type { Message, User } from '../types/app'
 import type { GuardLevel } from '../types/const'
-import type { GUARD_BUY as DataType } from 'tiny-bilibili-ws'
 
 export interface GuardBuyMsg {
-  user: User
+  /** 等级过期时间 */
+  end_time: number
   /** 礼物id */
   gift_id: number
   /** 礼物名称 */
@@ -14,30 +15,29 @@ export interface GuardBuyMsg {
   price: number
   /** 等级生效时间 */
   start_time: number
-  /** 等级过期时间 */
-  end_time: number
+  user: User
 }
 
 const parser = (data: DataType): GuardBuyMsg => {
   const rawData = data.data
   return {
-    user: {
-      uid: rawData.uid,
-      uname: rawData.username,
-    },
+    end_time: rawData.end_time,
     gift_id: rawData.gift_id,
     gift_name: rawData.gift_name,
     guard_level: rawData.guard_level,
     price: rawData.price,
     start_time: rawData.start_time,
-    end_time: rawData.end_time,
+    user: {
+      uid: rawData.uid,
+      uname: rawData.username,
+    },
   }
 }
 
 export const GUARD_BUY = {
-  parser,
   eventName: 'GUARD_BUY' as const,
   handlerName: 'onGuardBuy' as const,
+  parser,
 }
 
 export type Handler = {

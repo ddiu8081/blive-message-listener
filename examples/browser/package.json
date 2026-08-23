@@ -1,0 +1,12 @@
+{
+  "name": "@blive-message-listener/example-browser",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun build ./index.html --target=browser --outdir=dist",
+    "dev": "bun --hot ./server.ts"
+  },
+  "dependencies": {
+    "tiny-bilibili-ws": "^1.0.2"
+  }
+}

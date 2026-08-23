@@ -1,5 +1,5 @@
-import type { Message } from '../types/app'
 import type { WATCHED_CHANGE as DataType } from 'tiny-bilibili-ws'
+import type { Message } from '../types/app'
 
 export interface WatchedChangeMsg {
   /** 累计入场人数 */
@@ -17,9 +17,9 @@ const parser = (data: DataType): WatchedChangeMsg => {
 }
 
 export const WATCHED_CHANGE = {
-  parser,
   eventName: 'WATCHED_CHANGE' as const,
   handlerName: 'onWatchedChange' as const,
+  parser,
 }
 
 export type Handler = {

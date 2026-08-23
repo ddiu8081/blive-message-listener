@@ -1,13 +1,7 @@
-import type { Message } from '../types/app'
 import type { ANCHOR_LOT_START as DataType } from 'tiny-bilibili-ws'
+import type { Message } from '../types/app'
 
 export interface AnchorLotteryStartMsg {
-  /** 天选抽奖id */
-  id: number
-  /** 开始时间，秒级时间戳 */
-  start_time: number
-  /** 持续时间，秒 */
-  duration: number
   /** 天选奖品信息 */
   award: {
     /** 奖品图片 */
@@ -21,6 +15,10 @@ export interface AnchorLotteryStartMsg {
     /** 虚拟奖品价值描述，实物奖品为空 */
     price_text: string
   }
+  /** 持续时间，秒 */
+  duration: number
+  /** 天选抽奖id */
+  id: number
   /** 抽奖要求 */
   require: {
     /** 口令弹幕内容，无需弹幕为空字符串 */
@@ -46,43 +44,49 @@ export interface AnchorLotteryStartMsg {
       text: string
     } | null
   }
+  /** 开始时间，秒级时间戳 */
+  start_time: number
 }
 
 const parser = (data: DataType, roomId: number): AnchorLotteryStartMsg => {
   const rawData = data.data
 
   return {
-    id: rawData.id,
-    start_time: rawData.current_time,
-    duration: rawData.max_time,
     award: {
       image: rawData.award_image,
       name: rawData.award_name,
       num: rawData.award_num,
-      virtual: (rawData as any).award_type === 1,
       price_text: (rawData as any).award_price_text || '',
+      virtual: (rawData as any).award_type === 1,
     },
+    duration: rawData.max_time,
+    id: rawData.id,
     require: {
       danmu: rawData.danmu || '',
-      gift: rawData.gift_id ? {
-        id:  `${rawData.gift_id}`,
-        name: rawData.gift_name,
-        num: rawData.gift_num,
-        price: rawData.gift_price,
-      } : null,
-      user: rawData.require_type ? {
-        type: (['follow', 'medal', 'guard'] as const)[rawData.require_type - 1],
-        value: rawData.require_value,
-        text: rawData.require_text,
-      } : null,
+      gift: rawData.gift_id
+        ? {
+            id: `${rawData.gift_id}`,
+            name: rawData.gift_name,
+            num: rawData.gift_num,
+            price: rawData.gift_price,
+          }
+        : null,
+      user: rawData.require_type
+        ? {
+            text: rawData.require_text,
+            type: (['follow', 'medal', 'guard'] as const)[rawData.require_type - 1],
+            value: rawData.require_value,
+          }
+        : null,
     },
+    start_time: rawData.current_time,
   }
 }
 
 export const ANCHOR_LOT_START = {
-  parser,
   eventName: 'ANCHOR_LOT_START' as const,
   handlerName: 'onAnchorLotteryStart' as const,
+  parser,
 }
 
 export type Handler = {

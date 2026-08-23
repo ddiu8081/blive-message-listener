@@ -1,12 +1,23 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ESNext",
-    "lib": ["ESNext", "dom"],
-    "strict": true,
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "skipLibCheck": true,
     "isolatedModules": true,
-  }
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2022",
+    "types": ["bun"]
+  },
+  "include": [
+    "src",
+    "test",
+    "tsdown.config.ts",
+    "examples/*/src",
+    "examples/*/*.ts"
+  ]
 }

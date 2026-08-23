@@ -1,23 +1,61 @@
 {
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/biome/core", "ultracite/biome/vitest"],
+  "files": {
+    "includes": ["!dist", "!coverage", "!example", "!mock", "!node_modules"]
+  },
   "formatter": {
-    "enabled": true,
     "indentStyle": "space",
-    "indentWidth": 2
+    "indentWidth": 2,
+    "lineWidth": 100
   },
   "javascript": {
+    "globals": ["Bun"],
     "formatter": {
       "quoteStyle": "single",
-      "trailingComma": "es5",
-      "semicolons": "asNeeded"
+      "semicolons": "asNeeded",
+      "trailingCommas": "es5"
     }
   },
   "linter": {
-    "enabled": true,
     "rules": {
-      "recommended": true,
+      "performance": {
+        "noBarrelFile": "off"
+      },
+      "style": {
+        "noEnum": "off",
+        "useDestructuring": "off",
+        "useConsistentTypeDefinitions": "off",
+        "useFilenamingConvention": "off"
+      },
       "suspicious": {
         "noExplicitAny": "off"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["src/listener/index.ts"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "off"
+          },
+          "suspicious": {
+            "noUnusedExpressions": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/parser/**/*.ts"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedFunctionParameters": "off"
+          }
+        }
+      }
+    }
+  ]
 }

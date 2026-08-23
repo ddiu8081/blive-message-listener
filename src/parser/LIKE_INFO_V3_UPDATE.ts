@@ -1,5 +1,5 @@
-import type { Message } from '../types/app'
 import type { LIKE_INFO_V3_UPDATE as DataType } from 'tiny-bilibili-ws'
+import type { Message } from '../types/app'
 
 export interface LikedChangeMsg {
   /** 直播间点赞人数 */
@@ -14,9 +14,9 @@ const parser = (data: DataType): LikedChangeMsg => {
 }
 
 export const LIKE_INFO_V3_UPDATE = {
-  parser,
   eventName: 'LIKE_INFO_V3_UPDATE' as const,
   handlerName: 'onLikedChange' as const,
+  parser,
 }
 
 export type Handler = {

@@ -1,12 +1,6 @@
-import { GuardLevel } from './const'
+import type { GuardLevel } from './const'
 
 export interface User {
-  /** 用户uid */
-  uid: number
-  /** 用户名 */
-  uname: string
-  /** 用户头像 */
-  face?: string
   /** 用户牌子·*/
   badge?: {
     /** 是否点亮 */
@@ -31,6 +25,8 @@ export interface User {
       is_same_room?: boolean
     }
   }
+  /** 用户头像 */
+  face?: string
   /** 用户身份 */
   identity?: {
     /** 直播榜单排名 */
@@ -40,17 +36,21 @@ export interface User {
     /** 房管 */
     room_admin: boolean
   }
+  /** 用户uid */
+  uid: number
+  /** 用户名 */
+  uname: string
 }
 
 export interface Message<T> {
-  /** 消息id */
-  id: string,
-  /** 接收消息的时间，毫秒时间戳 */
-  timestamp: number,
-  /** 消息类型 */
-  type: string,
   /** 消息内容 */
   body: T
+  /** 消息id */
+  id: string
   /** 原始消息内容 */
   raw: any
+  /** 接收消息的时间，毫秒时间戳 */
+  timestamp: number
+  /** 消息类型 */
+  type: string
 }

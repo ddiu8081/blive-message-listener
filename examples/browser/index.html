@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="dark" name="color-scheme">
+    <title>blive-message-listener 实时控制台</title>
+    <link href="./src/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <p class="eyebrow">LIVE PROTOCOL LAB</p>
+          <h1>弹幕实时控制台</h1>
+          <p class="intro">输入房间号即可连接；身份字段仅保留在当前页面内。</p>
+        </div>
+        <div class="status" data-state="idle" id="status">未连接</div>
+      </header>
+
+      <form id="connection-form">
+        <label>
+          <span>长房间号</span>
+          <input inputmode="numeric" name="roomId" placeholder="652581" required>
+        </label>
+        <details>
+          <summary>高级连接与身份字段</summary>
+          <div class="optional-fields">
+            <label>
+              <span>WebSocket URL</span>
+              <input name="url" placeholder="留空时自动获取">
+            </label>
+            <label>
+              <span>连接 Key</span>
+              <input autocomplete="off" name="key" placeholder="留空时自动获取" type="password">
+            </label>
+            <label>
+              <span>UID</span>
+              <input inputmode="numeric" name="uid" placeholder="0">
+            </label>
+            <label>
+              <span>Buvid</span>
+              <input autocomplete="off" name="buvid">
+            </label>
+          </div>
+        </details>
+        <div class="actions">
+          <button type="submit">开始监听</button>
+          <button class="secondary" disabled id="disconnect" type="button">断开</button>
+          <button class="ghost" id="clear" type="button">清空消息</button>
+        </div>
+      </form>
+
+      <section class="stream-header">
+        <h2>消息流</h2>
+        <span id="message-count">0 条</span>
+      </section>
+      <ol aria-live="polite" id="messages"></ol>
+    </main>
+    <script src="./src/index.ts" type="module"></script>
+  </body>
+</html>

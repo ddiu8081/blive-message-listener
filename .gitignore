@@ -1,3 +1,5 @@
 node_modules
 dist
-example/**/dist.js
+coverage
+.env
+examples/*/dist

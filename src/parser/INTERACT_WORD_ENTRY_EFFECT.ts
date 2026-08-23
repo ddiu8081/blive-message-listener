@@ -1,21 +1,28 @@
-import { intToColorHex } from '../utils/color'
-import type { Message, User } from '../types/app'
 import type { INTERACT_WORD as DataType } from 'tiny-bilibili-ws'
 import { decode as decodeInteractWordV2 } from '../protobuf/INTERACT_WORD_V2.proto'
+import type { Message, User } from '../types/app'
+import { intToColorHex } from '../utils/color'
+
+const ENTRY_UNAME_PATTERN = /<%(.*)%>/
 
 type UserAction = 'enter' | 'follow' | 'share' | 'like' | 'unknown'
 
 export interface UserActionMsg {
-  user: User
   /** 事件类型 */
   action: UserAction
   /** 事件时间，毫秒时间戳 */
   timestamp: number
+  user: User
 }
 
-const parserInteractWord = (data: DataType & {  data?: { face?: string } }, roomId: number): UserActionMsg | null => {
+const parserInteractWord = (
+  data: DataType & { data?: { face?: string } },
+  roomId: number
+): UserActionMsg | null => {
   const rawData = data?.data
-  if (!rawData) return null
+  if (!rawData) {
+    return null
+  }
   let actionType: UserAction = 'unknown'
   if (rawData.msg_type === 1) {
     actionType = 'enter'
@@ -25,40 +32,44 @@ const parserInteractWord = (data: DataType & {  data?: { face?: string } }, room
     actionType = 'share'
   }
   return {
+    action: actionType,
+    timestamp: Math.ceil(rawData.trigger_time / 1_000_000),
     user: {
+      badge: rawData.fans_medal?.target_id
+        ? {
+            active: !!rawData.fans_medal?.is_lighted,
+            anchor: {
+              is_same_room: rawData.fans_medal?.anchor_roomid === roomId,
+              room_id: rawData.fans_medal?.anchor_roomid,
+              uid: rawData.fans_medal?.target_id,
+              uname: '',
+            },
+            color: intToColorHex(rawData.fans_medal?.medal_color),
+            gradient: [
+              intToColorHex(rawData.fans_medal?.medal_color_start),
+              intToColorHex(rawData.fans_medal?.medal_color_start),
+              intToColorHex(rawData.fans_medal?.medal_color_end),
+            ],
+            level: rawData.fans_medal?.medal_level,
+            name: rawData.fans_medal?.medal_name,
+          }
+        : undefined,
+      face: rawData?.face,
+      identity: {
+        guard_level: rawData.privilege_type,
+        rank: 0,
+        room_admin: false,
+      },
       uid: rawData.uid,
       uname: rawData.uname,
-      face: rawData?.face,
-      badge: rawData.fans_medal?.target_id ? {
-        active: !!rawData.fans_medal?.is_lighted,
-        name: rawData.fans_medal?.medal_name,
-        level: rawData.fans_medal?.medal_level,
-        color: intToColorHex(rawData.fans_medal?.medal_color),
-        gradient: [
-          intToColorHex(rawData.fans_medal?.medal_color_start),
-          intToColorHex(rawData.fans_medal?.medal_color_start),
-          intToColorHex(rawData.fans_medal?.medal_color_end),
-        ],
-        anchor: {
-          uid: rawData.fans_medal?.target_id,
-          uname: '',
-          room_id: rawData.fans_medal?.anchor_roomid,
-          is_same_room: rawData.fans_medal?.anchor_roomid === roomId,
-        }
-      } : undefined,
-      identity: {
-        rank: 0,
-        guard_level: rawData.privilege_type,
-        room_admin: false,
-      }
     },
-    action: actionType,
-    timestamp: Math.ceil(rawData.trigger_time / 1000000),
   }
 }
 
 const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg | null => {
-  if (!data?.data?.pb) return null
+  if (!data?.data?.pb) {
+    return null
+  }
   const decodedData = decodeInteractWordV2(data.data.pb)
   let actionType: UserAction = 'unknown'
   if (decodedData.msg_type === 1) {
@@ -72,86 +83,95 @@ const parserInteractWordV2 = (data: any, roomId: number): UserActionMsg | null =
   const userInfo = decodedData.uinfo || {}
   const fansMedal = decodedData.fans_medal || userInfo?.medal_info
   const anchorUid = fansMedal?.target_id || fansMedal?.ruid
-  
+
   return {
+    action: actionType,
+    timestamp: Math.ceil(decodedData.trigger_time / 1_000_000),
     user: {
+      badge:
+        fansMedal && anchorUid
+          ? {
+              active: !!fansMedal.is_lighted,
+              anchor: {
+                is_same_room: fansMedal.room_id === roomId,
+                room_id: fansMedal.room_id,
+                uid: anchorUid,
+                uname: '',
+              },
+              color: intToColorHex(fansMedal.color),
+              gradient: [
+                intToColorHex(fansMedal.color_start),
+                intToColorHex(fansMedal.color_start),
+                intToColorHex(fansMedal.color_end),
+              ],
+              level: fansMedal.medal_level,
+              name: fansMedal.medal_name,
+            }
+          : undefined,
+      face: userInfo.base?.face,
+      identity: {
+        guard_level: fansMedal?.guard_level || userInfo?.guard?.level || 0,
+        rank: 0,
+        room_admin: false,
+      },
       uid: userInfo.uid || decodedData.uid,
       uname: userInfo.base?.uname || decodedData.uname,
-      face: userInfo.base?.face,
-      badge: fansMedal && anchorUid ? {
-        active: !!fansMedal.is_lighted,
-        name: fansMedal.medal_name,
-        level: fansMedal.medal_level,
-        color: intToColorHex(fansMedal.color),
-        gradient: [
-          intToColorHex(fansMedal.color_start),
-          intToColorHex(fansMedal.color_start),
-          intToColorHex(fansMedal.color_end),
-        ],
-        anchor: {
-          uid: anchorUid,
-          uname: '',
-          room_id: fansMedal.room_id,
-          is_same_room: fansMedal.room_id === roomId,
-        }
-      } : undefined,
-      identity: {
-        rank: 0,
-        guard_level: fansMedal?.guard_level || userInfo?.guard?.level || 0,
-        room_admin: false,
-      }
     },
-    action: actionType,
-    timestamp: Math.ceil(decodedData.trigger_time / 1000000),
   } satisfies UserActionMsg
 }
 
 const parserGuard = (data: any, roomId: number): UserActionMsg | null => {
   const rawData = data?.data
-  if (!rawData) return null
-  const uname = /<%(.*)%>/.exec(rawData.copy_writing ?? '')?.[1] || ''
+  if (!rawData) {
+    return null
+  }
+  const uname = ENTRY_UNAME_PATTERN.exec(rawData.copy_writing ?? '')?.[1] || ''
   return {
-    user: {
-      uid: rawData.uid,
-      uname: uname, // 超长会有省略号
-      identity: {
-        rank: 0,
-        guard_level: rawData.privilege_type,
-        room_admin: false,
-      }
-    },
     action: 'enter',
-    timestamp: Math.ceil(rawData.trigger_time / 1000000),
+    timestamp: Math.ceil(rawData.trigger_time / 1_000_000),
+    user: {
+      identity: {
+        guard_level: rawData.privilege_type,
+        rank: 0,
+        room_admin: false,
+      },
+      uid: rawData.uid,
+      uname, // 超长会有省略号
+    },
   }
 }
 
 const parserLike = (data: any, roomId: number): UserActionMsg | null => {
   const rawData = data?.data
-  if (!rawData) return null
+  if (!rawData) {
+    return null
+  }
   return {
-    user: {
-      uid: rawData.uid,
-      uname: rawData.uname,
-      badge: rawData.fans_medal?.target_id ? {
-        active: rawData.fans_medal?.is_lighted,
-        name: rawData.fans_medal?.medal_name,
-        level: rawData.fans_medal?.medal_level,
-        color: intToColorHex(rawData.fans_medal?.medal_color),
-        gradient: [
-          intToColorHex(rawData.fans_medal?.medal_color_start),
-          intToColorHex(rawData.fans_medal?.medal_color_start),
-          intToColorHex(rawData.fans_medal?.medal_color_end),
-        ],
-        anchor: {
-          uid: rawData.fans_medal?.target_id,
-          uname: '',
-          room_id: rawData.fans_medal?.anchor_roomid, // 返回为 0
-          is_same_room: rawData.fans_medal?.anchor_roomid === roomId,
-        }
-      } : undefined,
-    },
     action: 'like',
     timestamp: Date.now(),
+    user: {
+      badge: rawData.fans_medal?.target_id
+        ? {
+            active: rawData.fans_medal?.is_lighted,
+            anchor: {
+              is_same_room: rawData.fans_medal?.anchor_roomid === roomId,
+              room_id: rawData.fans_medal?.anchor_roomid, // 返回为 0
+              uid: rawData.fans_medal?.target_id,
+              uname: '',
+            },
+            color: intToColorHex(rawData.fans_medal?.medal_color),
+            gradient: [
+              intToColorHex(rawData.fans_medal?.medal_color_start),
+              intToColorHex(rawData.fans_medal?.medal_color_start),
+              intToColorHex(rawData.fans_medal?.medal_color_end),
+            ],
+            level: rawData.fans_medal?.medal_level,
+            name: rawData.fans_medal?.medal_name,
+          }
+        : undefined,
+      uid: rawData.uid,
+      uname: rawData.uname,
+    },
   }
 }
 
@@ -171,27 +191,27 @@ const parser = (data: any, roomId: number): UserActionMsg | null => {
 }
 
 export const INTERACT_WORD = {
-  parser,
   eventName: 'INTERACT_WORD' as const,
   handlerName: 'onUserAction' as const,
+  parser,
 }
 
 export const ENTRY_EFFECT = {
-  parser,
   eventName: 'ENTRY_EFFECT' as const,
   handlerName: 'onUserAction' as const,
+  parser,
 }
 
 export const LIKE_INFO_V3_CLICK = {
-  parser,
   eventName: 'LIKE_INFO_V3_CLICK' as const,
   handlerName: 'onUserAction' as const,
+  parser,
 }
 
 export const INTERACT_WORD_V2 = {
-  parser,
   eventName: 'INTERACT_WORD_V2' as const,
   handlerName: 'onUserAction' as const,
+  parser,
 }
 
 export type Handler = {

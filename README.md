@@ -12,10 +12,8 @@
 
 ## Install
 
-```bash
-
-npm i blive-message-listener
-
+```sh
+bun add blive-message-listener
 ```
 
 ## Usage
@@ -865,6 +863,40 @@ const handler: MsgHandler = {
 
 startListen(652581, handler)
 ```
+
+## Development
+
+本仓库使用 Bun workspace、tsdown 和 Bun Test。需要 Bun 1.3 或更新版本。
+
+```sh
+bun install
+bun run check
+bun run typecheck
+bun test
+bun run build
+```
+
+`bun run ci` 会依次执行完整的代码规范、类型、测试、库构建和示例构建检查。
+
+### 实时测试
+
+Node 示例只需要房间号，适合快速观察 TCP 消息：
+
+```sh
+bun run example:node -- 652581
+```
+
+如需登录态，可复制 `examples/node/.env.example` 为 `.env` 并填写 Cookie，或填写
+UID、Key 与 Buvid。使用 `BILIBILI_RUN_FOR_MS=10000` 可在 smoke test 中自动断开。
+
+浏览器实时控制台会通过本地 Bun 服务自动获取长房间号、弹幕 token 和 WSS 节点：
+
+```sh
+bun run example:browser
+```
+
+打开 `http://localhost:3000` 后通常只需输入房间号。高级连接字段可用于复现指定节点或
+登录态问题，敏感字段只保存在当前页面内，不会写入仓库。
 
 ## Credits
 
