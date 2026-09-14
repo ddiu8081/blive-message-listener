@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import protobuf from 'protobufjs'
+import { validateWire } from '../src/protobuf/validate'
 
 interface WireField {
   field: number
@@ -14,118 +15,76 @@ interface WireField {
   float32?: number | string
 }
 
-// Hints describe evidence only. Equal values do not establish field semantics.
-const hints: Record<string, string> = {
-  '1': 'uid',
-  '2': 'uname',
-  '3': 'face',
-  '4': 'name_color',
-  '5': 'possibly guard_level',
-  '8': 'medal_info (can differ from uinfo.medal_info or be empty)',
-  '8.1': 'medal anchor uid',
-  '8.5': 'medal_level',
-  '8.6': 'medal_name',
-  '8.7': 'color (ordering unconfirmed)',
-  '8.8': 'color (ordering unconfirmed)',
-  '8.9': 'color (ordering unconfirmed)',
-  '8.10': 'color (ordering unconfirmed)',
-  '8.11': 'possibly is_lighted',
-  '8.12': 'possibly medal guard_level',
-  '9': 'blind_gift candidate (normal6 contains 幸运盲盒 / 爆出)',
-  '9.1': 'blind gift configuration/id candidate',
-  '9.2': 'original gift id candidate',
-  '9.3': 'original gift name',
-  '9.5': 'blind gift action',
-  '9.6': 'original gift price candidate; equals 10.7 in normal6',
-  '10': 'gift information',
-  '10.1': 'giftId',
-  '10.2': 'giftName',
-  '10.3': 'num candidate; 1 in every capture, no multi-quantity evidence',
-  '10.4': 'giftType candidate; 1 for 粉丝团灯牌, 2 for blind-gift 星光铃铛',
-  '10.5': 'amount/price candidate (unconfirmed)',
-  '10.6': 'amount/price candidate (unconfirmed)',
-  '10.7': 'payment/discount-price candidate; 5000 vs 5200 in normal6, equals 9.6',
-  '10.8': 'coin_type',
-  '10.9': 'transaction identifier string',
-  '10.10': 'timestamp (seconds)',
-  '10.11': 'quantity/flag candidate (unconfirmed)',
-  '10.12': 'batch_combo_id',
-  '10.14': 'amount/price candidate (unconfirmed)',
-  '10.18': 'action',
-  '10.29': 'recipient information; not confirmed as send_master',
-  '10.29.1': 'recipient uname',
-  '10.29.2': 'recipient uid',
-  '10.33': 'recipient uinfo',
-  '10.36': 'blind-gift amount candidate; 5200 in normal6 only',
-  '13': 'possibly wealth information',
-  '15': 'sender uinfo (matches INTERACT_WORD_V2 UserInfo layout)',
-  '15.1': 'uid',
-  '15.2': 'base',
-  '15.2.1': 'uname',
-  '15.2.2': 'face',
-  '15.3': 'medal_info',
-  '15.3.1': 'medal_name',
-  '15.3.2': 'medal_level',
-  '15.3.10': 'ruid',
-}
-
+// Names from the fuller schema posted in the PR comments, rather than the
+// intentionally partial Python model (whose field 4/12 aliases differ).
 const schemaSource = {
   url: 'https://github.com/xfgryujk/blivedm/pull/86',
-  commit: 'dcd99f0d1bafe44210c0dffc785eaea635705e26',
-  file: 'blivedm/models/pb.py',
-  note: 'Community reverse-engineered schema from the final PR revision; not an official Bilibili schema.',
+  section: 'xfgryujk comment containing SendGiftBroadcast and GiftItem definitions',
+  note: 'Community reverse-engineered protocol from PR comments; not an official schema.',
 }
 
-// Prefer the final merged PR over its initial description: total_coin moved
-// to field 7, and field 10 is repeated (one broadcast can contain many gifts).
-const prNames: Record<string, string> = {
-  '1': 'uid', '2': 'uname', '3': 'face', '5': 'guard_level',
-  '8': 'medal_info', '8.1': 'target_id', '8.4': 'anchor_roomid',
-  '8.5': 'medal_level', '8.6': 'medal_name',
-  '9': 'blind_gift', '9.3': 'original_gift_name', '9.6': 'original_gift_price',
-  '10': 'gift_list', '10.1': 'gift_id', '10.2': 'gift_name',
-  '10.3': 'num', '10.4': 'gift_type', '10.5': 'price',
-  '10.7': 'total_coin', '10.8': 'coin_type', '10.9': 'tid',
-  '10.10': 'timestamp', '10.12': 'rnd', '10.18': 'action',
-  '10.35': 'gift_info', '10.35.1': 'img_basic',
+const names: Record<string, string> = {}
+const addNames = (root: string, mapping: Record<string, string>) => {
+  for (const [field, name] of Object.entries(mapping)) names[root ? `${root}.${field}` : field] = name
 }
-for (const [path, name] of Object.entries(prNames)) {
-  hints[path] = `${name} (blivedm PR #86 final schema)`
-}
-
-// Descriptive names only where supported by visible content. Unknown scalars
-// retain field_N keys; candidates are explicitly named as candidates.
-const names: Record<string, string> = {
-  '1': 'uid', '2': 'uname', '3': 'face', '4': 'name_color',
-  '5': 'guard_level_candidate', '8': 'medal_info', '9': 'blind_gift_candidate',
-  '8.1': 'target_id', '8.5': 'medal_level', '8.6': 'medal_name',
-  '9.2': 'original_gift_id_candidate', '9.3': 'original_gift_name',
-  '9.5': 'action', '9.6': 'original_gift_price_candidate',
-  '10': 'gift', '10.1': 'giftId', '10.2': 'giftName',
-  '10.3': 'num_candidate', '10.4': 'giftType_candidate',
-  '10.8': 'coin_type', '10.9': 'transaction_id', '10.10': 'timestamp',
-  '10.12': 'batch_combo_id', '10.18': 'action', '10.29': 'recipient',
-  '10.29.1': 'uname', '10.29.2': 'uid', '10.33': 'recipient_uinfo',
-  '13': 'wealth_candidate', '13.1': 'level_candidate', '15': 'uinfo',
-}
-Object.assign(names, prNames)
+addNames('', {
+  1: 'uid', 2: 'uname', 3: 'face', 4: 'name_color', 5: 'guard_level',
+  6: 'svga_block', 7: 'send_master', 8: 'medal_info', 9: 'blind_gift',
+  10: 'gift_list', 11: 'switch', 12: 'test', 13: 'wealth_info',
+  14: 'group_medal', 15: 'sender_uinfo',
+})
+addNames('7', { 1: 'uid', 2: 'uname' })
+addNames('8', {
+  1: 'target_id', 2: 'special', 3: 'anchor_uname', 4: 'anchor_roomid',
+  5: 'medal_level', 6: 'medal_name', 7: 'medal_color', 8: 'medal_color_start',
+  9: 'medal_color_end', 10: 'medal_color_border', 11: 'is_lighted', 12: 'guard_level',
+})
+addNames('9', {
+  1: 'blind_gift_config_id', 2: 'original_gift_id', 3: 'original_gift_name',
+  4: 'from', 5: 'gift_action', 6: 'original_gift_price', 7: 'gift_tip_price',
+})
+addNames('10', {
+  1: 'gift_id', 2: 'gift_name', 3: 'num', 4: 'demarcation', 5: 'price',
+  6: 'discount_price', 7: 'total_coin', 8: 'coin_type', 9: 'tid', 10: 'timestamp',
+  11: 'super_batch_gift_num', 12: 'batch_combo_id', 13: 'combo_resources_id',
+  14: 'combo_total_coin', 15: 'combo_stay_time', 16: 'magnification',
+  17: 'show_batch_combo_send', 18: 'action', 19: 'effect_block', 20: 'is_special_batch',
+  21: 'float_sc_resource_id', 22: 'tag_image', 23: 'crit_prob', 24: 'rcost', 25: 'test',
+  26: 'face_effect_type', 27: 'face_effect_id', 28: 'is_naming',
+  29: 'receive_user_info', 30: 'is_join_receiver', 31: 'bag_gift', 32: 'gift_tag',
+  33: 'receiver_uinfo', 34: 'face_effect_v2', 35: 'gift_info', 36: 'gift_tip_price',
+  37: 'face_effect', 38: 'benefits', 39: 'effect_config',
+})
+addNames('10.29', { 1: 'uname', 2: 'uid' })
+addNames('10.31', { 1: 'show_price', 2: 'price_for_show' })
+addNames('10.35', { 1: 'img_basic' })
+addNames('13', { 1: 'level' })
 for (const root of ['15', '10.33']) {
-  for (const [suffix, name] of Object.entries({
-    '1': 'uid', '2': 'base', '2.1': 'uname', '2.2': 'face',
-    '2.6': 'origin_info', '2.6.1': 'name', '2.6.2': 'face',
-    '3': 'medal_info', '3.1': 'medal_name', '3.2': 'medal_level',
-    '3.3': 'color_start', '3.4': 'color_end', '3.5': 'color_border',
-    '3.6': 'color', '3.9': 'is_lighted', '3.10': 'ruid',
-    '3.11': 'guard_level', '3.12': 'score', '3.13': 'guard_icon',
-    '3.15': 'v2_medal_color_start', '3.16': 'v2_medal_color_end',
-    '3.17': 'v2_medal_color_border', '3.18': 'v2_medal_color_text',
-    '3.19': 'v2_medal_color_level',
-  })) names[`${root}.${suffix}`] = name
+  addNames(root, {
+    1: 'uid', 2: 'base', 3: 'medal', 4: 'wealth', 5: 'title', 6: 'guard',
+    7: 'uhead_frame', 8: 'guard_leader', 9: 'anon',
+  })
+  addNames(`${root}.2`, {
+    1: 'name', 2: 'face', 3: 'name_color', 4: 'is_mystery',
+    5: 'risk_ctrl_info', 6: 'origin_info', 7: 'official_info', 8: 'name_color_str',
+  })
+  addNames(`${root}.2.6`, { 1: 'name', 2: 'face' })
+  addNames(`${root}.3`, {
+    1: 'name', 2: 'level', 3: 'color_start', 4: 'color_end', 5: 'color_border',
+    6: 'color', 7: 'id', 8: 'typ', 9: 'is_light', 10: 'ruid', 11: 'guard_level',
+    12: 'score', 13: 'guard_icon', 14: 'honor_icon', 15: 'v2_medal_color_start',
+    16: 'v2_medal_color_end', 17: 'v2_medal_color_border', 18: 'v2_medal_color_text',
+    19: 'v2_medal_color_level', 20: 'user_receive_count',
+  })
+  addNames(`${root}.4`, { 1: 'level', 2: 'dm_icon_key' })
+  addNames(`${root}.6`, { 1: 'level', 2: 'expired_str' })
 }
+const hints = Object.fromEntries(Object.entries(names).map(([path, name]) =>
+  [path, `${name} (blivedm PR #86 protocol comment)`]))
 
 // These paths were non-empty nested messages in captured samples. Explicitly
 // recognize their empty representation instead of treating it as an empty string.
-const messagePaths = new Set(['8', '9', '10', '10.29', '10.33', '10.34',
+const messagePaths = new Set(['7', '8', '9', '10', '10.29', '10.33', '10.34',
   '10.35', '10.37', '13', '15', '15.2', '15.3', '15.2.6',
   '10.33.2', '10.33.2.6'])
 
@@ -140,7 +99,8 @@ export function namedFields(fields: WireField[], path = ''): Record<string, unkn
     const key = path ? `${path}.${number}` : String(number)
     const values = group.map(field => Array.isArray(field.value)
       ? namedFields(field.value, key)
-      : field.float32 !== undefined
+      : key === '10.16' ? field.float32
+        : field.float32 !== undefined
         ? { fixed32: field.value, float32_candidate: field.float32 }
         : field.value)
     return [names[key] ?? `field_${number}`, key === '10' || values.length > 1 ? values : values[0]]
@@ -150,6 +110,7 @@ export function namedFields(fields: WireField[], path = ''): Record<string, unkn
 /** Lossless integer values; field numbers/repeated fields survive inspection. */
 export function inspectWire(bytes: Uint8Array, path = '', depth = 0): WireField[] {
   if (depth > 32) throw new Error('Message nesting exceeds inspection limit')
+  validateWire(bytes)
   const reader = protobuf.Reader.create(bytes)
   const fields: WireField[] = []
   while (reader.pos < reader.len) {
@@ -225,7 +186,7 @@ export function inspectSendGiftV2(message: { cmd?: string, data?: { pb?: string,
     cmd: message.cmd,
     dmscore: message.data?.dmscore,
     byteLength: bytes.length,
-    note: 'Fields marked PR #86 use its final community schema; other hints and unknown length-delimited interpretations remain inferred. Integers are unsigned decimal strings.',
+    note: 'Fields marked PR #86 use its community protocol comment; other hints and unknown length-delimited interpretations remain inferred. Integers are unsigned decimal strings.',
     schemaSource,
     fields: inspectWire(bytes),
   }
@@ -263,7 +224,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
         save(`${stems[index]}.wire.json`, result)
         save(`${stems[index]}.parsed.json`, {
           source: result.file, cmd: result.cmd, dmscore: result.dmscore,
-          note: 'Named view using blivedm PR #86 plus exploratory hints, not the legacy SEND_GIFT schema. Integers remain strings; field_N and candidate fields have unconfirmed semantics. Missing fields are not filled with defaults. gift_list is always an array; rnd is not assumed to be a batch_combo_id.',
+          note: 'Named view using the full protocol in blivedm PR #86 comments, not the legacy SEND_GIFT schema. Integers remain strings; field_N and candidate fields have unconfirmed semantics. Missing fields are not filled with defaults. gift_list is always an array; field 12 is batch_combo_id, not the partial Python model alias rnd.',
           schemaSource,
           data: namedFields(result.fields),
           fieldNames: names,

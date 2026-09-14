@@ -504,9 +504,11 @@ export interface SuperChatMsg {
 收到礼物
 
 * 同时支持 `SEND_GIFT` 和 `SEND_GIFT_V2`。V2 的每个礼物项分别触发一次 `onGift`，`msg.type` 保留为 `SEND_GIFT_V2`，`msg.raw` 保留整条原始消息；`raw.SEND_GIFT_V2` 每条广播只触发一次。
-* 旧版礼物信息的用户牌子可见，但没有牌子对应主播的用户名及房间号，也无法判断 `is_same_room` 是否为本直播间。V2 暂不输出 `user.badge`、`combo` 和 `send_master`，因为这些结构所需字段尚未完整确认。
+* 旧版礼物信息的用户牌子可见，但没有牌子对应主播的用户名及房间号，也无法判断 `is_same_room` 是否为本直播间。V2 同样支持 `user.badge` 和 `combo`；粉丝牌取顶层 `medal_info`，不与可能不同的 `sender_uinfo.medal` 混用。V2 的 `send_master` 在协议中缺少房间号，目前不映射到要求 `room_id` 的公共字段。
+* V2 的连击字段分别来自 `batch_combo_id`、`super_batch_gift_num`、`combo_total_coin`；连击 ID 按不透明字符串保留，也可以是 UUID。
 * V2 的 `price` 是礼物单价，盲盒场景为爆出礼物的单价，不能直接用 `price × amount` 作为盲盒实付金额。`msg.raw.data.dmscore` 可读取原始评分字段。
-* V2 缺少 PB 时跳过；解码异常交给可选的 `onError`，后续消息继续处理。仅注册 raw 回调时不解码 PB。
+* V2 仅在 PB 顶层 `switch = true` 时触发 `onGift`；关闭或缺失开关、空礼物列表均不产生礼物回调，raw 回调仍保留消息。匿名发送者按顶层 UID/昵称返回，不解密隐藏身份。
+* V2 解码前检查字段编号、64 位 varint 与长度边界，防止损坏数据被截断成有效数值。缺少 PB 时跳过；解码异常交给可选的 `onError`，后续消息继续处理。仅注册 raw 回调时不解码 PB。
 
 ```ts
 export type Handler = {

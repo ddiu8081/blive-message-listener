@@ -4,10 +4,10 @@
   "face": "http://__MOCK_FACE__.jpg",
   "medal_info": {},
   "blind_gift": {
-    "field_1": 144,
-    "original_gift_id_candidate": 35206,
+    "blind_gift_config_id": 144,
+    "original_gift_id": 35206,
     "original_gift_name": "幸运盲盒",
-    "action": "爆出",
+    "gift_action": "爆出",
     "original_gift_price": 5000
   },
   "gift_list": [
@@ -15,68 +15,65 @@
       "gift_id": 35208,
       "gift_name": "星光铃铛",
       "num": 1,
-      "gift_type": 2,
+      "demarcation": 2,
       "price": 5200,
-      "field_6": 5200,
+      "discount_price": 5200,
       "total_coin": 5000,
       "coin_type": "gold",
       "tid": "__MOCK_TID_6__",
       "timestamp": 1700000006,
-      "field_11": 1,
-      "rnd": "__MOCK_RND_6__",
-      "field_13": 10,
-      "field_14": 5200,
-      "field_15": 5,
-      "field_16": {
-        "fixed32": 1065353216,
-        "float32_candidate": 1
-      },
-      "field_17": 1,
+      "super_batch_gift_num": 1,
+      "batch_combo_id": "__MOCK_BATCH_COMBO_ID_6__",
+      "combo_resources_id": 10,
+      "combo_total_coin": 5200,
+      "combo_stay_time": 5,
+      "magnification": 1,
+      "show_batch_combo_send": 1,
       "action": "投喂",
-      "field_24": 0,
-      "recipient": {
+      "rcost": 0,
+      "receive_user_info": {
         "uname": "__MOCK_MASTER_UNAME__",
         "uid": 77777777775
       },
-      "recipient_uinfo": {
+      "receiver_uinfo": {
         "uid": 77777777775,
         "base": {
-          "uname": "__MOCK_MASTER_UNAME__",
+          "name": "__MOCK_MASTER_UNAME__",
           "face": "http://__MOCK_FACE__.jpg",
           "origin_info": {
             "name": "__MOCK_MASTER_UNAME__",
             "face": "http://__MOCK_FACE__.jpg"
           },
-          "field_7": {
+          "official_info": {
             "field_1": 2,
             "field_2": "__MOCK_MESSAGE_CONTENT__"
           }
         }
       },
-      "field_34": {},
+      "face_effect_v2": {},
       "gift_info": {
         "img_basic": "https://s1.hdslb.com/bfs/live/a2e8254f5c533a9b3f00201a8878c37fffd40651.png",
         "field_2": "https://i0.hdslb.com/bfs/live/fc5ee9cbb035ef94e642d3c676f741fc31e58d27.webp",
         "field_5": "https://i0.hdslb.com/bfs/live/ae6a9106fd6737b688bb93a29346e2405f05d718.gif"
       },
-      "field_36": 5200,
-      "field_37": {}
+      "gift_tip_price": 5200,
+      "face_effect": {}
     }
   ],
-  "field_11": 1,
-  "wealth_candidate": {
-    "level_candidate": 10
+  "switch": 1,
+  "wealth_info": {
+    "level": 10
   },
-  "uinfo": {
+  "sender_uinfo": {
     "uid": 77777777771,
     "base": {
-      "uname": "__MOCK_UNAME__",
+      "name": "__MOCK_UNAME__",
       "face": "http://__MOCK_FACE__.jpg",
       "origin_info": {
         "name": "__MOCK_UNAME__",
         "face": "http://__MOCK_FACE__.jpg"
       },
-      "field_7": {
+      "official_info": {
         "field_4": "18446744073709551615"
       }
     }

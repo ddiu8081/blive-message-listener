@@ -91,19 +91,25 @@ export const SEND_GIFT_V2 = {
     const pb = data?.data?.pb
     if (pb === undefined || pb === null || pb === '') return []
     const decoded = decodeSendGiftV2(pb)
+    // Match the web client: disabled broadcasts remain available through raw.
+    if (!decoded.switch) return []
     return decoded.gift_list.map(gift => parser({
       data: {
         uid: decoded.uid,
         uname: decoded.uname,
         face: decoded.face,
         guard_level: decoded.guard_level,
+        medal_info: decoded.medal_info,
         giftId: gift.gift_id,
         giftName: gift.gift_name,
         coin_type: gift.coin_type,
         price: gift.price,
         num: gift.num,
-        // rnd is not a confirmed batch_combo_id. Do not invent combo totals,
-        // send_master, or badge colors/activation from the incomplete schema.
+        batch_combo_id: gift.batch_combo_id,
+        super_batch_gift_num: gift.super_batch_gift_num,
+        combo_total_coin: gift.combo_total_coin,
+        // Top-level send_master has uid/uname but no room_id in the protocol.
+        // Do not substitute receive_user_info or invent a room number.
       },
     }))
   },
