@@ -13,8 +13,7 @@ export { POPULARITY_RED_POCKET_WINNER_LIST, type Handler as RedPocketEndMsgHandl
 export { room_admin_entrance, ROOM_ADMIN_REVOKE, type Handler as RoomAdminSetMsgHandler, type RoomAdminSetMsg } from './ROOM_ADMIN'
 export { ROOM_CHANGE, type Handler as RoomInfoChangeHandler, type RoomInfoChangeMsg } from './ROOM_CHANGE'
 export { ROOM_SILENT_ON, ROOM_SILENT_OFF, type Handler as RoomSilentMsgHandler, type RoomSilentMsg } from './ROOM_SILENT'
-export { SEND_GIFT, type Handler as GiftHandler, type GiftMsg } from './SEND_GIFT'
+export { SEND_GIFT, SEND_GIFT_V2, type Handler as GiftHandler, type GiftMsg } from './SEND_GIFT'
 export { SUPER_CHAT_MESSAGE, type Handler as SuperChatHandler, type SuperChatMsg } from './SUPER_CHAT_MESSAGE'
 export { WARNING, CUT_OFF, type Handler as RoomWarnHandler, type RoomWarnMsg } from './WARNING_CUT_OFF'
 export { WATCHED_CHANGE, type Handler as WatchedChangeHandler, type WatchedChangeMsg } from './WATCHED_CHANGE'
-

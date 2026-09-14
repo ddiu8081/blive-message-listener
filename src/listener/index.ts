@@ -14,7 +14,7 @@ import {
   room_admin_entrance, ROOM_ADMIN_REVOKE, type RoomAdminSetMsgHandler,
   ROOM_CHANGE, type RoomInfoChangeHandler,
   ROOM_SILENT_ON, ROOM_SILENT_OFF, type RoomSilentMsgHandler,
-  SEND_GIFT, type GiftHandler,
+  SEND_GIFT, SEND_GIFT_V2, type GiftHandler,
   SUPER_CHAT_MESSAGE, type SuperChatHandler,
   WARNING, CUT_OFF, type RoomWarnHandler,
   WATCHED_CHANGE, type WatchedChangeHandler,
@@ -279,6 +279,25 @@ export const listenAll = (instance: KeepLiveTCP | KeepLiveWS | KeepLiveWSB, room
       isHandleRaw && rawHandler[SEND_GIFT.eventName]?.(data.data)
       const parsedData = SEND_GIFT.parser(data.data)
       handler[SEND_GIFT.handlerName]?.(normalizeDanmu(SEND_GIFT.eventName, parsedData, data.data))
+    })
+  }
+
+  // A V2 broadcast may contain multiple gifts. Raw handlers receive it once.
+  if (handler.onGift || rawHandlerNames.has(SEND_GIFT_V2.eventName)) {
+    rawHandlerNames.delete(SEND_GIFT_V2.eventName)
+    instance.on(SEND_GIFT_V2.eventName as any, (data: WSMessage<any>) => {
+      rawHandler[SEND_GIFT_V2.eventName]?.(data.data)
+      if (!handler.onGift) return
+      let gifts: ReturnType<typeof SEND_GIFT_V2.parser>
+      try {
+        gifts = SEND_GIFT_V2.parser(data.data)
+      } catch (error) {
+        handler.onError?.(error instanceof Error ? error : new Error(String(error)))
+        return
+      }
+      for (const gift of gifts) {
+        handler.onGift(normalizeDanmu(SEND_GIFT_V2.eventName, gift, data.data))
+      }
     })
   }
 

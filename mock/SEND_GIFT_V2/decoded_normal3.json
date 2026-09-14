@@ -1,0 +1,120 @@
+{
+  "uid": 77777777771,
+  "uname": "__MOCK_UNAME__",
+  "face": "http://__MOCK_FACE__.jpg",
+  "name_color": "#00D1F1",
+  "guard_level": 3,
+  "medal_info": {
+    "target_id": 77777777772,
+    "medal_level": 22,
+    "medal_name": "__MOCK_BADGE_NAME__",
+    "field_7": 1725515,
+    "field_8": 1725515,
+    "field_9": 5414290,
+    "field_10": 1725515,
+    "field_11": 1
+  },
+  "gift_list": [
+    {
+      "gift_id": 31164,
+      "gift_name": "粉丝团灯牌",
+      "num": 1,
+      "gift_type": 1,
+      "price": 100,
+      "field_6": 100,
+      "total_coin": 100,
+      "coin_type": "gold",
+      "tid": "__MOCK_TID_3__",
+      "timestamp": 1700000003,
+      "field_11": 1,
+      "rnd": "__MOCK_RND_3__",
+      "field_13": 10,
+      "field_14": 100,
+      "field_15": 5,
+      "field_16": {
+        "fixed32": 1065353216,
+        "float32_candidate": 1
+      },
+      "field_17": 1,
+      "action": "投喂",
+      "field_24": 0,
+      "recipient": {
+        "uname": "__MOCK_MASTER_UNAME__",
+        "uid": 77777777775
+      },
+      "recipient_uinfo": {
+        "uid": 77777777775,
+        "base": {
+          "uname": "__MOCK_MASTER_UNAME__",
+          "face": "http://__MOCK_FACE__.jpg",
+          "origin_info": {
+            "name": "__MOCK_MASTER_UNAME__",
+            "face": "http://__MOCK_FACE__.jpg"
+          },
+          "field_7": {
+            "field_1": 2,
+            "field_2": "__MOCK_MESSAGE_CONTENT__"
+          }
+        }
+      },
+      "field_34": {
+        "field_1": 5632012,
+        "field_2": 1
+      },
+      "gift_info": {
+        "img_basic": "https://s1.hdslb.com/bfs/live/e051dfd4557678f8edcac4993ed00a0935cbd9cc.png",
+        "field_2": "https://i0.hdslb.com/bfs/live/32b799120e1614fa6275b6d15da7a52b21dd019d.webp",
+        "field_5": "https://i0.hdslb.com/bfs/live/816f8b7aa2132888fce928cdfb17b9cf21cc0823.gif"
+      },
+      "field_37": {
+        "field_1": 1,
+        "field_2": [
+          {
+            "field_1": 6036469,
+            "field_2": 2
+          },
+          {
+            "field_1": 5632012,
+            "field_2": 1
+          }
+        ]
+      }
+    }
+  ],
+  "field_11": 1,
+  "wealth_candidate": {
+    "level_candidate": 40
+  },
+  "uinfo": {
+    "uid": 77777777771,
+    "base": {
+      "uname": "__MOCK_UNAME__",
+      "face": "http://__MOCK_FACE__.jpg",
+      "origin_info": {
+        "name": "__MOCK_UNAME__",
+        "face": "http://__MOCK_FACE__.jpg"
+      },
+      "field_7": {
+        "field_4": "18446744073709551615"
+      }
+    },
+    "medal_info": {
+      "medal_name": "__MOCK_BADGE_NAME__",
+      "medal_level": 41,
+      "color_start": 16736523,
+      "color_end": 16765060,
+      "color_border": 6809855,
+      "color": 16736523,
+      "is_lighted": 1,
+      "ruid": 77777777772,
+      "guard_level": 3,
+      "score": 400395,
+      "guard_icon": "https://i0.hdslb.com/bfs/live/48360c8f3b7de8031e86ff1ef4a2dfc0ec2a61c2.png",
+      "v2_medal_color_start": "#A773F199",
+      "v2_medal_color_end": "#A773F199",
+      "v2_medal_color_border": "#D47AFF",
+      "v2_medal_color_text": "#FFFFFF",
+      "v2_medal_color_level": "#A773F1E6"
+    }
+  }
+}

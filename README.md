@@ -503,7 +503,10 @@ export interface SuperChatMsg {
 
 收到礼物
 
-* 礼物信息的用户牌子可见，但没有牌子对应主播的用户名及房间号，也无法判断 `is_same_room` 是否为本直播间。
+* 同时支持 `SEND_GIFT` 和 `SEND_GIFT_V2`。V2 的每个礼物项分别触发一次 `onGift`，`msg.type` 保留为 `SEND_GIFT_V2`，`msg.raw` 保留整条原始消息；`raw.SEND_GIFT_V2` 每条广播只触发一次。
+* 旧版礼物信息的用户牌子可见，但没有牌子对应主播的用户名及房间号，也无法判断 `is_same_room` 是否为本直播间。V2 暂不输出 `user.badge`、`combo` 和 `send_master`，因为这些结构所需字段尚未完整确认。
+* V2 的 `price` 是礼物单价，盲盒场景为爆出礼物的单价，不能直接用 `price × amount` 作为盲盒实付金额。`msg.raw.data.dmscore` 可读取原始评分字段。
+* V2 缺少 PB 时跳过；解码异常交给可选的 `onError`，后续消息继续处理。仅注册 raw 回调时不解码 PB。
 
 ```ts
 export type Handler = {
@@ -511,7 +514,7 @@ export type Handler = {
   onGift: (msg: Message<GiftMsg>) => void
 }
 
-type msgType = 'SEND_GIFT'
+type msgType = 'SEND_GIFT' | 'SEND_GIFT_V2'
 
 export interface GiftMsg {
   user: User

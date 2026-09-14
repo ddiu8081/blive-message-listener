@@ -1,0 +1,84 @@
+{
+  "uid": 77777777771,
+  "uname": "__MOCK_UNAME__",
+  "face": "http://__MOCK_FACE__.jpg",
+  "medal_info": {},
+  "blind_gift": {
+    "field_1": 144,
+    "original_gift_id_candidate": 35206,
+    "original_gift_name": "幸运盲盒",
+    "action": "爆出",
+    "original_gift_price": 5000
+  },
+  "gift_list": [
+    {
+      "gift_id": 35208,
+      "gift_name": "星光铃铛",
+      "num": 1,
+      "gift_type": 2,
+      "price": 5200,
+      "field_6": 5200,
+      "total_coin": 5000,
+      "coin_type": "gold",
+      "tid": "__MOCK_TID_6__",
+      "timestamp": 1700000006,
+      "field_11": 1,
+      "rnd": "__MOCK_RND_6__",
+      "field_13": 10,
+      "field_14": 5200,
+      "field_15": 5,
+      "field_16": {
+        "fixed32": 1065353216,
+        "float32_candidate": 1
+      },
+      "field_17": 1,
+      "action": "投喂",
+      "field_24": 0,
+      "recipient": {
+        "uname": "__MOCK_MASTER_UNAME__",
+        "uid": 77777777775
+      },
+      "recipient_uinfo": {
+        "uid": 77777777775,
+        "base": {
+          "uname": "__MOCK_MASTER_UNAME__",
+          "face": "http://__MOCK_FACE__.jpg",
+          "origin_info": {
+            "name": "__MOCK_MASTER_UNAME__",
+            "face": "http://__MOCK_FACE__.jpg"
+          },
+          "field_7": {
+            "field_1": 2,
+            "field_2": "__MOCK_MESSAGE_CONTENT__"
+          }
+        }
+      },
+      "field_34": {},
+      "gift_info": {
+        "img_basic": "https://s1.hdslb.com/bfs/live/a2e8254f5c533a9b3f00201a8878c37fffd40651.png",
+        "field_2": "https://i0.hdslb.com/bfs/live/fc5ee9cbb035ef94e642d3c676f741fc31e58d27.webp",
+        "field_5": "https://i0.hdslb.com/bfs/live/ae6a9106fd6737b688bb93a29346e2405f05d718.gif"
+      },
+      "field_36": 5200,
+      "field_37": {}
+    }
+  ],
+  "field_11": 1,
+  "wealth_candidate": {
+    "level_candidate": 10
+  },
+  "uinfo": {
+    "uid": 77777777771,
+    "base": {
+      "uname": "__MOCK_UNAME__",
+      "face": "http://__MOCK_FACE__.jpg",
+      "origin_info": {
+        "name": "__MOCK_UNAME__",
+        "face": "http://__MOCK_FACE__.jpg"
+      },
+      "field_7": {
+        "field_4": "18446744073709551615"
+      }
+    }
+  }
+}

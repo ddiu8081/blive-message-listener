@@ -1,5 +1,6 @@
 import { intToColorHex } from '../utils/color'
 import type { Message, User } from '../types/app'
+import { decode as decodeSendGiftV2 } from '../protobuf/SEND_GIFT_V2.proto'
 
 export interface GiftMsg {
   user: User
@@ -82,6 +83,31 @@ const parser = (data: any): GiftMsg => {
 export const SEND_GIFT = {
   parser,
   eventName: 'SEND_GIFT' as const,
+  handlerName: 'onGift' as const,
+}
+
+export const SEND_GIFT_V2 = {
+  parser: (data: any): GiftMsg[] => {
+    const pb = data?.data?.pb
+    if (pb === undefined || pb === null || pb === '') return []
+    const decoded = decodeSendGiftV2(pb)
+    return decoded.gift_list.map(gift => parser({
+      data: {
+        uid: decoded.uid,
+        uname: decoded.uname,
+        face: decoded.face,
+        guard_level: decoded.guard_level,
+        giftId: gift.gift_id,
+        giftName: gift.gift_name,
+        coin_type: gift.coin_type,
+        price: gift.price,
+        num: gift.num,
+        // rnd is not a confirmed batch_combo_id. Do not invent combo totals,
+        // send_master, or badge colors/activation from the incomplete schema.
+      },
+    }))
+  },
+  eventName: 'SEND_GIFT_V2' as const,
   handlerName: 'onGift' as const,
 }
 

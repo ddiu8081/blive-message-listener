@@ -1,3 +1,8 @@
 node_modules
 dist
 example/**/dist.js
+
+# Local SEND_GIFT_V2 captures/reports contain personal data.
+/mock/SEND_GIFT_V2/*.json
+!/mock/SEND_GIFT_V2/decoded_*.json
+/reports/send-gift-v2/
